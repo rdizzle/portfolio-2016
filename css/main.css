@@ -6,9 +6,9 @@ body {
 }
 
 html {
-    font-family: "Georgia", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-size: 21px;
-    font-weight: 300;
+    font-weight: normal;
     line-height: 1.55;
     color: rgb(50, 50, 50);
     letter-spacing: 0.1px;
@@ -192,6 +192,13 @@ div.text-container {
     margin: 0 auto;
 }
 
+div.text-container p {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    letter-spacing: 0.2px;
+    color: rgb(65, 65, 65);
+}
+
 div.image-container {
     margin: 30px 0;
     width: 100%;
@@ -264,9 +271,10 @@ div.image-container > a > span {
 
 div.image-container > a > span + span {
     opacity: 0;
-    font-family: "Georgia", sans-serif;
+    font-family: "Source Sans Pro", serif;
     font-weight: normal;
     font-size: .75rem;
+    letter-spacing: 0.2px;
 }
 
 div.image-container:after {
@@ -440,5 +448,8 @@ breakpoint at 767px (e.g. apple ipad still normal) to change to mobile layout */
         float: right;
         font-size: 1.25em;
         padding: 21px 35px;
+    }
+    footer {
+        padding: 50px 0;
     }
 }
