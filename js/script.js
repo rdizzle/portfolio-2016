@@ -76,7 +76,7 @@ $(document).ready(function () {
         getPositions();
     });
 
-    $(document).on("touchmove", function(event){
+    $(document).on("touchmove", function (event) {
         if (scrollDisabled) {
             event.preventDefault();
         }
