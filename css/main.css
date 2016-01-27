@@ -6,9 +6,9 @@ body {
 }
 
 html {
-    font-family: "Georgia", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-size: 21px;
-    font-weight: 300;
+    font-weight: normal;
     line-height: 1.55;
     color: rgb(50, 50, 50);
     letter-spacing: 0.1px;
@@ -82,7 +82,6 @@ header nav ul {
     position: relative;
     left: 50%;
     -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     list-style-type: none;
     padding: 0;
@@ -120,7 +119,7 @@ div.hero {
     position: relative;
     width: 100%;
     height: 85vh;
-    background: url("../img/hero.jpg") center rgb(50, 50, 50);
+    background: url("../img/hero.jpg") top rgb(50, 50, 50);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -132,7 +131,6 @@ div.center-container {
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
@@ -192,6 +190,13 @@ div.text-container {
     margin: 0 auto;
 }
 
+div.text-container p {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    letter-spacing: 0.2px;
+    color: rgb(65, 65, 65);
+}
+
 div.image-container {
     margin: 30px 0;
     width: 100%;
@@ -231,14 +236,12 @@ div.image-container > a:hover:before {
 
 div.image-container > a:hover span {
     -webkit-transform: translate(-50%, -30px);
-    -ms-transform: translate(-50%, -30px);
     transform: translate(-50%, -30px);
 }
 
 div.image-container > a:hover span + span {
     opacity: 1;
     -webkit-transform: translate(-50%, 10px);
-    -ms-transform: translate(-50%, 10px);
     transform: translate(-50%, 10px);
 }
 
@@ -252,7 +255,6 @@ div.image-container > a > span {
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     color: white;
     -webkit-transition: .35s ease-in-out;
@@ -264,9 +266,10 @@ div.image-container > a > span {
 
 div.image-container > a > span + span {
     opacity: 0;
-    font-family: "Georgia", sans-serif;
+    font-family: "Source Sans Pro", serif;
     font-weight: normal;
     font-size: .75rem;
+    letter-spacing: 0.2px;
 }
 
 div.image-container:after {
@@ -356,7 +359,6 @@ breakpoint at 767px (e.g. apple ipad still normal) to change to mobile layout */
     header nav ul {
         left: auto;
         -webkit-transform: none;
-        -ms-transform: none;
         transform: none;
         width: 100%;
         float: left;
@@ -440,5 +442,8 @@ breakpoint at 767px (e.g. apple ipad still normal) to change to mobile layout */
         float: right;
         font-size: 1.25em;
         padding: 21px 35px;
+    }
+    footer {
+        padding: 50px 0;
     }
 }
