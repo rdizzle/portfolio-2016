@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     cssmin = require('gulp-clean-css'),
     rename = require('gulp-rename'),
     jsmin = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin');
+    imagemin = require('gulp-imagemin'),
+    plumber = require('gulp-plumber');
 
 var src = 'src/',
     dist = 'dist/',
@@ -36,6 +37,7 @@ gulp.task('server', function(){
 
 gulp.task('less', function(){
     return gulp.src(srcLessFiles)
+        .pipe(plumber())
         .pipe(less())
         .pipe(autoprefixer({
             browsers: ['last 2 version'],
@@ -52,6 +54,7 @@ gulp.task('less', function(){
 
 gulp.task('js', function(){
     return gulp.src(srcJsFiles)
+        .pipe(plumber())
         .pipe(gulp.dest(distJs))
         .pipe(jsmin())
         .pipe(rename({
@@ -63,12 +66,14 @@ gulp.task('js', function(){
 
 gulp.task('html', function(){
     return gulp.src(srcHtmlFiles)
+        .pipe(plumber())
         .pipe(gulp.dest(dist))
         .pipe(connect.reload());
 });
 
 gulp.task('img', function(){
     return gulp.src(srcImgFiles)
+        .pipe(plumber())
         .pipe(imagemin({
             optimizationLevel: 5,
             progressive: true,
@@ -80,6 +85,7 @@ gulp.task('img', function(){
 
 gulp.task('rootFiles', function(){
     return gulp.src(rootFiles)
+        .pipe(plumber())
         .pipe(gulp.dest(dist))
         .pipe(connect.reload());
 });
