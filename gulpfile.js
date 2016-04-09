@@ -32,7 +32,7 @@ gulp.task('server', function(){
     return connect.server({
         port: 3000,
         livereload: true,
-        root: 'dist'
+        root: dist
     });
 });
 
