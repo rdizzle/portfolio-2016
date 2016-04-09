@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     jsmin = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
-    plumber = require('gulp-plumber');
+    plumber = require('gulp-plumber'),
+    changed = require('gulp-changed');
 
 var src = 'src/',
     dist = 'dist/',
@@ -21,7 +22,7 @@ var src = 'src/',
     distJs = dist + 'js/',
     distCss = dist + 'css/'
     distImg = dist + 'img/'
-    rootFiles = [src + 'sitemap.xml', src + 'robots.txt', src + '.htaccess'];
+    srcRootFiles = [src + 'sitemap.xml', src + 'robots.txt', src + '.htaccess'];
 
 gulp.task('clean', function(){
     return del(dist);
@@ -37,6 +38,7 @@ gulp.task('server', function(){
 
 gulp.task('less', function(){
     return gulp.src(srcLessFiles)
+        .pipe(changed(distCss, {extension: '.css'}))
         .pipe(plumber())
         .pipe(less())
         .pipe(autoprefixer({
@@ -54,6 +56,7 @@ gulp.task('less', function(){
 
 gulp.task('js', function(){
     return gulp.src(srcJsFiles)
+        .pipe(changed(distJs))
         .pipe(plumber())
         .pipe(gulp.dest(distJs))
         .pipe(jsmin())
@@ -66,6 +69,7 @@ gulp.task('js', function(){
 
 gulp.task('html', function(){
     return gulp.src(srcHtmlFiles)
+        .pipe(changed(dist))
         .pipe(plumber())
         .pipe(gulp.dest(dist))
         .pipe(connect.reload());
@@ -73,6 +77,7 @@ gulp.task('html', function(){
 
 gulp.task('img', function(){
     return gulp.src(srcImgFiles)
+        .pipe(changed(distImg))
         .pipe(plumber())
         .pipe(imagemin({
             optimizationLevel: 5,
@@ -84,7 +89,8 @@ gulp.task('img', function(){
 });
 
 gulp.task('rootFiles', function(){
-    return gulp.src(rootFiles)
+    return gulp.src(srcRootFiles)
+        .pipe(changed(dist))
         .pipe(plumber())
         .pipe(gulp.dest(dist))
         .pipe(connect.reload());
@@ -95,7 +101,7 @@ gulp.task('watch', ['build', 'server'], function(){
     gulp.watch(srcImgFiles, ['img']);
     gulp.watch(srcJsFiles, ['js']);
     gulp.watch(srcLessFiles, ['less']);
-    gulp.watch(rootFiles, ['rootFiles']);
+    gulp.watch(srcRootFiles, ['rootFiles']);
 });
 
 gulp.task('default', ['clean', 'build', 'server', 'watch']);
