@@ -96,7 +96,7 @@ gulp.task('rootFiles', function(){
         .pipe(connect.reload());
 });
 
-gulp.task('watch', ['build', 'server'], function(){
+gulp.task('watch', function(){
     gulp.watch(srcHtmlFiles, ['html']);
     gulp.watch(srcImgFiles, ['img']);
     gulp.watch(srcJsFiles, ['js']);
@@ -104,6 +104,8 @@ gulp.task('watch', ['build', 'server'], function(){
     gulp.watch(srcRootFiles, ['rootFiles']);
 });
 
-gulp.task('default', ['clean', 'build', 'server', 'watch']);
+gulp.task('default', ['clean'], function(){
+    gulp.start('build', 'server', 'watch');
+});
 
 gulp.task('build', ['js', 'less', 'html', 'img', 'rootFiles']);
