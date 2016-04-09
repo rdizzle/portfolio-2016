@@ -366,8 +366,12 @@ breakpoint at 767px (e.g. apple ipad still normal) to change to mobile layout */
     header nav ul li.mobile.mobile-menu a {
         padding: 29px 35px;
     }
+    header.white a.active {
+        text-decoration: none;
+    }
     div.main-container {
         margin: 50px auto;
+        width: 90%;
     }
     div.text-container {
         width: 80%;
