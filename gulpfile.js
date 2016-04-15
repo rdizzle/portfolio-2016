@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     del = require('del'),
+    runsequence = require('run-sequence'),
     connect = require('gulp-connect'),
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -17,11 +18,11 @@ var src = 'src/',
     srcLess = src + 'less/',
     srcLessFiles = srcLess + '*.less',
     srcImg = src + 'img/',
-    srcImgFiles = srcImg + '*'
+    srcImgFiles = srcImg + '*',
     srcHtmlFiles = src + '*.html',
     distJs = dist + 'js/',
-    distCss = dist + 'css/'
-    distImg = dist + 'img/'
+    distCss = dist + 'css/',
+    distImg = dist + 'img/',
     srcRootFiles = [src + 'sitemap.xml', src + 'robots.txt', src + '.htaccess'];
 
 gulp.task('clean', function(){
@@ -104,8 +105,8 @@ gulp.task('watch', function(){
     gulp.watch(srcRootFiles, ['rootFiles']);
 });
 
-gulp.task('default', ['clean'], function(){
-    gulp.start('build', 'server', 'watch');
+gulp.task('default', function(){
+    runsequence('clean', ['build', 'server'], 'watch');
 });
 
 gulp.task('build', ['js', 'less', 'html', 'img', 'rootFiles']);
