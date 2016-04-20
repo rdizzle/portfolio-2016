@@ -81,7 +81,7 @@ gulp.task('img', function(){
         .pipe(changed(distImg))
         .pipe(plumber())
         .pipe(imagemin({
-            optimizationLevel: 5,
+            optimizationLevel: 6,
             progressive: true,
             multipass: true
         }))

@@ -54,6 +54,9 @@ header.white {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   color: #323232;
 }
+header.white a.active {
+  text-decoration: underline;
+}
 header nav ul {
   position: relative;
   left: 50%;
@@ -81,9 +84,6 @@ header nav ul li a {
 }
 header nav ul li a:hover {
   color: rgba(0, 0, 0, 0.5);
-}
-header nav ul li a.active {
-  text-decoration: underline;
 }
 .hero {
   position: relative;

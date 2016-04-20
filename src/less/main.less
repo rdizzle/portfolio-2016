@@ -96,6 +96,10 @@ header {
         background-color: @header-white-bg-color;
         box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
         color: @header-white-font-color;
+
+        a.active {
+            text-decoration: underline;
+        }
     }
 
     nav ul {
@@ -124,10 +128,6 @@ header {
 
                 &:hover {
                     color: rgba(0, 0, 0, .5);
-                }
-
-                &.active {
-                    text-decoration: underline;
                 }
             }
         }
