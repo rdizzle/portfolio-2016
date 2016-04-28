@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rdizzle/portfolio-2016.git"
+    "url": "git+https://github.com/rdizzle/portfolio.git"
   },
   "keywords": [
     "portfolio",
@@ -21,9 +21,9 @@
   "author": "Robin Löffel",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rdizzle/portfolio-2016/issues"
+    "url": "https://github.com/rdizzle/portfolio/issues"
   },
-  "homepage": "https://github.com/rdizzle/portfolio-2016#readme",
+  "homepage": "https://github.com/rdizzle/portfolio#readme",
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
