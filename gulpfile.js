@@ -1,10 +1,10 @@
 var gulp = require('gulp'),
     del = require('del'),
-    runsequence = require('run-sequence'),
+    runSequence = require('run-sequence'),
     connect = require('gulp-connect'),
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
-    cssmin = require('gulp-clean-css'),
+    cleanCss = require('gulp-clean-css'),
     rename = require('gulp-rename'),
     jsmin = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
@@ -22,11 +22,11 @@ var src = 'src/',
     distCss = dist + 'css/',
     distImg = dist + 'img/';
 
-gulp.task('clean', function(){
+gulp.task('clean', function () {
     return del(dist);
 });
 
-gulp.task('server', function(){
+gulp.task('server', function () {
     return connect.server({
         port: 3000,
         livereload: true,
@@ -34,9 +34,11 @@ gulp.task('server', function(){
     });
 });
 
-gulp.task('less', function(){
+gulp.task('less', function () {
     return gulp.src(srcLess)
-        .pipe(changed(distCss, {extension: '.css'}))
+        .pipe(changed(distCss, {
+            extension: '.css'
+        }))
         .pipe(plumber())
         .pipe(less())
         .pipe(autoprefixer({
@@ -44,7 +46,7 @@ gulp.task('less', function(){
             cascade: false
         }))
         .pipe(gulp.dest(distCss))
-        .pipe(cssmin())
+        .pipe(cleanCss())
         .pipe(rename({
             suffix: '.min'
         }))
@@ -52,7 +54,7 @@ gulp.task('less', function(){
         .pipe(connect.reload());
 });
 
-gulp.task('js', function(){
+gulp.task('js', function () {
     return gulp.src(srcJs)
         .pipe(changed(distJs))
         .pipe(plumber())
@@ -65,7 +67,7 @@ gulp.task('js', function(){
         .pipe(connect.reload());
 });
 
-gulp.task('html', function(){
+gulp.task('html', function () {
     return gulp.src(srcHtml)
         .pipe(changed(dist))
         .pipe(plumber())
@@ -73,7 +75,7 @@ gulp.task('html', function(){
         .pipe(connect.reload());
 });
 
-gulp.task('img', function(){
+gulp.task('img', function () {
     return gulp.src(srcImg)
         .pipe(changed(distImg))
         .pipe(plumber())
@@ -86,7 +88,7 @@ gulp.task('img', function(){
         .pipe(connect.reload());
 });
 
-gulp.task('root', function(){
+gulp.task('root', function () {
     return gulp.src(srcRoot)
         .pipe(changed(dist))
         .pipe(plumber())
@@ -94,7 +96,7 @@ gulp.task('root', function(){
         .pipe(connect.reload());
 });
 
-gulp.task('watch', function(){
+gulp.task('watch', function () {
     gulp.watch(srcHtml, ['html']);
     gulp.watch(srcImg, ['img']);
     gulp.watch(srcJs, ['js']);
@@ -102,8 +104,10 @@ gulp.task('watch', function(){
     gulp.watch(srcRoot, ['root']);
 });
 
-gulp.task('default', function(){
-    runsequence('clean', ['build', 'server'], 'watch');
+gulp.task('default', function (callback) {
+    runSequence('clean', 'build', 'server', 'watch', callback);
 });
 
-gulp.task('build', ['js', 'less', 'html', 'img', 'root']);
+gulp.task('build', function (callback) {
+    runSequence(['js', 'less', 'html', 'img', 'root'], callback);
+});

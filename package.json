@@ -1,16 +1,13 @@
 {
-  "name": "portfolio-2016",
-  "version": "1.1.0",
-  "description": "Web portfolio of Robin Löffel",
-  "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rdizzle/portfolio.git"
-  },
-  "keywords": [
+    "name": "portfolio-2016",
+    "version": "1.0.0",
+    "description": "Robin Löffel's web portfolio",
+    "main": "gulpfile.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rdizzle/portfolio.git"
+    },
+    "keywords": [
     "portfolio",
     "design",
     "web",
@@ -18,24 +15,27 @@
     "robin",
     "löffel"
   ],
-  "author": "Robin Löffel",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rdizzle/portfolio/issues"
-  },
-  "homepage": "https://github.com/rdizzle/portfolio#readme",
-  "devDependencies": {
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-changed": "^1.3.0",
-    "gulp-clean-css": "^2.0.5",
-    "gulp-connect": "^3.2.2",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-less": "^3.0.5",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.3",
-    "run-sequence": "^1.1.5"
-  }
+    "author": "Robin Löffel",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rdizzle/portfolio/issues"
+    },
+    "homepage": "https://github.com/rdizzle/portfolio#readme",
+    "devDependencies": {
+        "del": "^2.2.0",
+        "gulp": "^3.9.1",
+        "gulp-autoprefixer": "^3.1.0",
+        "gulp-changed": "^1.3.0",
+        "gulp-clean-css": "^2.0.5",
+        "gulp-connect": "^3.2.2",
+        "gulp-imagemin": "^2.4.0",
+        "gulp-less": "^3.0.5",
+        "gulp-plumber": "^1.1.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-uglify": "^1.5.3",
+        "run-sequence": "^1.1.5"
+    },
+    "scripts": {
+        "start": "gulp"
+    }
 }
