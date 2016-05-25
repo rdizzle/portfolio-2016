@@ -1,5 +1,6 @@
-# node
+# folders
 /node_modules/
+/dist/
 
 # windows
 Thumbs.db
