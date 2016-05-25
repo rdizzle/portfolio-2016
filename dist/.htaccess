@@ -1,5 +1,0 @@
-RewriteEngine On
-RewriteCond %{HTTPS} =off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
-RewriteCond %{HTTP_HOST} ^www\.robinloeffel\.ch$
-RewriteRule ^/?$ "http\:\/\/robinloeffel\.ch\/" [R=301,L]
