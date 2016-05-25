@@ -60,7 +60,6 @@ header.white a.active {
 header nav ul {
   position: relative;
   left: 50%;
-  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   list-style-type: none;
   padding: 0;
@@ -99,7 +98,6 @@ header nav ul li a:hover {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 .center-container h1 {
@@ -107,24 +105,17 @@ header nav ul li a:hover {
   margin: 0 0 15px 0;
   opacity: 0;
   color: inherit;
-  -webkit-animation: fade-in ease-in-out 1;
   animation: fade-in ease-in-out 1;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-duration: .75s;
   animation-duration: .75s;
 }
 .center-container h2 {
   font-size: 1.25rem;
   opacity: 0;
   color: inherit;
-  -webkit-animation: fade-in ease-in-out 1;
   animation: fade-in ease-in-out 1;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-duration: .75s;
   animation-duration: .75s;
-  -webkit-animation-delay: .25s;
   animation-delay: .25s;
 }
 .center-container p a {
@@ -132,13 +123,9 @@ header nav ul li a:hover {
   font-style: italic;
   text-decoration: none;
   opacity: 0;
-  -webkit-animation: fade-in ease-in-out 1;
   animation: fade-in ease-in-out 1;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-duration: .75s;
   animation-duration: .75s;
-  -webkit-animation-delay: .5s;
   animation-delay: .5s;
 }
 .main-container {
@@ -191,7 +178,6 @@ header nav ul li a:hover {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   color: #FFF;
   transition: 0.35s ease-in-out;
@@ -210,12 +196,10 @@ header nav ul li a:hover {
   background-color: rgba(0, 0, 0, 0.75);
 }
 .image-container > a:hover span {
-  -webkit-transform: translate(-50%, -30px);
   transform: translate(-50%, -30px);
 }
 .image-container > a:hover span + span {
   opacity: 1;
-  -webkit-transform: translate(-50%, 10px);
   transform: translate(-50%, 10px);
 }
 footer {
@@ -228,14 +212,6 @@ footer {
 }
 footer p {
   margin: 10px 0;
-}
-@-webkit-keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 @keyframes fade-in {
   from {
@@ -259,7 +235,6 @@ footer p {
   }
   header nav ul {
     left: auto;
-    -webkit-transform: none;
     transform: none;
     width: 100%;
     float: left;
