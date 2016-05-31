@@ -1,42 +1,34 @@
 var gulp = require('gulp'),
     del = require('del'),
     runSequence = require('run-sequence'),
+    stylish = require('jshint-stylish'),
     connect = require('gulp-connect'),
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCss = require('gulp-clean-css'),
     rename = require('gulp-rename'),
-    jsmin = require('gulp-uglify'),
+    uglify = require('gulp-uglify'),
+    jshint = require('gulp-jshint'),
     imagemin = require('gulp-imagemin'),
     plumber = require('gulp-plumber'),
-    changed = require('gulp-changed');
-
-var src = 'src/',
-    srcJs = src + 'js/*.js',
-    srcLess = src + 'less/*.less',
-    srcImg = src + 'img/*',
-    srcHtml = src + '*.html',
-    srcRoot = [src + 'sitemap.xml', src + 'robots.txt', src + '.htaccess'],
-    dist = 'dist/',
-    distJs = dist + 'js/',
-    distCss = dist + 'css/',
-    distImg = dist + 'img/';
+    changed = require('gulp-changed'),
+    paths = require('./paths.json');
 
 gulp.task('clean', function () {
-    return del(dist);
+    return del(paths.dist);
 });
 
 gulp.task('server', function () {
     return connect.server({
         port: 3000,
         livereload: true,
-        root: dist
+        root: paths.dist
     });
 });
 
 gulp.task('less', function () {
-    return gulp.src(srcLess)
-        .pipe(changed(distCss, {
+    return gulp.src(paths.srcLess)
+        .pipe(changed(paths.distCss, {
             extension: '.css'
         }))
         .pipe(plumber())
@@ -45,63 +37,65 @@ gulp.task('less', function () {
             browsers: ['last 2 versions'],
             cascade: false
         }))
-        .pipe(gulp.dest(distCss))
+        .pipe(gulp.dest(paths.distCss))
         .pipe(cleanCss())
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest(distCss))
+        .pipe(gulp.dest(paths.distCss))
         .pipe(connect.reload());
 });
 
 gulp.task('js', function () {
-    return gulp.src(srcJs)
-        .pipe(changed(distJs))
+    return gulp.src(paths.srcJs)
+        .pipe(changed(paths.distJs))
         .pipe(plumber())
-        .pipe(gulp.dest(distJs))
-        .pipe(jsmin())
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish))
+        .pipe(gulp.dest(paths.distJs))
+        .pipe(uglify())
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest(distJs))
+        .pipe(gulp.dest(paths.distJs))
         .pipe(connect.reload());
 });
 
 gulp.task('html', function () {
-    return gulp.src(srcHtml)
-        .pipe(changed(dist))
+    return gulp.src(paths.srcHtml)
+        .pipe(changed(paths.dist))
         .pipe(plumber())
-        .pipe(gulp.dest(dist))
+        .pipe(gulp.dest(paths.dist))
         .pipe(connect.reload());
 });
 
 gulp.task('img', function () {
-    return gulp.src(srcImg)
-        .pipe(changed(distImg))
+    return gulp.src(paths.srcImg)
+        .pipe(changed(paths.distImg))
         .pipe(plumber())
         .pipe(imagemin({
             optimizationLevel: 6,
             progressive: true,
             multipass: true
         }))
-        .pipe(gulp.dest(distImg))
+        .pipe(gulp.dest(paths.distImg))
         .pipe(connect.reload());
 });
 
 gulp.task('root', function () {
-    return gulp.src(srcRoot)
-        .pipe(changed(dist))
+    return gulp.src(paths.srcRoot)
+        .pipe(changed(paths.dist))
         .pipe(plumber())
-        .pipe(gulp.dest(dist))
+        .pipe(gulp.dest(paths.dist))
         .pipe(connect.reload());
 });
 
 gulp.task('watch', function () {
-    gulp.watch(srcHtml, ['html']);
-    gulp.watch(srcImg, ['img']);
-    gulp.watch(srcJs, ['js']);
-    gulp.watch(srcLess, ['less']);
-    gulp.watch(srcRoot, ['root']);
+    gulp.watch(paths.srcHtml, ['html']);
+    gulp.watch(paths.srcImg, ['img']);
+    gulp.watch(paths.srcJs, ['js']);
+    gulp.watch(paths.srcLess, ['less']);
+    gulp.watch(paths.srcRoot, ['root']);
 });
 
 gulp.task('default', function (callback) {

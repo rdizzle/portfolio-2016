@@ -1,0 +1,16 @@
+{
+    "src": "src/",
+    "srcJs": "src/js/*.js",
+    "srcLess": "src/less/*.less",
+    "srcImg": "src/img/*",
+    "srcHtml": "src/*.html",
+    "srcRoot": [
+        "src/sitemap.xml",
+        "src/robots.txt",
+        "src/.htaccess"
+    ],
+    "dist": "dist/",
+    "distJs": "dist/js/",
+    "distCss": "dist/css/",
+    "distImg": "dist/img/"
+}
