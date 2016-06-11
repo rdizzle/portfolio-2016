@@ -12,10 +12,7 @@ $(document).ready(function () {
 
     $('[data-scroll-target]').click(function (event) {
         event.preventDefault();
-        var scrollTarget = '#' + event.target.dataset.scrollTarget;
-        $('html, body').animate({
-            scrollTop: $(scrollTarget).offset().top - navHeight - 30
-        }, 500);
+        scrollToTarget('#' + event.target.dataset.scrollTarget);
     });
 
     $('.mobile-menu').click(function (event) {
@@ -34,10 +31,7 @@ $(document).ready(function () {
     $('body').on('click', '.mobile-menu-container [data-scroll-target]', function (event) {
         event.preventDefault();
         destroyMobileMenu();
-        var scrollTarget = '#' + event.target.dataset.scrollTarget;
-        $('html, body').animate({
-            scrollTop: $(scrollTarget).offset().top - navHeight - 30
-        }, 500);
+        scrollToTarget('#' + event.target.dataset.scrollTarget);
     });
 
     $(window).on('scroll', function () {
@@ -91,6 +85,12 @@ $(document).ready(function () {
         whatPos = $('h1#what-i-do').offset().top - navHeight - 31;
         projectsPos = $('h1#projects').offset().top - navHeight - 31;
         contactPos = $('h1#contact').offset().top - navHeight - 31;
+    }
+
+    function scrollToTarget(target) {
+        $('html, body').animate({
+            scrollTop: $(target).offset().top - navHeight - 30
+        }, 500);
     }
 
     function createMobileMenu() {
