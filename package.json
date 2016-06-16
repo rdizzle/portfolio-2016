@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rdizzle/portfolio.git"
+    "url": "git+https://github.com/rbnlffl/portfolio.git"
   },
   "keywords": [
     "portfolio",
@@ -18,9 +18,9 @@
   "author": "Robin Löffel",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rdizzle/portfolio/issues"
+    "url": "https://github.com/rbnlffl/portfolio/issues"
   },
-  "homepage": "https://github.com/rdizzle/portfolio#readme",
+  "homepage": "https://github.com/rbnlffl/portfolio#readme",
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
