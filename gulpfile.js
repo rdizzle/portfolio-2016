@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     del = require('del'),
     runSequence = require('run-sequence'),
     stylish = require('jshint-stylish'),
@@ -12,13 +12,14 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     plumber = require('gulp-plumber'),
     changed = require('gulp-changed'),
+    babel = require('gulp-babel'),
     paths = require('./paths.json');
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
     return del(paths.dist);
 });
 
-gulp.task('server', function () {
+gulp.task('server', () => {
     return connect.server({
         port: 3000,
         livereload: true,
@@ -26,7 +27,7 @@ gulp.task('server', function () {
     });
 });
 
-gulp.task('less', function () {
+gulp.task('less', () => {
     return gulp.src(paths.srcLess)
         .pipe(changed(paths.distCss, {
             extension: '.css'
@@ -46,12 +47,13 @@ gulp.task('less', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('js', function () {
+gulp.task('js', () => {
     return gulp.src(paths.srcJs)
         .pipe(changed(paths.distJs))
         .pipe(plumber())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
+        .pipe(babel())
         .pipe(gulp.dest(paths.distJs))
         .pipe(uglify())
         .pipe(rename({
@@ -61,7 +63,7 @@ gulp.task('js', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('html', function () {
+gulp.task('html', () => {
     return gulp.src(paths.srcHtml)
         .pipe(changed(paths.dist))
         .pipe(plumber())
@@ -69,7 +71,7 @@ gulp.task('html', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('img', function () {
+gulp.task('img', () => {
     return gulp.src(paths.srcImg)
         .pipe(changed(paths.distImg))
         .pipe(plumber())
@@ -82,7 +84,7 @@ gulp.task('img', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('root', function () {
+gulp.task('root', () => {
     return gulp.src(paths.srcRoot)
         .pipe(changed(paths.dist))
         .pipe(plumber())
@@ -90,7 +92,7 @@ gulp.task('root', function () {
         .pipe(connect.reload());
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
     gulp.watch(paths.srcHtml, ['html']);
     gulp.watch(paths.srcImg, ['img']);
     gulp.watch(paths.srcJs, ['js']);
@@ -98,10 +100,10 @@ gulp.task('watch', function () {
     gulp.watch(paths.srcRoot, ['root']);
 });
 
-gulp.task('default', function (callback) {
+gulp.task('default', (callback) => {
     runSequence('clean', 'build', 'server', 'watch', callback);
 });
 
-gulp.task('build', function (callback) {
+gulp.task('build', (callback) => {
     runSequence(['js', 'less', 'html', 'img', 'root'], callback);
 });

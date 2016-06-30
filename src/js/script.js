@@ -1,8 +1,8 @@
-$(document).ready(function () {
+$(document).ready(() => {
     'use strict';
 
-    var navHeight = $('header').outerHeight(),
-        aboutPos = null,
+    const NAVHEIGHT = $('header').outerHeight();
+    let aboutPos = null,
         whatPos = null,
         projectsPos = null,
         contactPos = null,
@@ -10,12 +10,12 @@ $(document).ready(function () {
 
     getPositions();
 
-    $('[data-scroll-target]').click(function (event) {
+    $('[data-scroll-target]').click((event) => {
         event.preventDefault();
         scrollToTarget('#' + event.target.dataset.scrollTarget);
     });
 
-    $('.mobile-menu').click(function (event) {
+    $('.mobile-menu').click((event) => {
         event.preventDefault();
         if ($(document).width() > 767) {
             return null;
@@ -23,18 +23,18 @@ $(document).ready(function () {
         createMobileMenu();
     });
 
-    $('body').on('click', '.mobile-menu-close', function (event) {
+    $('body').on('click', '.mobile-menu-close', (event) => {
         event.preventDefault();
         destroyMobileMenu();
     });
 
-    $('body').on('click', '.mobile-menu-container [data-scroll-target]', function (event) {
+    $('body').on('click', '.mobile-menu-container [data-scroll-target]', (event) => {
         event.preventDefault();
         destroyMobileMenu();
         scrollToTarget('#' + event.target.dataset.scrollTarget);
     });
 
-    $(window).on('scroll', function () {
+    $(window).on('scroll', () => {
         var scrollPos = $(this).scrollTop();
 
         if (scrollPos > 0 && !($('header').hasClass('white'))) {
@@ -70,26 +70,26 @@ $(document).ready(function () {
         }
     });
 
-    $(window).on('resize', function () {
+    $(window).on('resize', () => {
         getPositions();
     });
 
-    $(document).on('touchmove', function (event) {
+    $(document).on('touchmove', (event) => {
         if (scrollDisabled) {
             event.preventDefault();
         }
     });
 
     function getPositions() {
-        aboutPos = $('h1#about-me').offset().top - navHeight - 31;
-        whatPos = $('h1#what-i-do').offset().top - navHeight - 31;
-        projectsPos = $('h1#projects').offset().top - navHeight - 31;
-        contactPos = $('h1#contact').offset().top - navHeight - 31;
+        aboutPos = $('h1#about-me').offset().top - NAVHEIGHT - 31;
+        whatPos = $('h1#what-i-do').offset().top - NAVHEIGHT - 31;
+        projectsPos = $('h1#projects').offset().top - NAVHEIGHT - 31;
+        contactPos = $('h1#contact').offset().top - NAVHEIGHT - 31;
     }
 
     function scrollToTarget(target) {
         $('html, body').animate({
-            scrollTop: $(target).offset().top - navHeight - 30
+            scrollTop: $(target).offset().top - NAVHEIGHT - 30
         }, 500);
     }
 
