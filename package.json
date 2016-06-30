@@ -1,47 +1,47 @@
 {
-  "name": "portfolio",
-  "version": "1.0.0",
-  "description": "My portfolio",
-  "main": "gulpfile.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rbnlffl/portfolio.git"
-  },
-  "keywords": [
-    "portfolio",
-    "design",
-    "web",
-    "webdesign",
-    "robin",
-    "löffel"
-  ],
-  "author": "Robin Löffel",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rbnlffl/portfolio/issues"
-  },
-  "homepage": "https://github.com/rbnlffl/portfolio#readme",
-  "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.2",
-    "gulp-changed": "^1.3.0",
-    "gulp-clean-css": "^2.0.5",
-    "gulp-connect": "^3.2.2",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-jshint": "^2.0.1",
-    "gulp-less": "^3.0.5",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.3",
-    "jshint": "^2.9.2",
-    "jshint-stylish": "^2.2.0",
-    "run-sequence": "^1.1.5"
-  },
-  "scripts": {
-    "start": "gulp"
-  }
+    "name": "portfolio",
+    "version": "1.2.1",
+    "description": "My portfolio",
+    "author": "Robin Löffel <hi@robinloeffel.ch>",
+    "license": "ISC",
+    "homepage": "https://robinloeffel.ch",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rbnlffl/portfolio.git"
+    },
+    "keywords": [
+        "portfolio",
+        "design",
+        "web",
+        "webdesign",
+        "robin",
+        "löffel"
+    ],
+    "bugs": {
+        "url": "https://github.com/rbnlffl/portfolio/issues"
+    },
+    "devDependencies": {
+        "babel-preset-es2015": "^6.9.0",
+        "del": "^2.2.0",
+        "gulp": "^3.9.1",
+        "gulp-autoprefixer": "^3.1.0",
+        "gulp-babel": "^6.1.2",
+        "gulp-changed": "^1.3.0",
+        "gulp-clean-css": "^2.0.5",
+        "gulp-connect": "^3.2.2",
+        "gulp-imagemin": "^2.4.0",
+        "gulp-jshint": "^2.0.1",
+        "gulp-less": "^3.0.5",
+        "gulp-plumber": "^1.1.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-uglify": "^1.5.3",
+        "jshint": "^2.9.2",
+        "jshint-stylish": "^2.2.0",
+        "run-sequence": "^1.1.5"
+    },
+    "scripts": {
+        "start": "gulp"
+    }
 }
