@@ -35,7 +35,7 @@ $(document).ready(() => {
     });
 
     $(window).on('scroll', () => {
-        var scrollPos = $(this).scrollTop();
+        let scrollPos = $(document).scrollTop();
 
         if (scrollPos > 0 && !($('header').hasClass('white'))) {
             $('header').addClass('white');
