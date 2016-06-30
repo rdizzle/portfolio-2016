@@ -1,37 +1,5 @@
-// typography variables
-@base-font-family: 'Source Sans Pro', sans-serif;
-@base-font-size: 21px;
-@base-font-size-mobile: 18px;
-@base-font-weight: normal;
-@heading-font-family: 'Lato', sans-serif;
-@heading-font-size: 2rem;
-@heading-second-font-size: 1.25rem;
-@heading-font-weight: bold;
-@small-font-size: .75rem;
-@copy-font-size: .975rem;
+@import 'variables.less';
 
-// color variables
-@white: #FFF;
-@copy-color: #414141;
-@heading-color: #323232;
-@link-color: #2895F1;
-@link-color-hover: #1B32A6;
-@header-bg-color: transparent;
-@header-white-bg-color: rgba(255, 255, 255, .975);
-@header-font-color: @white;
-@header-white-font-color: @heading-color;
-
-// layout breakpoint
-@breakpoint: 767px;
-
-// mixin
-.clearfix() {
-    content: '';
-    display: block;
-    clear: both;
-}
-
-// css
 html {
     font-family: @base-font-family;
     font-size: @base-font-size;
@@ -45,11 +13,6 @@ html {
 
 * {
     box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
 }
 
 h1, h2 {
@@ -95,16 +58,6 @@ header {
     color: @header-font-color;
     transition: background-color .35s ease-in-out, box-shadow .35s ease-in-out, color .35s ease-in-out;
 
-    &.white {
-        background-color: @header-white-bg-color;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
-        color: @header-white-font-color;
-
-        a.active {
-            text-decoration: underline;
-        }
-    }
-
     nav ul {
         position: relative;
         left: 50%;
@@ -126,12 +79,47 @@ header {
                 text-transform: uppercase;
                 font-size: @small-font-size;
                 position: relative;
-                transition: color .35s ease-in-out;
+                transition: color .35s ease-in-out, opacity .35s ease-in-out;
                 letter-spacing: .75px;
 
                 &:hover {
-                    color: rgba(0, 0, 0, .5);
+                    color: inherit;
+
+                    &::after {
+                        height: 3px;
+                    }
                 }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 5px;
+                    left: 0;
+                    right: 0;
+                    height: 0;
+                    background-color: white;
+                    transition: height .35s ease-in-out, opacity .25s ease-in-out;
+                }
+            }
+        }
+    }
+
+    &.white {
+        background-color: @header-white-bg-color;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+        color: @header-white-font-color;
+
+        nav ul li a {
+            &:hover {
+                opacity: .5;
+            }
+
+            &.active {
+                text-decoration: underline;
+            }
+
+            &::after {
+                opacity: 0;
             }
         }
     }
@@ -144,6 +132,16 @@ header {
     background: url('../img/hero.jpg') top @heading-color;
     background-size: cover;
     background-repeat: no-repeat;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .25);
+    }
 }
 
 .center-container {
@@ -189,7 +187,7 @@ header {
 }
 
 .main-container {
-    width: 80&;
+    width: 80%;
     min-width: 300px;
     max-width: 800px;
     margin: 100px auto;
@@ -200,7 +198,6 @@ header {
     margin: 0 auto;
 
     p {
-        font-size: @copy-font-size;
         line-height: 1.75;
         letter-spacing: .2px;
     }
@@ -210,8 +207,10 @@ header {
     margin: 30px 0;
     width: 100%;
 
-    &:after {
-        .clearfix();
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
     }
 
     > img,
@@ -223,7 +222,7 @@ header {
     }
 
     > a {
-        &:before {
+        &::before {
             content: '';
             position: absolute;
             top: 0;
@@ -260,17 +259,19 @@ header {
         }
     }
 
-    > a:hover {
-        &:before {
-            background-color: rgba(0, 0, 0, .75);
-        }
+    > a {
+        &:hover {
+            &::before {
+                background-color: rgba(0, 0, 0, .75);
+            }
 
-        span {
-            transform: translate(-50%, -30px);
+            span {
+                transform: translate(-50%, -30px);
 
-            + span {
-                opacity: 1;
-                transform: translate(-50%, 10px);
+                + span {
+                    opacity: 1;
+                    transform: translate(-50%, 10px);
+                }
             }
         }
     }
@@ -354,7 +355,7 @@ footer {
     }
 
     .text-container {
-        width: 80%;
+        width: 90%;
     }
 
     .image-container {
