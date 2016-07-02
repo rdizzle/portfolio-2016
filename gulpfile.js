@@ -1,3 +1,5 @@
+'use strict';
+
 let gulp = require('gulp'),
     del = require('del'),
     runSequence = require('run-sequence'),
@@ -13,6 +15,7 @@ let gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     changed = require('gulp-changed'),
     babel = require('gulp-babel'),
+    sourcemaps = require('gulp-sourcemaps'),
     paths = require('./paths.json');
 
 gulp.task('clean', () => {
@@ -34,6 +37,7 @@ gulp.task('less', () => {
         }))
         .pipe(plumber())
         .pipe(less())
+        .pipe(sourcemaps.init())
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
@@ -43,6 +47,7 @@ gulp.task('less', () => {
         .pipe(rename({
             suffix: '.min'
         }))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.distCss))
         .pipe(connect.reload());
 });
@@ -54,11 +59,13 @@ gulp.task('js', () => {
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(babel())
+        .pipe(sourcemaps.init())
         .pipe(gulp.dest(paths.distJs))
         .pipe(uglify())
         .pipe(rename({
             suffix: '.min'
         }))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.distJs))
         .pipe(connect.reload());
 });
