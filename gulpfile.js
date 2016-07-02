@@ -42,7 +42,6 @@ gulp.task('less', () => {
             browsers: ['last 2 versions'],
             cascade: false
         }))
-        .pipe(gulp.dest(paths.distCss))
         .pipe(cleanCss())
         .pipe(rename({
             suffix: '.min'
@@ -60,7 +59,6 @@ gulp.task('js', () => {
         .pipe(jshint.reporter(stylish))
         .pipe(babel())
         .pipe(sourcemaps.init())
-        .pipe(gulp.dest(paths.distJs))
         .pipe(uglify())
         .pipe(rename({
             suffix: '.min'
@@ -99,6 +97,10 @@ gulp.task('root', () => {
         .pipe(connect.reload());
 });
 
+gulp.task('cleanup', () => {
+    del(paths.distCss + 'variables.*');
+});
+
 gulp.task('watch', () => {
     gulp.watch(paths.srcHtml, ['html']);
     gulp.watch(paths.srcImg, ['img']);
@@ -112,5 +114,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'less', 'html', 'img', 'root'], callback);
+    runSequence(['js', 'less', 'html', 'img', 'root'], 'cleanup', callback);
 });
