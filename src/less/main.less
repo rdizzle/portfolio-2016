@@ -86,7 +86,7 @@ header {
                     color: inherit;
 
                     &::after {
-                        height: 3px;
+                        transform: scale(1, 1);
                     }
                 }
 
@@ -96,9 +96,11 @@ header {
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    height: 0;
+                    height: 3px;
                     background-color: white;
-                    transition: height .35s ease-in-out, opacity .25s ease-in-out;
+                    transform: scale(1, 0);
+                    transform-origin: bottom;
+                    transition: transform .25s ease-in-out, opacity .25s ease-in-out;
                 }
             }
         }
