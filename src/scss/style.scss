@@ -1,0 +1,211 @@
+@import 'variables';
+@import 'icons';
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: $default-font-family;
+    font-size: $default-font-size;
+    font-weight: $default-font-weight;
+    line-height: $default-line-height;
+    color: $text-color;
+    letter-spacing: $default-letter-spacing;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    width: 100%;
+    background-color: $overlay-color;
+
+    &::after {
+        content: '';
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        background-image: $nav-color-bar;
+        opacity: .5;
+    }
+
+    ul {
+        display: inline-block;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+
+        li {
+            display: inline-block;
+
+            &:first-child {
+                margin-right: 232px;
+
+                a {
+                    background-image: url('../img/robin.png');
+                    background-size: 60%;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    color: transparent;
+                }
+            }
+
+            a {
+                display: inline-block;
+                padding: 40px 45px;
+                text-transform: uppercase;
+                text-decoration: none;
+                color: inherit;
+                letter-spacing: 1px;
+                font-size: .8rem;
+            }
+        }
+    }
+}
+
+main {
+    margin: 200px auto auto;
+    width: $content-width;
+}
+
+section {
+    text-align: center;
+
+    &:not(:last-of-type) {
+        margin-bottom: 90px;
+    }
+
+    &.grid {
+        &::after {
+            display: table;
+            content: '';
+            clear: both;
+        }
+
+        a {
+            display: inline-block;
+            position: relative;
+            border: 5px solid transparent;
+            color: inherit;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.single {
+                &-width {
+                    width: $single-grid-width;
+                }
+
+                &-height {
+                    height: $single-grid-height;
+                }
+            }
+
+            &.double {
+                &-width {
+                    width: $double-grid-width;
+                }
+
+                &-height {
+                    height: $double-grid-height;
+                }
+            }
+
+            &.pull {
+                &-left {
+                    float: left;
+                }
+
+                &-right {
+                    float: right;
+                }
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+            &:hover {
+                &::before,
+                .overlay-text {
+                    opacity: 1;
+                }
+            }
+
+            &::before,
+            .overlay-text {
+                transition: opacity .5s ease-in-out;
+            }
+
+            .overlay-text {
+                transition-delay: .25s;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background-color: $overlay-color;
+                opacity: 0;
+            }
+
+            .overlay-text {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                opacity: 0;
+
+                &.website {
+                    margin-top: -18px;
+                    font-size: $small-font-size;
+                    text-decoration: underline;
+                }
+
+                &.status {
+                    margin-top: 22px;
+                    font-size: $tiny-font-size;
+                }
+            }
+        }
+    }
+}
+
+footer {
+    margin: 100px auto auto;
+    width: $footer-width;
+    border-top: 1px solid $border-color;
+    padding: 50px 0;
+    text-align: center;
+    font-size: $tiny-font-size;
+}
+
+a {
+    color: $link-color;
+    text-decoration: none;
+    transition: color .25s ease-in-out;
+
+    &:hover {
+        color: $link-color-hover;
+    }
+
+    &:visited {
+        
+    }
+}

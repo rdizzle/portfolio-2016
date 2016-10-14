@@ -4,6 +4,7 @@
     "srcScss": "src/scss/*.scss",
     "srcImg": "src/img/*",
     "srcHtml": "src/*.html",
+    "srcFont": "src/font/*",
     "srcRoot": [
         "src/sitemap.xml",
         "src/robots.txt",
@@ -12,5 +13,6 @@
     "dist": "dist/",
     "distJs": "dist/js/",
     "distCss": "dist/css/",
-    "distImg": "dist/img/"
+    "distImg": "dist/img/",
+    "distFont": "dist/font/"
 }

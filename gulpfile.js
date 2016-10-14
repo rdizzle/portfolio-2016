@@ -24,7 +24,7 @@ gulp.task('clean', () => {
 
 gulp.task('server', () => {
     return connect.server({
-        port: 3000,
+        port: 80,
         livereload: true,
         root: paths.dist
     });
@@ -36,7 +36,9 @@ gulp.task('sass', () => {
             extension: '.css'
         }))
         .pipe(plumber())
-        .pipe(sass())
+        .pipe(sass({
+            outputStyle: 'expanded'
+        }))
         .pipe(sourcemaps.init())
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
@@ -89,7 +91,7 @@ gulp.task('img', () => {
         .pipe(connect.reload());
 });
 
-gulp.task('root', () => {
+gulp.task('copy', () => {
     return gulp.src(paths.srcRoot)
         .pipe(changed(paths.dist))
         .pipe(plumber())
@@ -97,8 +99,16 @@ gulp.task('root', () => {
         .pipe(connect.reload());
 });
 
+gulp.task('font', () => {
+    return gulp.src(paths.srcFont)
+        .pipe(changed(paths.distFont))
+        .pipe(plumber())
+        .pipe(gulp.dest(paths.distFont))
+        .pipe(connect.reload());
+});
+
 gulp.task('cleanup', () => {
-    del(paths.distCss + 'variables.*');
+    del([paths.distCss + '*', '!' + paths.distCss + 'style.*']);
 });
 
 gulp.task('watch', () => {
@@ -106,7 +116,7 @@ gulp.task('watch', () => {
     gulp.watch(paths.srcImg, ['img']);
     gulp.watch(paths.srcJs, ['js']);
     gulp.watch(paths.srcScss, ['sass']);
-    gulp.watch(paths.srcRoot, ['root']);
+    gulp.watch(paths.srcRoot, ['copy']);
 });
 
 gulp.task('default', (callback) => {
@@ -114,5 +124,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'html', 'img', 'root'], 'cleanup', callback);
+    runSequence(['js', 'sass', 'html', 'img', 'copy', 'font'], 'cleanup', callback);
 });

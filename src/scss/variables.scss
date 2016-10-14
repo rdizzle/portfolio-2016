@@ -1,24 +1,28 @@
-// typo
-$base-font-family: 'Source Sans Pro', sans-serif;
-$base-font-size: 21px;
-$base-font-size-mobile: 18px;
-$base-font-weight: normal;
-$heading-font-family: 'Lato', sans-serif;
-$heading-font-size: 2rem;
-$heading-second-font-size: 1.25rem;
-$heading-font-weight: bold;
-$small-font-size: .75rem;
-
 // colors
-$white: #fff;
-$copy-color: #4a4a5f;
-$heading-color: #353549;
-$link-color: #2895f1;
-$link-color-hover: #1b32a6;
-$header-bg-color: rgba(0, 0, 0, .5);
-$header-white-bg-color: rgba(255, 255, 255, .975);
-$header-font-color: $white;
-$header-white-font-color: $heading-color;
+$background-color: rgb(255, 255, 255);
+$text-color: rgb(65, 65, 65);
+$link-color: rgb(40, 149, 241);
+$link-color-hover: rgb(27, 50, 166);
+$link-color-visited: desaturate($link-color, 50%);
+$overlay-color: rgba(255, 255, 255, .95);
+$nav-color-bar: linear-gradient(to left, orange 0%, blue 50%, pink 100%);
+$border-color: rgba(65, 65, 65, .25);
 
-// breakpoint
-$breakpoint: 767px;
+// typo
+$default-font-family: 'Source Sans Pro', sans-serif;
+$default-font-size: 21px;
+$default-line-height: 1.6;
+$default-letter-spacing: .1px;
+$default-font-weight: normal;
+$small-font-size: $default-font-size * 0.9;
+$tiny-font-size: $default-font-size * 0.8;
+
+// dimensions
+$content-width: 900px;
+$footer-width: $content-width * 0.75;
+$full-grid-width: $content-width;
+$single-grid-width: $full-grid-width / 3;
+$double-grid-width: $single-grid-width * 2;
+$full-grid-height: 600px;
+$single-grid-height: $full-grid-height / 3;
+$double-grid-height: $single-grid-height * 2;
