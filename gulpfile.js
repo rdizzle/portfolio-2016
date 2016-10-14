@@ -5,9 +5,9 @@ let gulp = require('gulp'),
     runSequence = require('run-sequence'),
     stylish = require('jshint-stylish'),
     connect = require('gulp-connect'),
-    less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCss = require('gulp-clean-css'),
+    sass = require('gulp-sass'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
@@ -30,13 +30,13 @@ gulp.task('server', () => {
     });
 });
 
-gulp.task('less', () => {
-    return gulp.src(paths.srcLess)
+gulp.task('sass', () => {
+    return gulp.src(paths.srcScss)
         .pipe(changed(paths.distCss, {
             extension: '.css'
         }))
         .pipe(plumber())
-        .pipe(less())
+        .pipe(sass())
         .pipe(sourcemaps.init())
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
@@ -105,7 +105,7 @@ gulp.task('watch', () => {
     gulp.watch(paths.srcHtml, ['html']);
     gulp.watch(paths.srcImg, ['img']);
     gulp.watch(paths.srcJs, ['js']);
-    gulp.watch(paths.srcLess, ['less']);
+    gulp.watch(paths.srcScss, ['sass']);
     gulp.watch(paths.srcRoot, ['root']);
 });
 
@@ -114,5 +114,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'less', 'html', 'img', 'root'], 'cleanup', callback);
+    runSequence(['js', 'sass', 'html', 'img', 'root'], 'cleanup', callback);
 });

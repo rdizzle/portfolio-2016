@@ -1,7 +1,7 @@
 {
     "src": "src/",
     "srcJs": "src/js/*.js",
-    "srcLess": "src/less/*.less",
+    "srcScss": "src/scss/*.scss",
     "srcImg": "src/img/*",
     "srcHtml": "src/*.html",
     "srcRoot": [

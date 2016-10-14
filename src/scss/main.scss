@@ -1,11 +1,11 @@
-@import 'variables.less';
+@import 'variables';
 
 html {
-    font-family: @base-font-family;
-    font-size: @base-font-size;
-    font-weight: @base-font-weight;
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    font-weight: $base-font-weight;
     line-height: 1.55;
-    color: @copy-color;
+    color: $copy-color;
     letter-spacing: .1px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -16,9 +16,9 @@ html {
 }
 
 h1, h2 {
-    font-family: @heading-font-family;
-    font-weight: @heading-font-weight;
-    color: @heading-color;
+    font-family: $heading-font-family;
+    font-weight: $heading-font-weight;
+    color: $heading-color;
     margin: 0;
 }
 
@@ -27,12 +27,12 @@ h1 {
 }
 
 a {
-    color: @link-color;
+    color: $link-color;
     text-decoration: underline;
     transition: color .35s ease-in-out;
 
     &:hover {
-        color: @link-color-hover;
+        color: $link-color-hover;
     }
 }
 
@@ -45,7 +45,7 @@ p {
 }
 
 small {
-    font-size: @small-font-size;
+    font-size: $small-font-size;
 }
 
 header {
@@ -53,9 +53,9 @@ header {
     top: 0;
     width: 100%;
     z-index: 2;
-    background-color: @header-bg-color;
+    background-color: $header-bg-color;
     box-shadow: none;
-    color: @header-font-color;
+    color: $header-font-color;
     transition: background-color .35s ease-in-out, box-shadow .35s ease-in-out, color .35s ease-in-out;
 
     nav ul {
@@ -75,9 +75,9 @@ header {
                 padding: 35px;
                 color: inherit;
                 text-decoration: none;
-                font-family: @heading-font-family;
+                font-family: $heading-font-family;
                 text-transform: uppercase;
-                font-size: @small-font-size;
+                font-size: $small-font-size;
                 position: relative;
                 transition: color .35s ease-in-out, opacity .35s ease-in-out;
                 letter-spacing: 1.5px;
@@ -107,9 +107,9 @@ header {
     }
 
     &.white {
-        background-color: @header-white-bg-color;
+        background-color: $header-white-bg-color;
         box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
-        color: @header-white-font-color;
+        color: $header-white-font-color;
 
         nav ul li a {
             &:hover {
@@ -131,7 +131,7 @@ header {
     position: relative;
     width: 100%;
     height: 100vh;
-    background: url('../img/hero.jpg') center @heading-color;
+    background: url('../img/hero.jpg') center $heading-color;
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -148,7 +148,7 @@ header {
 
 .center-container {
     text-align: center;
-    color: @header-font-color;
+    color: $header-font-color;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -156,7 +156,7 @@ header {
     transform: translate(-50%, -50%);
 
     h1 {
-        font-size: @heading-font-size;
+        font-size: $heading-font-size;
         margin: 0 0 15px 0;
         opacity: 0;
         color: inherit;
@@ -166,7 +166,7 @@ header {
     }
 
     h2 {
-        font-size: @heading-second-font-size;
+        font-size: $heading-second-font-size;
         opacity: 0;
         color: inherit;
         animation: fade-in ease-in-out 1;
@@ -245,17 +245,17 @@ header {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: @white;
+            color: $white;
             transition: .35s ease-in-out;
-            font-family: @heading-font-family;
-            font-weight: @heading-font-weight;
+            font-family: $heading-font-family;
+            font-weight: $heading-font-weight;
             text-align: center;
 
             + span {
                 opacity: 0;
-                font-family: @base-font-family;
-                font-weight: @base-font-weight;
-                font-size: @small-font-size;
+                font-family: $base-font-family;
+                font-weight: $base-font-weight;
+                font-size: $small-font-size;
                 letter-spacing: .2px;
             }
         }
@@ -305,7 +305,7 @@ footer {
     display: none;
 }
 
-@media (max-width: @breakpoint) {
+@media (max-width: $breakpoint) {
     .mobile {
         display: inline-block;
     }
@@ -323,7 +323,7 @@ footer {
     }
 
     html {
-        font-size: @base-font-size-mobile;
+        font-size: $base-font-size-mobile;
     }
 
     header {
@@ -375,7 +375,7 @@ footer {
         bottom: 0;
         right: 0;
         z-index: 3;
-        background-color: @header-white-bg-color;
+        background-color: $header-white-bg-color;
         opacity: 0;
 
         a {
@@ -383,7 +383,7 @@ footer {
         }
 
         .center-container {
-            color: @heading-color;
+            color: $heading-color;
         }
 
         .mobile-menu-close {
@@ -396,8 +396,8 @@ footer {
             list-style-type: none;
             padding: 0;
             margin: 0;
-            font-family: @heading-font-family;
-            font-weight: @base-font-weight;
+            font-family: $heading-font-family;
+            font-weight: $base-font-weight;
             letter-spacing: .75px;
             text-transform: uppercase;
 
