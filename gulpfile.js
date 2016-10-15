@@ -24,7 +24,7 @@ gulp.task('clean', () => {
 
 gulp.task('server', () => {
     return connect.server({
-        port: 80,
+        port: 8080,
         livereload: true,
         root: paths.dist
     });
