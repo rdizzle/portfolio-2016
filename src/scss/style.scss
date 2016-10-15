@@ -57,7 +57,11 @@ nav {
                     background-size: 60%;
                     background-repeat: no-repeat;
                     background-position: center;
-                    color: transparent;
+
+                    span {
+                        opacity: 0;
+                        visibility: hidden;
+                    }
                 }
             }
 
@@ -69,6 +73,17 @@ nav {
                 color: inherit;
                 letter-spacing: 1px;
                 font-size: .8rem;
+
+                &::after {
+                    content: attr(data-hover);
+                    display: inline-block;
+                    font-weight: bold;
+                    position: absolute;
+                }
+
+                &:hover {
+                    color: inherit;
+                }
             }
         }
     }
@@ -206,6 +221,6 @@ a {
     }
 
     &:visited {
-        
+
     }
 }

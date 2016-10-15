@@ -5,7 +5,7 @@ $link-color: rgb(40, 149, 241);
 $link-color-hover: rgb(27, 50, 166);
 $link-color-visited: desaturate($link-color, 50%);
 $overlay-color: rgba(255, 255, 255, .95);
-$nav-color-bar: linear-gradient(to left, orange 0%, blue 50%, pink 100%);
+$nav-color-bar: linear-gradient(to right, rgb(214, 111, 14) 0%, rgb(40, 149, 241) 50%, rgb(255, 132, 132) 100%);
 $border-color: rgba(65, 65, 65, .25);
 
 // typo
