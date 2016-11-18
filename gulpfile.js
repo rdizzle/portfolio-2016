@@ -3,6 +3,7 @@
 let gulp = require('gulp'),
     del = require('del'),
     runSequence = require('run-sequence'),
+    open = require('open'),
     stylish = require('jshint-stylish'),
     connect = require('gulp-connect'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -28,6 +29,10 @@ gulp.task('server', () => {
         livereload: true,
         root: paths.dist
     });
+});
+
+gulp.task('open', () => {
+    return open('http://localhost:8080');
 });
 
 gulp.task('sass', () => {
@@ -120,7 +125,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', (callback) => {
-    runSequence('clean', 'build', 'server', 'watch', callback);
+    runSequence('clean', 'build', 'server', 'watch', 'open', callback);
 });
 
 gulp.task('build', (callback) => {
