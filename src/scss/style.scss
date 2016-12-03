@@ -24,7 +24,9 @@ nav {
     z-index: 2;
     top: 0;
     width: 100%;
-    background-color: $overlay-color;
+    background-color: transparent;
+    font-family: $headline-font-family;
+    transform: translate3d(0, 0, 0);
 
     &::after {
         content: '';
@@ -34,7 +36,7 @@ nav {
         bottom: 0;
         left: 0;
         background-image: $nav-color-bar;
-        opacity: .5;
+        opacity: 0;
     }
 
     ul {
@@ -43,26 +45,15 @@ nav {
         margin: 0;
         padding: 0;
         position: relative;
-        left: 50%;
-        transform: translateX(-50%);
+        width: 100%;
+        float: left;
 
         li {
             display: inline-block;
+            float: right;
 
             &:first-child {
-                margin-right: 232px;
-
-                a {
-                    background-image: url('../img/robin.png');
-                    background-size: 60%;
-                    background-repeat: no-repeat;
-                    background-position: center;
-
-                    span {
-                        opacity: 0;
-                        visibility: hidden;
-                    }
-                }
+                float: left;
             }
 
             a {
@@ -71,133 +62,196 @@ nav {
                 text-transform: uppercase;
                 text-decoration: none;
                 color: inherit;
-                letter-spacing: 1px;
-                font-size: .8rem;
+                letter-spacing: 1.5px;
+                font-size: .75rem;
+                position: relative;
 
-                &::after {
-                    content: attr(data-hover);
-                    display: inline-block;
-                    font-weight: bold;
-                    position: absolute;
+                &:hover,
+                &:focus {
+                    color: inherit;
+
+                    &::after {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
 
-                &:hover {
-                    color: inherit;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 35px;
+                    bottom: 20px;
+                    width: calc(100% - 70px);
+                    height: 3px;
+                    background-color: transparentize(#000, .8);
+                    pointer-events: none;
+                    opacity: 0;
+                    transform: translateY(-10px);
+                    transition: opacity .25s ease-in-out, transform .25s ease-in-out;
                 }
             }
         }
     }
-}
-
-main {
-    margin: 200px auto auto;
-    width: $content-width;
 }
 
 section {
-    text-align: center;
+    &.intro {
+        position: relative;
+        height: 100vh;
+        background-color: $intro-color;
 
-    &:not(:last-of-type) {
-        margin-bottom: 90px;
-    }
-
-    &.grid {
-        &::after {
-            display: table;
-            content: '';
-            clear: both;
+        .absolute-center {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
         }
 
-        a {
-            display: inline-block;
-            position: relative;
-            border: 5px solid transparent;
+        .intro-headline {
+            font-size: 6vh;
+            margin: 0;
+            font-family: $default-font-family;
+        }
+
+        .intro-text {
+            font-size: 4vh;
+            margin: 0;
+        }
+
+        .go-down {
+            position: absolute;
+            bottom: 50px;
+            font-size: 6vh;
+            right: 50%;
+            transform: translateX(50%);
             color: inherit;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
-            &.single {
-                &-width {
-                    width: $single-grid-width;
-                }
+            .icon {
+                margin: 0;
+            }
+        }
+    }
 
-                &-height {
-                    height: $single-grid-height;
-                }
+    .content-wrapper {
+        width: $content-width;
+        margin: auto;
+        padding: 150px 0;
+        text-align: left;
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
+    }
+
+    &:nth-of-type(2) {
+        background-color: $nice-pink;
+
+        .content-wrapper {
+            width: $full-grid-width;
+        }
+    }
+
+    &:nth-of-type(3) {
+        background-color: $link-color;
+    }
+
+    &:nth-of-type(4) {
+        background-color: #445;
+    }
+}
+
+.grid {
+    text-align: center;
+
+    &::after {
+        display: table;
+        content: '';
+        clear: both;
+    }
+
+    a {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.single {
+            &-width {
+                width: $single-grid-width;
             }
 
-            &.double {
-                &-width {
-                    width: $double-grid-width;
-                }
+            &-height {
+                height: $single-grid-height;
+            }
+        }
 
-                &-height {
-                    height: $double-grid-height;
-                }
+        &.double {
+            &-width {
+                width: $double-grid-width;
             }
 
-            &.pull {
-                &-left {
-                    float: left;
-                }
-
-                &-right {
-                    float: right;
-                }
+            &-height {
+                height: $double-grid-height;
             }
+        }
 
+        &.limit-height {
+            img {
+                max-height: 100%;
+            }
+        }
+
+        &.limit-width {
             img {
                 max-width: 100%;
             }
+        }
 
-            &:hover {
-                &::before,
-                .overlay-text {
-                    opacity: 1;
-                }
+        &.pull {
+            &-left {
+                float: left;
             }
 
+            &-right {
+                float: right;
+            }
+        }
+
+        &:hover {
             &::before,
             .overlay-text {
-                transition: opacity .5s ease-in-out;
+                opacity: 1;
             }
+        }
 
-            .overlay-text {
-                transition-delay: .25s;
-            }
+        &::before,
+        .overlay-text {
+            transition: opacity .5s ease-in-out;
+        }
 
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                background-color: $overlay-color;
-                opacity: 0;
-            }
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: transparentize(#000, .25);
+            opacity: 0;
+        }
 
-            .overlay-text {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                opacity: 0;
-
-                &.website {
-                    margin-top: -18px;
-                    font-size: $small-font-size;
-                    text-decoration: underline;
-                }
-
-                &.status {
-                    margin-top: 22px;
-                    font-size: $tiny-font-size;
-                }
-            }
+        .overlay-text {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            opacity: 0;
         }
     }
 }
@@ -212,15 +266,11 @@ footer {
 }
 
 a {
-    color: $link-color;
-    text-decoration: none;
-    transition: color .25s ease-in-out;
+    color: inherit;
+    text-decoration: underline;;
+}
 
-    &:hover {
-        color: $link-color-hover;
-    }
-
-    &:visited {
-
-    }
+h1, h2, h3, {
+    font-family: $headline-font-family;
+    letter-spacing: 1.5px;
 }

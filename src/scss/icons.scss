@@ -54,4 +54,11 @@
             width: 17px;
         }
     }
+
+    &.arrow-down {
+        &::after {
+            display: inline-block;
+            content: '\e800';
+        }
+    }
 }
