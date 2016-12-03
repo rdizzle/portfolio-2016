@@ -14,5 +14,6 @@
     "distJs": "dist/js/",
     "distCss": "dist/css/",
     "distImg": "dist/img/",
-    "distFont": "dist/font/"
+    "distFont": "dist/font/",
+    "vendorJs": "node_modules/smoothscroll/dist/smoothscroll.js"
 }

@@ -1,28 +1,20 @@
 // colors
-$background-color: rgb(255, 255, 255);
 $text-color: transparentize(#fff, .05);
-$link-color: rgb(40, 149, 241);
-$link-color-hover: rgb(27, 50, 166);
-$link-color-visited: desaturate($link-color, 50%);
-$nice-pink: rgb(255, 132, 132);
-$intro-color: rgb(214, 111, 14);
-$nav-color-bar: linear-gradient(to right, $intro-color 0%,$link-color 50%, $nice-pink 100%);
-$border-color: rgba(65, 65, 65, .25);
-$intro-to-content: linear-gradient(to bottom, $intro-color 50%, $background-color 100%);
+$first-color: rgb(214, 111, 14);
+$second-color: rgb(255, 132, 132);
+$third-color: rgb(40, 149, 241);
+$fourth-color: #445;
 
 // typo
 $default-font-family: 'Source Sans Pro', sans-serif;
-$headline-font-family: 'Open Sans', sans-serif;
+$navigation-font-family: 'Open Sans', sans-serif;
 $default-font-size: 21px;
 $default-line-height: 1.7;
 $default-letter-spacing: .1px;
 $default-font-weight: normal;
-$small-font-size: $default-font-size * 0.9;
-$tiny-font-size: $default-font-size * 0.8;
 
 // dimensions
 $content-width: 900px;
-$footer-width: $content-width * 0.75;
 $full-grid-width: 1024px;
 $single-grid-width: $full-grid-width / 3;
 $double-grid-width: $single-grid-width * 2;

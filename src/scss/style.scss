@@ -1,5 +1,4 @@
 @import 'variables';
-@import 'icons';
 
 * {
     box-sizing: border-box;
@@ -24,20 +23,8 @@ nav {
     z-index: 2;
     top: 0;
     width: 100%;
-    background-color: transparent;
-    font-family: $headline-font-family;
+    font-family: $navigation-font-family;
     transform: translate3d(0, 0, 0);
-
-    &::after {
-        content: '';
-        position: absolute;
-        height: 2px;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        background-image: $nav-color-bar;
-        opacity: 0;
-    }
 
     ul {
         display: inline-block;
@@ -66,8 +53,7 @@ nav {
                 font-size: .75rem;
                 position: relative;
 
-                &:hover,
-                &:focus {
+                &:hover {
                     color: inherit;
 
                     &::after {
@@ -98,7 +84,7 @@ section {
     &.intro {
         position: relative;
         height: 100vh;
-        background-color: $intro-color;
+        background-color: $first-color;
 
         .absolute-center {
             position: absolute;
@@ -117,19 +103,6 @@ section {
             font-size: 4vh;
             margin: 0;
         }
-
-        .go-down {
-            position: absolute;
-            bottom: 50px;
-            font-size: 6vh;
-            right: 50%;
-            transform: translateX(50%);
-            color: inherit;
-
-            .icon {
-                margin: 0;
-            }
-        }
     }
 
     .content-wrapper {
@@ -137,16 +110,10 @@ section {
         margin: auto;
         padding: 150px 0;
         text-align: left;
-
-        h2 {
-            font-size: 1.5rem;
-            font-weight: normal;
-            text-transform: uppercase;
-        }
     }
 
     &:nth-of-type(2) {
-        background-color: $nice-pink;
+        background-color: $second-color;
 
         .content-wrapper {
             width: $full-grid-width;
@@ -154,11 +121,11 @@ section {
     }
 
     &:nth-of-type(3) {
-        background-color: $link-color;
+        background-color: $third-color;
     }
 
     &:nth-of-type(4) {
-        background-color: #445;
+        background-color: $fourth-color;
     }
 }
 
@@ -250,27 +217,13 @@ section {
             right: 0;
             top: 50%;
             transform: translateY(-50%);
-            color: white;
+            color: inherit;
             opacity: 0;
         }
     }
 }
 
-footer {
-    margin: 100px auto auto;
-    width: $footer-width;
-    border-top: 1px solid $border-color;
-    padding: 50px 0;
-    text-align: center;
-    font-size: $tiny-font-size;
-}
-
 a {
     color: inherit;
-    text-decoration: underline;;
-}
-
-h1, h2, h3, {
-    font-family: $headline-font-family;
-    letter-spacing: 1.5px;
+    text-decoration: underline;
 }

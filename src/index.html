@@ -9,11 +9,10 @@
     <meta name="author" content="Robin Löffel" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>Robin Löffel &mdash; Programmierer und Designer</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300italic" />
-    <link rel="stylesheet" href="css/style.min.css" />
-    <link rel="shortcut icon" href="img/favicon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" href="./img/favicon.png" />
     <meta property="og:url" content="https://robinloeffel.ch" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Robin Löffel &mdash; Programmierer und Designer" />
@@ -25,27 +24,27 @@
     <nav>
         <ul>
             <li>
-                <a href="/"><span>Robin</span></a>
+                <a href="#" data-scroll-link="intro"><span>Robin</span></a>
             </li>
             <li>
-                <a href="#ich" data-hover="Ich">Ich</a>
+                <a href="#" data-scroll-link="ich">Ich</a>
             </li>
             <li>
-                <a href="#kontakt" data-hover="Kontakt">Kontakt</a>
+                <a href="#" data-scroll-link="kontakt">Kontakt</a>
             </li>
             <li>
-                <a href="#arbeit" data-hover="Arbeit">Arbeit</a>
+                <a href="#" data-scroll-link="arbeit">Arbeit</a>
             </li>
         </ul>
     </nav>
     <main>
-        <section class="intro">
+        <section class="intro" id="intro">
             <div class="absolute-center">
                 <h1 class="intro-headline">Hey, ich bin Robin.</h1>
-                <p class="intro-text">Ich mache Webseiten. <a href="#">Schau Dich doch mal um!</a></p>
+                <p class="intro-text">Ich mache Webseiten. <a href="#" data-scroll-link="arbeit">Schau Dich doch mal um!</a></p>
             </div>
         </section>
-        <section>
+        <section id="arbeit">
             <div class="content-wrapper">
                 <div class="grid">
                     <a href="https://swissplant.ch" target="_blank" class="double-width double-height pull-left limit-width">
@@ -67,17 +66,17 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section id="kontakt">
             <div class="content-wrapper">
                 <p>
-                    Du suchst jemanden für deine neue Webseite oder hast eine Frage? Kein Problem, komm am besten einfach und direkt über einen dieser Kanäle auf mich zu!
+                    Du suchst jemanden für Deine neue Webseite oder hast eine Frage? Wunderbar, komm am besten ungeniert und direkt über einen dieser Kanäle auf mich zu!
                 </p>
                 <p>
                     <a href="mailto:hi@robinloeffel.ch" title="E-Mail">hi@robinloeffel.ch</a>, <a href="https://www.linkedin.com/in/robinloeffel" title="LinkedIn" target="_blank">LinkedIn</a>, <a href="https://www.xing.com/profile/Robin_Loeffel" title="Xing" target="_blank">Xing</a>, <a href="https://github.com/rbnlffl" title="GitHub" target="_blank">GitHub</a>, <a href="https://twitter.com/rbnlffl" title="Twitter" target="_blank">Twitter</a>, <a href="https://www.facebook.com/robinloeffel" title="Facebook" target="_blank">Facebook</a>, <a href="https://instagram.com/rbnlffl" title="Instagram" target="_blank">Instagram</a>.
                 </p>
             </div>
         </section>
-        <section>
+        <section id="ich">
             <div class="content-wrapper">
                 <p>
                     Mein Name ist Robin Löffel und ich bin 21 Jahre jung. Oder alt &mdash; je nach dem. Denn manchmal fühle ich mich alt und wettere über die heutige Jugend sowie die Welt generell. Meine Karriere im Bereich der Bits und Bytes begann gleich nach meinem Schulabschluss. Ich durfte beim <a href="https://www.bit.admin.ch/" title="Bundesamt für Informatik und Telekommunikation BIT" target="_blank">Bundesamt für Informatik und Telekommunikation</a> eine Lehre zum Informatiker beginnen.
@@ -96,6 +95,8 @@
             </div>
         </section>
     </main>
+    <script src="./js/vendor.js" charset="utf-8"></script>
+    <script src="./js/script.js" charset="utf-8"></script>
 </body>
 
 </html>

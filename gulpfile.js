@@ -50,9 +50,6 @@ gulp.task('sass', () => {
             cascade: false
         }))
         .pipe(cleanCss())
-        .pipe(rename({
-            suffix: '.min'
-        }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.distCss))
         .pipe(connect.reload());
@@ -67,12 +64,16 @@ gulp.task('js', () => {
         .pipe(babel())
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(rename({
-            suffix: '.min'
-        }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.distJs))
         .pipe(connect.reload());
+});
+
+gulp.task('vendor', () => {
+    return gulp.src(paths.vendorJs)
+        .pipe(uglify())
+        .pipe(rename('vendor.js'))
+        .pipe(gulp.dest(paths.distJs));
 });
 
 gulp.task('html', () => {
@@ -88,7 +89,7 @@ gulp.task('img', () => {
         .pipe(changed(paths.distImg))
         .pipe(plumber())
         .pipe(imagemin({
-            optimizationLevel: 6,
+            optimizationLevel: 7,
             progressive: true,
             multipass: true
         }))
@@ -101,14 +102,6 @@ gulp.task('copy', () => {
         .pipe(changed(paths.dist))
         .pipe(plumber())
         .pipe(gulp.dest(paths.dist))
-        .pipe(connect.reload());
-});
-
-gulp.task('font', () => {
-    return gulp.src(paths.srcFont)
-        .pipe(changed(paths.distFont))
-        .pipe(plumber())
-        .pipe(gulp.dest(paths.distFont))
         .pipe(connect.reload());
 });
 
@@ -129,5 +122,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'html', 'img', 'copy', 'font'], 'cleanup', callback);
+    runSequence(['js', 'sass', 'html', 'img', 'copy', 'vendor'], 'cleanup', callback);
 });
