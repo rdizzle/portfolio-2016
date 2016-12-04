@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 * {
     box-sizing: border-box;
@@ -131,6 +132,7 @@ section {
 
 .grid {
     text-align: center;
+    @include reveal-transitions;
 
     &::after {
         display: table;
@@ -226,4 +228,14 @@ section {
 a {
     color: inherit;
     text-decoration: underline;
+}
+
+main,
+nav {
+    @include reveal-transitions;
+}
+
+.load-reveal {
+    opacity: 0;
+    transform: translateY(100px) scale(.9);
 }
