@@ -19,7 +19,7 @@ let gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     gulpIf = require('gulp-if'),
     paths = require('./paths.json'),
-    env = process.env.NODE_ENV;
+    devEnv = process.env.NODE_ENV === 'dev';
 
 gulp.task('clean', () => {
     return del(paths.dist);
@@ -46,13 +46,13 @@ gulp.task('sass', () => {
         .pipe(sass({
             outputStyle: 'expanded'
         }))
-        .pipe(gulpIf(env === 'dev', sourcemaps.init()))
+        .pipe(gulpIf(devEnv, sourcemaps.init()))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
         }))
         .pipe(cleanCss())
-        .pipe(gulpIf(env === 'dev', sourcemaps.write('.')))
+        .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distCss))
         .pipe(connect.reload());
 });
@@ -63,10 +63,10 @@ gulp.task('js', () => {
         .pipe(plumber())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
-        .pipe(gulpIf(env === 'dev', sourcemaps.init()))
+        .pipe(gulpIf(devEnv, sourcemaps.init()))
         .pipe(babel())
         .pipe(uglify())
-        .pipe(gulpIf(env === 'dev', sourcemaps.write('.')))
+        .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distJs))
         .pipe(connect.reload());
 });
