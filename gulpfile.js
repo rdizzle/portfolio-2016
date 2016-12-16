@@ -17,7 +17,9 @@ let gulp = require('gulp'),
     changed = require('gulp-changed'),
     babel = require('gulp-babel'),
     sourcemaps = require('gulp-sourcemaps'),
-    paths = require('./paths.json');
+    gulpIf = require('gulp-if'),
+    paths = require('./paths.json'),
+    env = process.env.NODE_ENV;
 
 gulp.task('clean', () => {
     return del(paths.dist);
@@ -44,13 +46,13 @@ gulp.task('sass', () => {
         .pipe(sass({
             outputStyle: 'expanded'
         }))
-        .pipe(sourcemaps.init())
+        .pipe(gulpIf(env === 'dev', sourcemaps.init()))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
         }))
         .pipe(cleanCss())
-        .pipe(sourcemaps.write('.'))
+        .pipe(gulpIf(env === 'dev', sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distCss))
         .pipe(connect.reload());
 });
@@ -61,10 +63,10 @@ gulp.task('js', () => {
         .pipe(plumber())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
+        .pipe(gulpIf(env === 'dev', sourcemaps.init()))
         .pipe(babel())
-        .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(sourcemaps.write('.'))
+        .pipe(gulpIf(env === 'dev', sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distJs))
         .pipe(connect.reload());
 });
