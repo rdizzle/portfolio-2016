@@ -105,10 +105,6 @@ gulp.task('copy', () => {
         .pipe(connect.reload());
 });
 
-gulp.task('cleanup', () => {
-    del([paths.distCss + '*', '!' + paths.distCss + 'style.*']);
-});
-
 gulp.task('watch', () => {
     gulp.watch(paths.srcHtml, ['html']);
     gulp.watch(paths.srcImg, ['img']);
@@ -122,5 +118,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'html', 'img', 'copy', 'vendor'], 'cleanup', callback);
+    runSequence(['js', 'sass', 'html', 'img', 'copy', 'vendor'], callback);
 });
