@@ -47,7 +47,7 @@ gulp.task('sass', () => {
             extension: '.css'
         }))
         .pipe(plumber())
-        .pipe(sass({
+        .pipe(sass.sync({
             outputStyle: 'expanded'
         }))
         .pipe(gulpIf(devEnv, sourcemaps.init()))
