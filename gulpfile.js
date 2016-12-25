@@ -18,6 +18,8 @@ let gulp = require('gulp'),
     babel = require('gulp-babel'),
     sourcemaps = require('gulp-sourcemaps'),
     gulpIf = require('gulp-if'),
+    gutil = require('gulp-util'),
+    ip = require('ip'),
     paths = require('./paths.json'),
     devEnv = process.env.NODE_ENV === 'dev';
 
@@ -26,6 +28,8 @@ gulp.task('clean', () => {
 });
 
 gulp.task('server', () => {
+    gutil.log(gutil.colors.yellow(`lan access via ${ip.address()}:8080`));
+
     return connect.server({
         port: 8080,
         livereload: true,

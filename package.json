@@ -41,6 +41,8 @@
         "gulp-sass": "^3.0.0",
         "gulp-sourcemaps": "^2.2.1",
         "gulp-uglify": "^2.0.0",
+        "gulp-util": "^3.0.7",
+        "ip": "^1.1.4",
         "jshint": "^2.9.4",
         "jshint-stylish": "^2.2.1",
         "open": "^0.0.5",
