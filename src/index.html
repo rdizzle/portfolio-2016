@@ -7,7 +7,7 @@
     <meta name="description" content="Hallo, ich bin Robin! Ich bin ein Webesigner und -Entwickler. Ich liebe moderne, minimalistische und einfach zu benutzende Dinge. Dies ist mein Portfolio." />
     <meta name="keywords" content="robin, löffel, loeffel, loffel, web, desgin, webdesign, photography, development, javascript, css, js, jquery, gulp, photoshop, html, designer, internet, robin löffel, robin loeffel, less, fotografie, internet, webseite, website, homepage" />
     <meta name="author" content="Robin Löffel" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1, shrink-to-fit=no" />
     <title>Robin Löffel &mdash; Programmierer und Designer</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" />
@@ -22,23 +22,25 @@
 
 <body>
     <nav class="load-reveal">
-        <ul>
-            <li>
-                <a href="#" data-scroll-link="intro"><span>Robin</span></a>
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-scroll-link="intro"><span>Robin</span></a>
             </li>
-            <li>
-                <a href="#" data-scroll-link="ich">Ich</a>
-            </li>
-            <li>
-                <a href="#" data-scroll-link="kontakt">Kontakt</a>
-            </li>
-            <li>
-                <a href="#" data-scroll-link="arbeit">Arbeit</a>
-            </li>
+            <ul class="nav-list-mobile" tabindex="0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-scroll-link="arbeit">Arbeit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-scroll-link="kontakt">Kontakt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-scroll-link="ich">Ich</a>
+                </li>
+            </ul>
         </ul>
     </nav>
     <main class="load-reveal">
-        <section class="intro" id="intro">
+        <section id="intro">
             <div class="absolute-center">
                 <h1 class="intro-headline">Hey, ich bin Robin.</h1>
                 <p class="intro-text">Ich mache Webseiten. <a href="#" data-scroll-link="arbeit">Schau Dich doch mal um!</a></p>
@@ -47,20 +49,20 @@
         <section id="arbeit">
             <div class="content-wrapper">
                 <div class="grid">
-                    <a href="https://swissplant.ch" target="_blank" class="double-width double-height pull-left limit-width">
-                        <img src="img/swissplant.jpg" alt="Webseite für die SwissPlant GmbH">
+                    <a href="https://swissplant.ch" target="_blank" class="grid-item double-width double-height pull-left limit-width">
+                        <img class="grid-image" src="img/swissplant.jpg" alt="Webseite für die SwissPlant GmbH">
                         <span class="overlay-text">SwissPlant GmbH</span>
                     </a>
-                    <a href="http://gereift.ch" target="_blank" class="single-width double-height pull-right limit-height">
-                        <img src="img/gereift.jpg" alt="Webseite für die Schule für Gestaltung Bern &amp; Biel">
+                    <a href="http://gereift.ch" target="_blank" class="grid-item single-width double-height pull-right limit-height">
+                        <img class="grid-image" src="img/gereift.jpg" alt="Webseite für die Schule für Gestaltung Bern &amp; Biel">
                         <span class="overlay-text">Schule für Gestaltung</span>
                     </a>
-                    <a href="https://wimper.ch" target="_blank" class="single-width double-height pull-left limit-height">
-                        <img src="img/wimper.jpg" alt="Webseite für Franziska Meyer">
+                    <a href="https://wimper.ch" target="_blank" class="grid-item single-width double-height pull-left limit-height">
+                        <img class="grid-image" src="img/wimper.jpg" alt="Webseite für Franziska Meyer">
                         <span class="overlay-text">Franziska Meyer</span>
                     </a>
-                    <a href="https://stephanmeier.ch" target="_blank" class="double-width double-height pull-right limit-width">
-                        <img src="img/stephanmeier.jpg" alt="Webseite für Stephan Meier">
+                    <a href="https://stephanmeier.ch" target="_blank" class="grid-item double-width double-height pull-right limit-width">
+                        <img class="grid-image" src="img/stephanmeier.jpg" alt="Webseite für Stephan Meier">
                         <span class="overlay-text">Stephan Meier</span>
                     </a>
                 </div>

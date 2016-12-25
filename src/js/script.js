@@ -19,6 +19,6 @@ function scrollToElement(event) {
 
 window.onload = () => {
     for (let i = 0; LOADERS.length > i; i++) {
-        LOADERS[i].classList.remove('load-reveal');
+        LOADERS[i].removeAttribute('class');
     }
 };
