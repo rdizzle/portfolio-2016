@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'icons';
+    src: url('../font/icons.woff2') format('woff2'), url('../font/icons.woff') format('woff');
+}
+
 html {
     font-size: $mobile-font-size;
 }
@@ -5,60 +10,53 @@ html {
 nav {
     .nav-list {
         .nav-item {
-            float: left;
-
             .nav-link {
+                padding: 25px 30px;
+
+                &::before {
+                    font-family: 'icons', sans-serif;
+                }
+
+                .nav-content {
+                    display: none;
+                }
+
                 &::after {
                     content: none;
                 }
             }
-        }
-    }
 
-    .nav-list-mobile {
-        outline: none;
-
-        &::before {
-            content: 'Mehr';
-            display: inline-block;
-            padding: 40px 45px;
-            font-size: .75rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            float: right;
-            transition: transform .25s ease-in-out, opacity .25s ease-in-out;
-        }
-
-        &:focus {
-            &::before {
-                opacity: 0;
-                pointer-events: none;
-            }
-
-            .nav-item {
-                opacity: 1;
-
-                &:nth-child(1) {
-                    transform: translateY(100%);
-                }
-
-                &:nth-child(2) {
-                    transform: translateY(200%);
-                }
-
-                &:nth-child(3) {
-                    transform: translateY(300%);
+            &:nth-child(1) {
+                .nav-link {
+                    &::before {
+                        content: '\e800';
+                    }
                 }
             }
-        }
 
-        .nav-item {
-            position: absolute;
-            z-index: -1;
-            right: 0;
-            float: right !important;
-            opacity: 0;
-            transition: .25s transform ease-in-out, .25s opacity ease-in-out;
+            &:nth-child(2) {
+                .nav-link {
+                    &::before {
+                        content: '\e801';
+                    }
+                }
+            }
+
+            &:nth-child(3) {
+                .nav-link {
+                    &::before {
+                        content: '\e802';
+                    }
+                }
+            }
+
+            &:nth-child(4) {
+                .nav-link {
+                    &::before {
+                        content: '\e803';
+                    }
+                }
+            }
         }
     }
 }

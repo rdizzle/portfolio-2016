@@ -35,10 +35,10 @@ nav {
         position: relative;
         width: 100%;
         float: left;
+        text-align: right;
 
         .nav-item {
             display: inline-block;
-            float: right;
 
             &:first-child {
                 float: left;

@@ -3,7 +3,7 @@
 let gulp = require('gulp'),
     del = require('del'),
     runSequence = require('run-sequence'),
-    open = require('open'),
+    nodeOpen = require('open'),
     stylish = require('jshint-stylish'),
     connect = require('gulp-connect'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -38,7 +38,7 @@ gulp.task('server', () => {
 });
 
 gulp.task('open', () => {
-    return open('http://localhost:8080');
+    return nodeOpen('http://localhost:8080');
 });
 
 gulp.task('sass', () => {
@@ -103,6 +103,14 @@ gulp.task('img', () => {
         .pipe(connect.reload());
 });
 
+gulp.task('font', () => {
+    return gulp.src(paths.srcFont)
+        .pipe(changed(paths.distFont))
+        .pipe(plumber())
+        .pipe(gulp.dest(paths.distFont))
+        .pipe(connect.reload());
+});
+
 gulp.task('copy', () => {
     return gulp.src(paths.srcRoot)
         .pipe(changed(paths.dist))
@@ -116,6 +124,7 @@ gulp.task('watch', () => {
     gulp.watch(paths.srcImg, ['img']);
     gulp.watch(paths.srcJs, ['js']);
     gulp.watch(paths.srcScss, ['sass']);
+    gulp.watch(paths.srcFont, ['font']);
     gulp.watch(paths.srcRoot, ['copy']);
 });
 
@@ -124,5 +133,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'html', 'img', 'copy', 'vendor'], callback);
+    runSequence(['js', 'sass', 'html', 'img', 'font', 'copy', 'vendor'], callback);
 });
