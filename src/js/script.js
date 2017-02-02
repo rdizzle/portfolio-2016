@@ -24,7 +24,7 @@ function showNav() {
 
 function showLoaders() {
     for (let i = 0; loaders.length > i; i++) {
-        if (loaders[i].tagName == 'MAIN') {
+        if (loaders[i].tagName === 'MAIN') {
             loaders[i].removeAttribute('class');
         } else {
             loaders[i].classList.remove('load-reveal');
