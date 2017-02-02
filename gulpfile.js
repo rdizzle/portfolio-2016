@@ -21,7 +21,7 @@ let gulp = require('gulp'),
     gutil = require('gulp-util'),
     ip = require('ip'),
     paths = require('./paths.json'),
-    devEnv = process.env.NODE_ENV === 'dev';
+    devEnv = process.argv.indexOf('--dev') > -1;
 
 gulp.task('clean', () => {
     return del(paths.dist);
@@ -77,7 +77,7 @@ gulp.task('js', () => {
 
 gulp.task('vendor', () => {
     return gulp.src(paths.vendorJs)
-        .pipe(uglify())
+        .pipe(gulpIf(!devEnv, uglify()))
         .pipe(rename('vendor.js'))
         .pipe(gulp.dest(paths.distJs));
 });
