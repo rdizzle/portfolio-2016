@@ -1,6 +1,6 @@
 {
     "src": "src/",
-    "srcJs": "src/js/*.js",
+    "srcJs": "src/js/main.js",
     "srcScss": "src/scss/*.scss",
     "srcImg": "src/img/*",
     "srcHtml": "src/*.html",
@@ -14,6 +14,5 @@
     "distJs": "dist/js/",
     "distCss": "dist/css/",
     "distImg": "dist/img/",
-    "distFont": "dist/font/",
-    "vendorJs": "node_modules/smoothscroll/dist/smoothscroll.js"
+    "distFont": "dist/font/"
 }

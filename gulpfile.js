@@ -69,7 +69,7 @@ gulp.task('sass', () => {
 });
 
 gulp.task('js', () => {
-    return gulp.src('./src/js/main.js')
+    return gulp.src(paths.srcJs)
         .pipe(plumber())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
@@ -90,7 +90,7 @@ gulp.task('js', () => {
         .pipe(gulpIf(!devEnv, babel()))
         .pipe(gulpIf(!devEnv, uglify()))
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
-        .pipe(gulp.dest('./dist/js/'))
+        .pipe(gulp.dest(paths.distJs))
         .pipe(connect.reload());
 });
 
