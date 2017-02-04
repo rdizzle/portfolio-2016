@@ -19,6 +19,9 @@ let gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     gulpIf = require('gulp-if'),
     gutil = require('gulp-util'),
+    rollup = require('gulp-better-rollup'),
+    rollupNodeResolve = require('rollup-plugin-node-resolve'),
+    rollupCommonJs = require('rollup-plugin-commonjs'),
     ip = require('ip'),
     paths = require('./paths.json'),
     devEnv = process.argv.indexOf('--dev') > -1;
@@ -66,24 +69,29 @@ gulp.task('sass', () => {
 });
 
 gulp.task('js', () => {
-    return gulp.src(paths.srcJs)
-        .pipe(changed(paths.distJs))
+    return gulp.src('./src/js/main.js')
         .pipe(plumber())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(gulpIf(devEnv, sourcemaps.init()))
-        .pipe(babel())
-        .pipe(uglify())
-        .pipe(gulpIf(devEnv, sourcemaps.write('.')))
-        .pipe(gulp.dest(paths.distJs))
-        .pipe(connect.reload());
-});
-
-gulp.task('vendor', () => {
-    return gulp.src(paths.vendorJs)
+        .pipe(rollup({
+            plugins: [
+                rollupNodeResolve({
+                    jsnext: true,
+                    main: true,
+                    browser: true
+                }),
+                rollupCommonJs()
+            ]
+        }, {
+            dest: 'bundle.js',
+            format: 'iife'
+        }))
+        .pipe(gulpIf(!devEnv, babel()))
         .pipe(gulpIf(!devEnv, uglify()))
-        .pipe(rename('vendor.js'))
-        .pipe(gulp.dest(paths.distJs));
+        .pipe(gulpIf(devEnv, sourcemaps.write('.')))
+        .pipe(gulp.dest('./dist/js/'))
+        .pipe(connect.reload());
 });
 
 gulp.task('html', () => {
@@ -137,5 +145,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'html', 'img', 'font', 'copy', 'vendor'], callback);
+    runSequence(['js', 'sass', 'html', 'img', 'font', 'copy'], callback);
 });

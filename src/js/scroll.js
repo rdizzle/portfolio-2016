@@ -1,18 +1,17 @@
 'use strict';
 
-const scrollers = document.querySelectorAll('[data-scroll-link]'),
-    loaders = document.querySelectorAll('.load-reveal'),
+import { polyfill } from 'smoothscroll-polyfill';
+
+const scrollLinks = document.querySelectorAll('[data-scroll-link]'),
     nav = document.querySelector('nav');
 
 let oldPos = window.pageYOffset;
 
-window.addEventListener('load', showLoaders, false);
-
-for (let i = 0; scrollers.length > i; i++) {
-    scrollers[i].addEventListener('click', scrollToElement, false);
+for (let i = 0; scrollLinks.length > i; i++) {
+    scrollLinks[i].addEventListener('click', scrollToElement);
 }
 
-window.addEventListener('scroll', scrollHandler, false);
+window.addEventListener('scroll', scrollHandler);
 
 function hideNav() {
     nav.classList.add('hidden');
@@ -22,20 +21,11 @@ function showNav() {
     nav.removeAttribute('class');
 }
 
-function showLoaders() {
-    for (let i = 0; loaders.length > i; i++) {
-        if (loaders[i].tagName === 'MAIN') {
-            loaders[i].removeAttribute('class');
-        } else {
-            loaders[i].classList.remove('load-reveal');
-        }
-    }
-}
-
 function scrollToElement() {
     event.preventDefault();
     let targetElement = document.getElementById(event.currentTarget.dataset.scrollLink);
 
+    polyfill();
     targetElement.scrollIntoView({
         behavior: 'smooth'
     });
