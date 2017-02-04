@@ -19,12 +19,19 @@ let gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     gulpIf = require('gulp-if'),
     gutil = require('gulp-util'),
+    using = require('gulp-using'),
     rollup = require('gulp-better-rollup'),
     rollupNodeResolve = require('rollup-plugin-node-resolve'),
     rollupCommonJs = require('rollup-plugin-commonjs'),
     ip = require('ip'),
     paths = require('./paths.json'),
-    devEnv = process.argv.indexOf('--dev') > -1;
+    devEnv = process.argv.indexOf('--dev') > -1,
+    usingTemplate = {
+        prefix: 'new file was created:',
+        filesize: true,
+        color: 'yellow',
+        path: 'relative'
+    };
 
 gulp.task('clean', () => {
     return del(paths.dist);
@@ -50,9 +57,6 @@ gulp.task('open:dist', () => {
 
 gulp.task('sass', () => {
     return gulp.src(paths.srcScss)
-        .pipe(changed(paths.distCss, {
-            extension: '.css'
-        }))
         .pipe(plumber())
         .pipe(sass.sync({
             outputStyle: 'expanded'
@@ -65,7 +69,8 @@ gulp.task('sass', () => {
         .pipe(cleanCss())
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distCss))
-        .pipe(connect.reload());
+        .pipe(connect.reload())
+        .pipe(using(usingTemplate));
 });
 
 gulp.task('js', () => {
@@ -91,7 +96,8 @@ gulp.task('js', () => {
         .pipe(gulpIf(!devEnv, uglify()))
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distJs))
-        .pipe(connect.reload());
+        .pipe(connect.reload())
+        .pipe(using(usingTemplate));
 });
 
 gulp.task('html', () => {
@@ -99,7 +105,8 @@ gulp.task('html', () => {
         .pipe(changed(paths.dist))
         .pipe(plumber())
         .pipe(gulp.dest(paths.dist))
-        .pipe(connect.reload());
+        .pipe(connect.reload())
+        .pipe(using(usingTemplate));
 });
 
 gulp.task('img', () => {
@@ -112,7 +119,8 @@ gulp.task('img', () => {
             multipass: true
         }))
         .pipe(gulp.dest(paths.distImg))
-        .pipe(connect.reload());
+        .pipe(connect.reload())
+        .pipe(using(usingTemplate));
 });
 
 gulp.task('font', () => {
@@ -120,7 +128,8 @@ gulp.task('font', () => {
         .pipe(changed(paths.distFont))
         .pipe(plumber())
         .pipe(gulp.dest(paths.distFont))
-        .pipe(connect.reload());
+        .pipe(connect.reload())
+        .pipe(using(usingTemplate));
 });
 
 gulp.task('copy', () => {
@@ -128,7 +137,8 @@ gulp.task('copy', () => {
         .pipe(changed(paths.dist))
         .pipe(plumber())
         .pipe(gulp.dest(paths.dist))
-        .pipe(connect.reload());
+        .pipe(connect.reload())
+        .pipe(using(usingTemplate));
 });
 
 gulp.task('watch', () => {
