@@ -7,56 +7,14 @@ html {
     font-size: $mobile-font-size;
 }
 
-nav {
-    .nav-list {
-        .nav-item {
-            .nav-link {
-                padding: 25px 30px;
+section {
+    &#intro {
+        .intro-headline {
+            font-size: 2rem;
+        }
 
-                &::before {
-                    font-family: 'icons', sans-serif;
-                }
-
-                .nav-content {
-                    display: none;
-                }
-
-                &::after {
-                    content: none;
-                }
-            }
-
-            &:nth-child(1) {
-                .nav-link {
-                    &::before {
-                        content: '\e800';
-                    }
-                }
-            }
-
-            &:nth-child(2) {
-                .nav-link {
-                    &::before {
-                        content: '\e801';
-                    }
-                }
-            }
-
-            &:nth-child(3) {
-                .nav-link {
-                    &::before {
-                        content: '\e802';
-                    }
-                }
-            }
-
-            &:nth-child(4) {
-                .nav-link {
-                    &::before {
-                        content: '\e803';
-                    }
-                }
-            }
+        .intro-text {
+            font-size: 1.25rem;
         }
     }
 }

@@ -66,7 +66,7 @@ gulp.task('sass', () => {
             browsers: ['last 2 versions'],
             cascade: false
         }))
-        .pipe(cleanCss())
+        .pipe(gulpIf(!devEnv, cleanCss()))
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distCss))
         .pipe(connect.reload())
@@ -74,7 +74,7 @@ gulp.task('sass', () => {
 });
 
 gulp.task('js', () => {
-    return gulp.src(paths.srcJs)
+    return gulp.src(paths.srcJsEntry)
         .pipe(plumber())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))

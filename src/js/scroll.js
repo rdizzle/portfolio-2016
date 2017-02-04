@@ -11,8 +11,6 @@ for (let i = 0; scrollLinks.length > i; i++) {
     scrollLinks[i].addEventListener('click', scrollToElement);
 }
 
-window.addEventListener('scroll', scrollHandler);
-
 function hideNav() {
     nav.classList.add('hidden');
 }
@@ -21,7 +19,7 @@ function showNav() {
     nav.removeAttribute('class');
 }
 
-function scrollToElement() {
+function scrollToElement(event) {
     event.preventDefault();
     let targetElement = document.getElementById(event.currentTarget.dataset.scrollLink);
 
@@ -29,20 +27,4 @@ function scrollToElement() {
     targetElement.scrollIntoView({
         behavior: 'smooth'
     });
-}
-
-function scrollHandler() {
-    let newPos = window.pageYOffset;
-
-    if (newPos > oldPos) {
-        if (!nav.classList.contains('hidden')) {
-            hideNav();
-        }
-    } else {
-        if (nav.classList.contains('hidden')) {
-            showNav();
-        }
-    }
-
-    oldPos = newPos;
 }

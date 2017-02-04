@@ -1,6 +1,7 @@
 {
     "src": "src/",
-    "srcJs": "src/js/main.js",
+    "srcJs": "src/js/*.js",
+    "srcJsEntry": "src/js/main.js",
     "srcScss": "src/scss/*.scss",
     "srcImg": "src/img/*",
     "srcHtml": "src/*.html",

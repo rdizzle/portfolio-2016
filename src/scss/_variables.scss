@@ -15,10 +15,12 @@ $default-letter-spacing: .1px;
 $default-font-weight: normal;
 
 // dimensions
-$content-width: 900px;
-$full-grid-width: 1020px;
-$single-grid-width: $full-grid-width / 3;
-$double-grid-width: $single-grid-width * 2;
+$max-content-width: 900px;
+$max-content-width-grid: 1200px;
+$content-width: calc(100% - 250px);
+$full-grid-width: calc(100% - 100px);
+$single-grid-width: calc(100% / 3);
+$double-grid-width: calc(calc(100% / 3) * 2);
 $full-grid-height: 600px;
-$single-grid-height: $full-grid-height / 3;
-$double-grid-height: $single-grid-height * 2;
+$single-grid-height: calc(calc(100vh / 3) / 2);
+$double-grid-height: calc(calc(calc(100vh / 3) * 2) / 2);

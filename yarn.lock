@@ -3295,6 +3295,10 @@ object-assign@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
 
+object-fit-images@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/object-fit-images/-/object-fit-images-3.1.0.tgz#a1f4fe2d3a333adbb038e00ccbe003aaea1e6cfe"
+
 object.omit@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/object.omit/-/object.omit-2.0.0.tgz#868597333d54e60662940bb458605dd6ae12fe94"
