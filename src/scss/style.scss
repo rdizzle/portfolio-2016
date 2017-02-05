@@ -248,6 +248,10 @@ a {
     text-decoration: underline;
 }
 
+p:not(:last-child) {
+    margin-bottom: 15px;
+}
+
 main,
 .nav-list {
     @include reveal-transitions;
