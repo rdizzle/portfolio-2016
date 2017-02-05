@@ -47,11 +47,11 @@ gulp.task('server', () => {
     });
 });
 
-gulp.task('open:browser', () => {
+gulp.task('open:page', () => {
     return nodeOpen('http://localhost:8080');
 });
 
-gulp.task('open:dist', () => {
+gulp.task('open:folder', () => {
     return nodeOpen('dist');
 });
 
@@ -151,7 +151,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', (callback) => {
-    runSequence('clean', 'build', 'server', 'watch', 'open:browser', callback);
+    runSequence('clean', 'build', 'server', 'watch', 'open:page', callback);
 });
 
 gulp.task('build', (callback) => {

@@ -56,6 +56,6 @@
     "scripts": {
         "dev": "gulp --dev",
         "prod": "gulp",
-        "ready": "gulp clean && gulp build && gulp open:dist"
+        "ready": "gulp clean && gulp build && gulp open:folder"
     }
 }
