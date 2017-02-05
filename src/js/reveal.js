@@ -12,4 +12,6 @@ function showLoaders() {
             loaders[i].classList.remove('load-reveal');
         }
     }
+
+    window.removeEventListener('load', showLoaders);
 }

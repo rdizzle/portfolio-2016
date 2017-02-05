@@ -23,8 +23,15 @@ function scrollToElement(event) {
     event.preventDefault();
     let targetElement = document.getElementById(event.currentTarget.dataset.scrollLink);
 
-    polyfill();
     targetElement.scrollIntoView({
         behavior: 'smooth'
     });
+}
+
+window.addEventListener('load', smoothScrollPolyfill);
+
+function smoothScrollPolyfill() {
+    polyfill();
+
+    window.removeEventListener('load', smoothScrollPolyfill);
 }

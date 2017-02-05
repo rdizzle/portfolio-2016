@@ -38,7 +38,7 @@ nav {
         align-items: center;
         flex-direction: column;
         background-color: transparentize($text-color, .1);
-        color: invert($text-color);
+        color: transparentize(invert($text-color), .4);
         list-style-type: none;
         transition: opacity .75s ease-in-out;
 
@@ -113,17 +113,17 @@ section {
         position: relative;
         height: 100vh;
         background-color: $first-color;
+        display: flex;
 
         .absolute-center {
-            position: absolute;
-            top: 50%;
-            right: 50%;
-            transform: translate(50%, -50%);
+            margin: auto;
+            padding: 0 15vw;
         }
 
         .intro-headline {
             font-size: 3rem;
             font-family: $default-font-family;
+            font-weight: 600;
         }
 
         .intro-text {
@@ -137,15 +137,16 @@ section {
         margin: auto;
         padding: 150px 0;
         text-align: left;
+
+        &.grid {
+            width: $full-grid-width;
+            max-width: $max-content-width-grid;
+            text-align: center;
+        }
     }
 
     &:nth-of-type(2) {
         background-color: $second-color;
-
-        .content-wrapper {
-            width: $full-grid-width;
-            max-width: $max-content-width-grid;
-        }
     }
 
     &:nth-of-type(3) {
@@ -158,8 +159,6 @@ section {
 }
 
 .grid {
-    text-align: center;
-
     &::after {
         @include clearfix;
     }
@@ -186,18 +185,6 @@ section {
 
             &-height {
                 height: $double-grid-height;
-            }
-        }
-
-        &.limit-height {
-            .grid-image {
-                height: 100%;
-            }
-        }
-
-        &.limit-width {
-            .grid-image {
-                width: 100%;
             }
         }
 
@@ -251,6 +238,7 @@ section {
             width: 100%;
             object-fit: cover;
             font-family: 'object-fit: cover;', sans-serif;
+            float: left;
         }
     }
 }
@@ -274,7 +262,7 @@ main,
     transition: filter .75s ease-in-out;
 
     &.hell-yeah {
-        filter: blur(35px);
+        filter: blur(25px);
     }
 }
 
