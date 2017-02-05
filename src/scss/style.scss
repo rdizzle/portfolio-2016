@@ -114,6 +114,7 @@ section {
         height: 100vh;
         background-color: $first-color;
         display: flex;
+        align-items: center;
 
         .absolute-center {
             margin: auto;
@@ -166,7 +167,7 @@ section {
     .grid-item {
         display: inline-block;
         position: relative;
-        overflow: hidden;
+        max-height: $max-grid-item-height;
 
         &.single {
             &-width {

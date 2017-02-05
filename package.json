@@ -21,6 +21,9 @@
     "bugs": {
         "url": "https://github.com/rbnlffl/portfolio/issues"
     },
+    "engines": {
+        "node": ">=6.9.2"
+    },
     "dependencies": {
         "object-fit-images": "^3.1.0",
         "smoothscroll-polyfill": "^0.3.4"

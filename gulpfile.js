@@ -25,7 +25,7 @@ let gulp = require('gulp'),
     rollupCommonJs = require('rollup-plugin-commonjs'),
     ip = require('ip'),
     paths = require('./paths.json'),
-    devEnv = process.argv.indexOf('--dev') > -1,
+    devEnv = process.argv.includes('--dev'),
     usingTemplate = {
         prefix: 'new file was created:',
         filesize: true,
