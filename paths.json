@@ -5,10 +5,12 @@
     "srcScss": "src/scss/*.scss",
     "srcImg": "src/img/*",
     "srcHtml": "src/*.html",
-    "srcRoot": [
+    "srcCopy": [
         "src/sitemap.xml",
         "src/robots.txt",
-        "src/.htaccess"
+        "src/.htaccess",
+        "src/*.html",
+        "src/fonts/*"
     ],
     "dist": "dist/",
     "distJs": "dist/js/",

@@ -97,15 +97,6 @@ gulp.task('js', () => {
         .pipe(using(usingTemplate));
 });
 
-gulp.task('html', () => {
-    return gulp.src(paths.srcHtml)
-        .pipe(changed(paths.dist))
-        .pipe(plumber())
-        .pipe(gulp.dest(paths.dist))
-        .pipe(connect.reload())
-        .pipe(using(usingTemplate));
-});
-
 gulp.task('img', () => {
     return gulp.src(paths.srcImg)
         .pipe(changed(paths.distImg))
@@ -121,7 +112,9 @@ gulp.task('img', () => {
 });
 
 gulp.task('copy', () => {
-    return gulp.src(paths.srcRoot)
+    return gulp.src(paths.srcCopy, {
+            base: 'src'
+        })
         .pipe(changed(paths.dist))
         .pipe(plumber())
         .pipe(gulp.dest(paths.dist))
@@ -130,11 +123,10 @@ gulp.task('copy', () => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch(paths.srcHtml, ['html']);
     gulp.watch(paths.srcImg, ['img']);
     gulp.watch(paths.srcJs, ['js']);
     gulp.watch(paths.srcScss, ['sass']);
-    gulp.watch(paths.srcRoot, ['copy']);
+    gulp.watch(paths.srcCopy, ['copy']);
 });
 
 gulp.task('default', (callback) => {
@@ -142,5 +134,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'html', 'img', 'copy'], callback);
+    runSequence(['js', 'sass', 'img', 'copy'], callback);
 });

@@ -13,11 +13,28 @@ html {
 
 a {
     color: inherit;
-    text-decoration: underline;
+    text-decoration: none;
+    position: relative;
+
+    &:not(.grid-item):not(.nav-link):not(#navigation-toggle)::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: transparentize($text-color, .25);
+        transition: transform .25s ease-in-out;
+        pointer-events: none;
+    }
+
+    &:hover:not(.grid-item):not(.nav-link):not(#navigation-toggle)::after {
+        transform: translateY(5px);
+    }
 }
 
 p:not(:last-child) {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 nav {
@@ -25,7 +42,6 @@ nav {
     z-index: 2;
     top: 0;
     width: 100%;
-    font-family: $navigation-font-family;
     transform: translate3d(0, 0, 0);
     transition: .5s transform ease-in-out;
 
@@ -42,7 +58,7 @@ nav {
         align-items: center;
         flex-direction: column;
         background-color: transparentize($text-color, .1);
-        color: transparentize(invert($text-color), .4);
+        color: invert($text-color);
         list-style-type: none;
         transition: opacity .75s ease-in-out;
 
@@ -61,8 +77,8 @@ nav {
                 text-transform: uppercase;
                 text-decoration: none;
                 color: inherit;
-                letter-spacing: 1.5px;
-                font-size: .8rem;
+                letter-spacing: 2.5px;
+                font-size: .9rem;
             }
         }
     }
@@ -106,7 +122,7 @@ nav {
 
             &::after,
             &::before {
-                background-color: transparentize(invert($text-color), .5);
+                background-color: invert($text-color);
             }
         }
     }
@@ -131,26 +147,14 @@ main {
     }
 
     .intro-headline {
-        font-size: 3rem;
-        font-family: $default-font-family;
-        font-weight: 600;
+        font-size: 4rem;
+        font-family: $heading-font-family;
+        font-weight: bold;
     }
 
     .intro-text {
         font-size: 2rem;
     }
-}
-
-#arbeit {
-    background: $second-color;
-}
-
-#kontakt {
-    background: $third-color;
-}
-
-#ich {
-    background: $fourth-color;
 }
 
 .content-wrapper {
@@ -159,64 +163,55 @@ main {
     margin: auto;
     padding: 150px 0;
     text-align: left;
+    position: relative;
+}
 
-    &.grid {
-        width: $full-grid-width;
-        max-width: $max-content-width-grid;
-        text-align: center;
+.separate {
+    position: relative;
+
+    &::after {
+        content: '';
+        display: inline-block;
+        width: 25vw;
+        left: 37.5vw;
+        bottom: 0;
+        height: 2px;
+        background-color: $first-color;
+        position: absolute;
     }
 }
 
 .grid {
+    padding: 7.5vw 7.5vw 150px;
+
     &::after {
         @include clearfix;
     }
 
     .grid-item {
-        display: inline-block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
-        max-height: $max-grid-item-height;
-
-        &.single {
-            &-width {
-                width: $single-grid-width;
-            }
-
-            &-height {
-                height: $single-grid-height;
-            }
-        }
-
-        &.double {
-            &-width {
-                width: $double-grid-width;
-            }
-
-            &-height {
-                height: $double-grid-height;
-            }
-        }
-
-        &.pull {
-            &-left {
-                float: left;
-            }
-
-            &-right {
-                float: right;
-            }
-        }
+        width: 50%;
+        height: 50vh;
+        float: left;
+        color: invert($text-color);
 
         &:hover {
             &::before,
             .overlay-text {
                 opacity: 1;
             }
+
+            .overlay-text {
+                transform: none;
+            }
         }
 
         &::before,
         .overlay-text {
-            transition: opacity .5s ease-in-out;
+            transition: opacity .5s ease-in-out, transform .5s ease-in-out;
         }
 
         &::before {
@@ -226,23 +221,25 @@ main {
             left: 0;
             bottom: 0;
             right: 0;
-            background-color: transparentize(#000, .25);
+            background-color: transparentize($text-color, .1);
             opacity: 0;
             z-index: 1;
         }
 
         .overlay-text {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            color: inherit;
             opacity: 0;
             z-index: 1;
+            font-family: $heading-font-family;
+            font-size: 1.5rem;
+            display: inline-block;
+            transform: translateY(15px);
+            text-align: center;
         }
 
         .grid-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             height: 100%;
             width: 100%;
             object-fit: cover;
@@ -262,9 +259,8 @@ main {
     transition: filter .75s ease-in-out;
 
     &.hell-yeah {
-        filter: blur(25px);
+        filter: blur(10px);
     }
 }
 
-@import 'portrait';
 @import 'phone';

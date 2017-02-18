@@ -1,26 +1,16 @@
 // colors
-$text-color: transparentize(#fff, .05);
-$first-color: rgb(214, 111, 14);
-$second-color: rgb(255, 132, 132);
-$third-color: rgb(40, 149, 241);
-$fourth-color: #445;
+$text-color: #111;
+$first-color: #eeeff4;
 
 // typo
-$default-font-family: 'Source Sans Pro', sans-serif;
-$navigation-font-family: 'Open Sans', sans-serif;
+$default-font-family: 'Open Sans', sans-serif;
+$heading-font-family: 'Butler', serif;
 $default-font-size: 21px;
 $mobile-font-size: 18px;
-$default-line-height: 1.75;
+$default-line-height: 2;
 $default-letter-spacing: .1px;
 $default-font-weight: normal;
 
 // dimensions
 $max-content-width: 900px;
-$max-content-width-grid: 1200px;
-$max-grid-item-height: 500px;
 $content-width: calc(100% - 250px);
-$full-grid-width: calc(100% - 100px);
-$single-grid-width: calc(100% / 3);
-$double-grid-width: calc((100% / 3) * 2);
-$single-grid-height: calc(100vh / 3);
-$double-grid-height: calc((100vh / 3) * 2);
