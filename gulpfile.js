@@ -9,7 +9,6 @@ let gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCss = require('gulp-clean-css'),
     sass = require('gulp-sass'),
-    rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
     imagemin = require('gulp-imagemin'),
@@ -18,12 +17,10 @@ let gulp = require('gulp'),
     babel = require('gulp-babel'),
     sourcemaps = require('gulp-sourcemaps'),
     gulpIf = require('gulp-if'),
-    gutil = require('gulp-util'),
     using = require('gulp-using'),
     rollup = require('gulp-better-rollup'),
     rollupNodeResolve = require('rollup-plugin-node-resolve'),
     rollupCommonJs = require('rollup-plugin-commonjs'),
-    ip = require('ip'),
     paths = require('./paths.json'),
     devEnv = process.argv.includes('--dev'),
     usingTemplate = {
@@ -38,8 +35,6 @@ gulp.task('clean', () => {
 });
 
 gulp.task('server', () => {
-    gutil.log(gutil.colors.yellow(`lan access via ${ip.address()}:8080`));
-
     return connect.server({
         port: 8080,
         livereload: true,
@@ -58,10 +53,10 @@ gulp.task('open:folder', () => {
 gulp.task('sass', () => {
     return gulp.src(paths.srcScss)
         .pipe(plumber())
+        .pipe(gulpIf(devEnv, sourcemaps.init()))
         .pipe(sass.sync({
             outputStyle: 'expanded'
         }))
-        .pipe(gulpIf(devEnv, sourcemaps.init()))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
@@ -92,7 +87,9 @@ gulp.task('js', () => {
             dest: 'bundle.js',
             format: 'iife'
         }))
-        .pipe(gulpIf(!devEnv, babel()))
+        .pipe(gulpIf(!devEnv, babel({
+            presets: ['es2015']
+        })))
         .pipe(gulpIf(!devEnv, uglify()))
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.distJs))
@@ -123,15 +120,6 @@ gulp.task('img', () => {
         .pipe(using(usingTemplate));
 });
 
-gulp.task('font', () => {
-    return gulp.src(paths.srcFont)
-        .pipe(changed(paths.distFont))
-        .pipe(plumber())
-        .pipe(gulp.dest(paths.distFont))
-        .pipe(connect.reload())
-        .pipe(using(usingTemplate));
-});
-
 gulp.task('copy', () => {
     return gulp.src(paths.srcRoot)
         .pipe(changed(paths.dist))
@@ -146,7 +134,6 @@ gulp.task('watch', () => {
     gulp.watch(paths.srcImg, ['img']);
     gulp.watch(paths.srcJs, ['js']);
     gulp.watch(paths.srcScss, ['sass']);
-    gulp.watch(paths.srcFont, ['font']);
     gulp.watch(paths.srcRoot, ['copy']);
 });
 
@@ -155,5 +142,5 @@ gulp.task('default', (callback) => {
 });
 
 gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'html', 'img', 'font', 'copy'], callback);
+    runSequence(['js', 'sass', 'html', 'img', 'copy'], callback);
 });

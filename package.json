@@ -1,15 +1,10 @@
 {
     "name": "portfolio",
-    "version": "2.0.0",
     "description": "My portfolio",
-    "author": "Robin Löffel <hi@robinloeffel.ch>",
-    "license": "ISC",
+    "author": "Robin Löffel <hi@robinloeffel.ch> (https://robinloeffel.ch)",
+    "license": "MIT",
     "homepage": "https://robinloeffel.ch",
-    "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/rbnlffl/portfolio.git"
-    },
+    "repository": "rbnlffl/portfolio",
     "keywords": [
         "portfolio",
         "design",
@@ -18,9 +13,6 @@
         "robin",
         "löffel"
     ],
-    "bugs": {
-        "url": "https://github.com/rbnlffl/portfolio/issues"
-    },
     "engines": {
         "node": ">=6.9.2"
     },
@@ -42,12 +34,10 @@
         "gulp-imagemin": "^3.1.1",
         "gulp-jshint": "^2.0.4",
         "gulp-plumber": "^1.1.0",
-        "gulp-rename": "^1.2.2",
         "gulp-sass": "^3.1.0",
         "gulp-sourcemaps": "^2.4.0",
         "gulp-uglify": "^2.0.1",
         "gulp-using": "^0.1.1",
-        "gulp-util": "^3.0.8",
         "ip": "^1.1.4",
         "jshint": "^2.9.4",
         "jshint-stylish": "^2.2.1",
@@ -59,6 +49,6 @@
     "scripts": {
         "dev": "gulp --dev",
         "prod": "gulp",
-        "ready": "gulp clean && gulp build && gulp open:folder"
+        "dist": "gulp clean && gulp build && gulp open:folder"
     }
 }

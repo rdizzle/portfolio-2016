@@ -1,44 +1,46 @@
-html {
-    font-size: $mobile-font-size;
-}
+@media (max-width: 480px) {
+    html {
+        font-size: $mobile-font-size;
+    }
 
-section {
-    &#intro {
-        .intro-headline {
-            font-size: 2rem;
-        }
+    section {
+        &#intro {
+            .intro-headline {
+                font-size: 2rem;
+            }
 
-        .intro-text {
-            font-size: 1.25rem;
+            .intro-text {
+                font-size: 1.25rem;
+            }
         }
     }
-}
 
-#kontakt,
-#ich {
-    .content-wrapper {
-        width: 100%;
-        padding: 50px;
-    }
-}
-
-#arbeit {
-    .content-wrapper {
-        width: 100%;
-        padding: 15px;
-    }
-}
-
-.content-wrapper {
-    &.grid {
-        .single-height,
-        .double-height {
-            height: 50vh;
-        }
-
-        .single-width,
-        .double-width {
+    #kontakt,
+    #ich {
+        .content-wrapper {
             width: 100%;
+            padding: 50px;
+        }
+    }
+
+    #arbeit {
+        .content-wrapper {
+            width: 100%;
+            padding: 15px;
+        }
+    }
+
+    .content-wrapper {
+        &.grid {
+            .single-height,
+            .double-height {
+                height: 50vh;
+            }
+
+            .single-width,
+            .double-width {
+                width: 100%;
+            }
         }
     }
 }
