@@ -3,3 +3,11 @@
     content: '';
     clear: both;
 }
+
+@mixin reveal-transforms {
+    transform: translateY(5px) scale(.95);
+}
+
+@mixin reveal-transitions {
+    transition: transform .65s ease-in-out, opacity .65s ease-in-out;
+}

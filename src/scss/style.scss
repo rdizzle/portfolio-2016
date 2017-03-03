@@ -13,24 +13,16 @@ html {
 
 a {
     color: inherit;
-    text-decoration: none;
-    position: relative;
+    text-decoration: underline;
 
-    &:not(.grid-item):not(.nav-link):not(#navigation-toggle)::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: transparentize($text-color, .25);
-        transition: transform .25s ease-in-out;
-        pointer-events: none;
+    &.grid-item,
+    &.nav-link {
+        text-decoration: none;
     }
+}
 
-    &:hover:not(.grid-item):not(.nav-link):not(#navigation-toggle)::after {
-        transform: translateY(5px);
-    }
+h2 {
+    font-family: $heading-font-family;
 }
 
 p:not(:last-child) {
@@ -49,24 +41,14 @@ nav {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: -1;
-        opacity: 0;
-        pointer-events: none;
         height: 100vh;
         width: 100vw;
         display: flex;
         align-items: center;
         flex-direction: column;
-        background-color: transparentize($text-color, .1);
-        color: invert($text-color);
         list-style-type: none;
-        transition: opacity .75s ease-in-out;
-
-        &.open {
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 2;
-        }
+        transform: translateX(-100vw);
+        transition: transform 1s ease-in-out;
 
         .nav-item {
             margin: auto;
@@ -75,85 +57,126 @@ nav {
                 display: inline-block;
                 padding: 40px 45px;
                 text-transform: uppercase;
+                font-family: $heading-font-family;
                 text-decoration: none;
                 color: inherit;
-                letter-spacing: 2.5px;
-                font-size: .9rem;
+                letter-spacing: 2px;
+                font-size: .8rem;
             }
         }
     }
 
+    &.open {
+        .nav-list {
+            transform: none;
+        }
+    }
+
     #navigation-toggle {
-        position: absolute;
-        right: 0;
+        position: fixed;
+        left: 0;
         top: 0;
         height: 25px;
         width: 25px;
         padding: 25px;
         margin: 45px 50px;
         z-index: 3;
-        transition: transform .25s ease-in-out;
+        transition: transform 1s ease-in-out;
 
         &::after,
         &::before {
             content: '';
+            height: 10px;
+            width: 3px;
+            left: 50%;
             position: absolute;
-            background-color: transparentize($text-color, .3);
+            background-color: $text-color;
             border-radius: 2px;
-            transition: background-color .5s ease-in-out;
+            transition: transform 1s ease-in-out;
         }
 
         &::before {
-            height: 50%;
-            width: 3px;
-            right: calc(50% - 1.5px);
-            top: 25%;
+            top: calc(50% - 5px - 2.5px);
+            transform: rotate(-45deg);
         }
 
         &::after {
-            height: 3px;
-            width: 50%;
-            top: calc(50% - 1.5px);
-            left: 25%;
+            top: calc(50% - 5px + 2.5px);
+            transform: rotate(45deg);
         }
 
-        &.tilted {
-            transform: rotate(135deg);
+        &.open {
+            transform: translateX(calc(100vw - 150px));
 
-            &::after,
             &::before {
-                background-color: invert($text-color);
+                transform: rotate(45deg);
+            }
+
+            &::after {
+                transform: rotate(-45deg);
             }
         }
     }
 }
 
 main {
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    transition: transform 1s ease-in-out;
     transform-origin: center;
     display: block;
+
+    .open + & {
+        transform: translateX(100vw);
+    }
+}
+
+section {
+    &:not(#intro):not(#arbeit) {
+        padding-top: 100px;
+    }
+
+    &:last-child {
+        margin-bottom: 100px;
+    }
 }
 
 #intro {
     position: relative;
-    height: 100vh;
-    background: $first-color;
+    height: calc(100vh - 25px);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: $intro-color;
+    overflow: hidden;
 
-    .absolute-center {
+    .intro-container {
         padding: 0 15vw;
+        text-align: center;
+        z-index: 1;
     }
 
     .intro-headline {
-        font-size: 4rem;
-        font-family: $heading-font-family;
-        font-weight: bold;
+        font-family: $intro-font-family;
+        font-size: 2.5rem;
+        @include reveal-transitions;
+        transition-delay: .55s;
     }
 
     .intro-text {
-        font-size: 2rem;
+        font-size: 1.35rem;
+        @include reveal-transitions;
+        transition-delay: 1.05s;
+    }
+
+    .intro-image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+        font-family: 'object-fit: cover;', sans-serif;
+        z-index: 0;
+        @include reveal-transitions;
     }
 }
 
@@ -161,29 +184,11 @@ main {
     width: $content-width;
     max-width: $max-content-width;
     margin: auto;
-    padding: 150px 0;
     text-align: left;
     position: relative;
 }
 
-.separate {
-    position: relative;
-
-    &::after {
-        content: '';
-        display: inline-block;
-        width: 25vw;
-        left: 37.5vw;
-        bottom: 0;
-        height: 2px;
-        background-color: $first-color;
-        position: absolute;
-    }
-}
-
 .grid {
-    padding: 7.5vw 7.5vw 150px;
-
     &::after {
         @include clearfix;
     }
@@ -194,9 +199,26 @@ main {
         justify-content: center;
         position: relative;
         width: 50%;
-        height: 50vh;
+        height: 66vh;
         float: left;
-        color: invert($text-color);
+        color: #fff;
+        @include reveal-transitions;
+
+        &:nth-child(1) {
+            transition-delay: .5s;
+        }
+
+        &:nth-child(2) {
+            transition-delay: .75s;
+        }
+
+        &:nth-child(3) {
+            transition-delay: 1s;
+        }
+
+        &:nth-child(1) {
+            transition-delay: 1.25s;
+        }
 
         &:hover {
             &::before,
@@ -230,10 +252,10 @@ main {
             opacity: 0;
             z-index: 1;
             font-family: $heading-font-family;
-            font-size: 1.5rem;
+            font-weight: 700;
             display: inline-block;
-            transform: translateY(15px);
             text-align: center;
+            @include reveal-transforms;
         }
 
         .grid-image {
@@ -251,16 +273,8 @@ main {
 
 .load-reveal {
     opacity: 0;
-    transform: scale(.9);
     pointer-events: none;
-}
-
-#blur-me {
-    transition: filter .75s ease-in-out;
-
-    &.hell-yeah {
-        filter: blur(10px);
-    }
+    @include reveal-transforms;
 }
 
 @import 'phone';

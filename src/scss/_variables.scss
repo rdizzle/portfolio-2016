@@ -1,10 +1,11 @@
 // colors
-$text-color: #111;
-$first-color: #eeeff4;
+$text-color: #333;
+$intro-color: #444;
 
 // typo
-$default-font-family: 'Open Sans', sans-serif;
-$heading-font-family: 'Butler', serif;
+$default-font-family: 'Source Sans Pro', sans-serif;
+$intro-font-family: 'Damion', sans-serif;
+$heading-font-family: 'Lato', sans-serif;
 $default-font-size: 21px;
 $mobile-font-size: 18px;
 $default-line-height: 2;
@@ -12,5 +13,5 @@ $default-letter-spacing: .1px;
 $default-font-weight: normal;
 
 // dimensions
-$max-content-width: 900px;
+$max-content-width: 800px;
 $content-width: calc(100% - 250px);

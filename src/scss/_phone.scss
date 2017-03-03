@@ -15,17 +15,27 @@
 
     .content-wrapper {
         width: 100%;
-        padding: 100px 12.5vw;
+        padding: 5vw 12vw;
     }
 
     .grid {
-        padding: 35px 35px 100px;
+        padding: 0 0 5vh;
     }
 
     .grid {
         .grid-item {
             height: calc((60vh + 60vw) / 2);
             width: 100%;
+        }
+    }
+
+    section {
+        &:not(#intro):not(#arbeit) {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 }
