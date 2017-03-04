@@ -10,7 +10,6 @@ function toggleNavigation(event) {
     event.preventDefault();
 
     navigation.classList.toggle('open');
-    toggler.classList.toggle('open');
 }
 
 for (let i = 0; i < links.length; i++) {

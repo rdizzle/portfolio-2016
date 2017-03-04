@@ -39,17 +39,16 @@ nav {
 
     .nav-list {
         position: fixed;
-        top: 0;
-        left: calc(-80vw - 20px);
-        height: 100vh;
-        width: 80vw;
+        top: -135px;
+        left: 0;
+        width: 100%;
         background-color: transparentize(#fff, .05);
-        box-shadow: 1px 0 20px transparentize(#000, .8);
+        box-shadow: 0 1px 20px transparentize(#000, .8);
         display: flex;
         align-items: center;
-        flex-direction: column;
+        flex-direction: row;
         list-style-type: none;
-        transition: transform 1s ease-in-out;
+        transition: transform .5s ease-in-out;
 
         .nav-item {
             margin: auto;
@@ -69,7 +68,11 @@ nav {
 
     &.open {
         .nav-list {
-            transform: translateX(calc(80vw + 20px));
+            transform: translateY(135px);
+        }
+
+        #navigation-toggle {
+            transform: translateY(135px) rotateX(180deg);
         }
     }
 
@@ -82,37 +85,28 @@ nav {
         padding: 25px;
         margin: 45px 50px;
         z-index: 3;
+        transition: transform .5s ease-in-out;
 
         &::after,
         &::before {
             content: '';
             height: 10px;
             width: 3px;
-            left: 50%;
             position: absolute;
             background-color: $text-color;
             border-radius: 2px;
-            transition: transform 1s ease-in-out;
         }
 
         &::before {
-            top: calc(50% - 5px - 2.5px);
+            top: calc(50% - 5px);
+            left: calc(50% - 4px);
             transform: rotate(-45deg);
         }
 
         &::after {
-            top: calc(50% - 5px + 2.5px);
+            top: calc(50% - 5px);
+            right: calc(50% - 4px);
             transform: rotate(45deg);
-        }
-
-        &.open {
-            &::before {
-                transform: rotate(45deg);
-            }
-
-            &::after {
-                transform: rotate(-45deg);
-            }
         }
     }
 }
@@ -204,7 +198,7 @@ section {
             transition-delay: 1s;
         }
 
-        &:nth-child(1) {
+        &:nth-child(4) {
             transition-delay: 1.25s;
         }
 

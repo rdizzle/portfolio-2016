@@ -20,9 +20,7 @@
 
     .grid {
         padding: 0 0 5vh;
-    }
 
-    .grid {
         .grid-item {
             height: calc((60vh + 60vw) / 2);
             width: 100%;
@@ -36,6 +34,30 @@
 
         &:last-child {
             margin-bottom: 0;
+        }
+    }
+
+    nav {
+        .nav-list {
+            top: -455px;
+            flex-direction: column;
+
+            .nav-item {
+                .nav-link {
+                    width: 100vw;
+                    text-align: center;
+                }
+            }
+        }
+
+        &.open {
+            .nav-list {
+                transform: translateY(455px);
+            }
+
+            #navigation-toggle {
+                transform: translateY(432px) rotateX(180deg);
+            }
         }
     }
 }
