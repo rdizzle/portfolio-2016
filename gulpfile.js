@@ -101,11 +101,20 @@ gulp.task('img', () => {
     return gulp.src(paths.srcImg)
         .pipe(changed(paths.distImg))
         .pipe(plumber())
-        .pipe(imagemin({
-            optimizationLevel: 7,
-            progressive: true,
-            multipass: true
-        }))
+        .pipe(imagemin([
+            imagemin.gifsicle({
+                interlaced: true,
+                optimizationLevel: 3
+            }),
+            imagemin.jpegtran({
+                progressive: true,
+                arithmetic: true
+            }),
+            imagemin.optipng({
+                optimizationLevel: 7
+            }),
+            imagemin.svgo()
+        ]))
         .pipe(gulp.dest(paths.distImg))
         .pipe(connect.reload())
         .pipe(using(usingTemplate));
