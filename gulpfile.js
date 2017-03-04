@@ -107,8 +107,7 @@ gulp.task('img', () => {
                 optimizationLevel: 3
             }),
             imagemin.jpegtran({
-                progressive: true,
-                arithmetic: true
+                progressive: true
             }),
             imagemin.optipng({
                 optimizationLevel: 7
