@@ -3,61 +3,42 @@
         font-size: $mobile-font-size;
     }
 
+    .content-wrapper {
+        width: 75vw;
+    }
+
+    .work-item {
+        width: 90vw;
+        outline: none;
+
+        &:not(:last-child) {
+            margin-bottom: 5vh;
+        }
+    }
+
+    section:not(#intro) {
+        margin-bottom: 7.5vh;
+    }
+
+    footer {
+        margin-bottom: 5vh;
+    }
+}
+
+@media (max-width: 410px) {
     #intro {
         .intro-headline {
-            font-size: 2.5rem;
+            font-size: 2rem;
         }
 
         .intro-text {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
         }
     }
+}
 
-    .content-wrapper {
-        width: 100%;
-        padding: 5vw 12vw;
-    }
-
-    .grid {
-        padding: 0 0 5vh;
-
-        .grid-item {
-            height: calc((60vh + 60vw) / 2);
-            width: 100%;
-        }
-    }
-
-    section {
-        &:not(#intro):not(#arbeit) {
-            padding-top: 0;
-        }
-
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    nav {
-        .nav-list {
-            top: -455px;
-            flex-direction: column;
-
-            .nav-item {
-                .nav-link {
-                    width: 100vw;
-                    text-align: center;
-                }
-            }
-        }
-
-        &.open {
-            .nav-list {
-                transform: translateY(455px);
-            }
-
-            #navigation-toggle {
-                transform: translateY(432px) rotateX(180deg);
-            }
-        }
+@media (orientation: portrait) {
+    .work-item {
+        height: 90vw;
     }
 }

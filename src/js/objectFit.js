@@ -2,10 +2,10 @@
 
 import objectFitImages from 'object-fit-images';
 
-window.addEventListener('DOMContentLoaded', objectFitPolyfill);
-
-function objectFitPolyfill() {
+const polyfill = () => {
     objectFitImages();
 
-    window.removeEventListener('DOMContentLoaded', objectFitImages);
-}
+    window.removeEventListener('DOMContentLoaded', polyfill);
+};
+
+window.addEventListener('DOMContentLoaded', polyfill);
