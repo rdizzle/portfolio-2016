@@ -14,9 +14,7 @@ const images = document.getElementsByClassName('work-item'),
         lastClicked = event.currentTarget;
     },
 
-    isTouchDevice = () => {
-        return window.navigator.userAgent.includes('iPhone') || window.navigator.userAgent.includes('iPod') || window.navigator.userAgent.includes('iPad') || window.navigator.userAgent.includes('Android') || window.navigator.userAgent.includes('Windows Phone') && 'ontouchstart' in window;
-    };
+    isTouchDevice = () => window.navigator.userAgent.indexOf('iPhone') > -1 || window.navigator.userAgent.indexOf('iPod') > -1 || window.navigator.userAgent.indexOf('iPad') > -1 || window.navigator.userAgent.indexOf('Android') > -1 || window.navigator.userAgent.indexOf('Windows Phone') > -1 && 'ontouchstart' in window;
 
 if (isTouchDevice()) {
     for (let i = 0; i < images.length; i++) {
