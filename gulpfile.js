@@ -19,27 +19,21 @@ let gulp = require('gulp'),
     gulpIf = require('gulp-if'),
     using = require('gulp-using'),
     rollup = require('gulp-better-rollup'),
-    rollupNodeResolve = require('rollup-plugin-node-resolve'),
-    rollupCommonJs = require('rollup-plugin-commonjs'),
-    paths = require('./paths.json'),
-    devEnv = process.argv.includes('--dev'),
-    usingTemplate = {
-        prefix: 'new file was created:',
-        filesize: true,
-        color: 'yellow',
-        path: 'relative'
-    };
+    paths = require('./config/paths'),
+    usingConfig = require('./config/using.config'),
+    rollupConfig = require('./config/rollup.config'),
+    babelConfig = require('./config/babel.config'),
+    autoprefixerConfig = require('./config/autoprefixer.config'),
+    connectConfig = require('./config/connect.config'),
+    jshintConfig = require('./config/jshint.config'),
+    devEnv = process.argv.indexOf('--dev') > -1;
 
 gulp.task('clean', () => {
-    return del(paths.dist);
+    return del(paths.dist.root);
 });
 
 gulp.task('server', () => {
-    return connect.server({
-        port: 8080,
-        livereload: true,
-        root: paths.dist
-    });
+    return connect.server(connectConfig);
 });
 
 gulp.task('open:page', () => {
@@ -47,59 +41,45 @@ gulp.task('open:page', () => {
 });
 
 gulp.task('open:folder', () => {
-    return nodeOpen('dist');
+    return nodeOpen(paths.dist.root);
 });
 
 gulp.task('sass', () => {
-    return gulp.src(paths.srcScss)
+    return gulp.src(paths.src.files.sass)
         .pipe(plumber())
         .pipe(gulpIf(devEnv, sourcemaps.init()))
-        .pipe(sass.sync({
-            outputStyle: 'expanded'
-        }))
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
-            cascade: false
-        }))
+        .pipe(sass.sync())
+        .pipe(autoprefixer(autoprefixerConfig))
         .pipe(gulpIf(!devEnv, cleanCss()))
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
-        .pipe(gulp.dest(paths.distCss))
+        .pipe(gulp.dest(paths.dist.css))
         .pipe(connect.reload())
-        .pipe(using(usingTemplate));
+        .pipe(using(usingConfig));
 });
 
-gulp.task('js', () => {
-    return gulp.src(paths.srcJsEntry)
+gulp.task('js', ['jshint'], () => {
+    return gulp.src(paths.src.files.jsEntry)
         .pipe(plumber())
-        .pipe(jshint())
-        .pipe(jshint.reporter(stylish))
         .pipe(gulpIf(devEnv, sourcemaps.init()))
-        .pipe(rollup({
-            plugins: [
-                rollupNodeResolve({
-                    jsnext: true,
-                    main: true,
-                    browser: true
-                }),
-                rollupCommonJs()
-            ]
-        }, {
-            dest: 'bundle.js',
-            format: 'iife'
-        }))
-        .pipe(gulpIf(!devEnv, babel({
-            presets: ['es2015']
-        })))
+        .pipe(rollup(rollupConfig.input, rollupConfig.output))
+        .pipe(gulpIf(!devEnv, babel(babelConfig)))
         .pipe(gulpIf(!devEnv, uglify()))
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
-        .pipe(gulp.dest(paths.distJs))
+        .pipe(gulp.dest(paths.dist.js))
         .pipe(connect.reload())
-        .pipe(using(usingTemplate));
+        .pipe(using(usingConfig));
+});
+
+gulp.task('jshint', () => {
+    return gulp.src(paths.src.files.js)
+        .pipe(plumber())
+        .pipe(jshint(jshintConfig))
+        .pipe(jshint.reporter(stylish));
 });
 
 gulp.task('img', () => {
-    return gulp.src(paths.srcImg)
-        .pipe(changed(paths.distImg))
+    return gulp.src(paths.src.files.img)
+        .pipe(changed(paths.dist.img))
         .pipe(plumber())
         .pipe(imagemin([
             imagemin.gifsicle({
@@ -114,33 +94,33 @@ gulp.task('img', () => {
             }),
             imagemin.svgo()
         ]))
-        .pipe(gulp.dest(paths.distImg))
+        .pipe(gulp.dest(paths.dist.img))
         .pipe(connect.reload())
-        .pipe(using(usingTemplate));
+        .pipe(using(usingConfig));
 });
 
 gulp.task('copy', () => {
-    return gulp.src(paths.srcCopy, {
+    return gulp.src(paths.src.files.root, {
             base: 'src'
         })
-        .pipe(changed(paths.dist))
+        .pipe(changed(paths.dist.root))
         .pipe(plumber())
-        .pipe(gulp.dest(paths.dist))
+        .pipe(gulp.dest(paths.dist.root))
         .pipe(connect.reload())
-        .pipe(using(usingTemplate));
+        .pipe(using(usingConfig));
 });
 
 gulp.task('watch', () => {
-    gulp.watch(paths.srcImg, ['img']);
-    gulp.watch(paths.srcJs, ['js']);
-    gulp.watch(paths.srcScss, ['sass']);
-    gulp.watch(paths.srcCopy, ['copy']);
+    gulp.watch(paths.src.files.img, ['img']);
+    gulp.watch(paths.src.files.js, ['js']);
+    gulp.watch(paths.src.files.sass, ['sass']);
+    gulp.watch(paths.src.files.root, ['copy']);
 });
 
-gulp.task('default', (callback) => {
-    runSequence('clean', 'build', 'server', 'watch', 'open:page', callback);
+gulp.task('default', cb => {
+    runSequence('clean', 'build', 'server', 'watch', 'open:page', cb);
 });
 
-gulp.task('build', (callback) => {
-    runSequence(['js', 'sass', 'img', 'copy'], callback);
+gulp.task('build', cb => {
+    runSequence(['js', 'sass', 'img', 'copy'], cb);
 });
