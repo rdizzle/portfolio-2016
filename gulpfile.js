@@ -1,8 +1,7 @@
 'use strict';
 
-let gulp = require('gulp'),
+const gulp = require('gulp'),
     del = require('del'),
-    runSequence = require('run-sequence'),
     nodeOpen = require('open'),
     stylish = require('jshint-stylish'),
     connect = require('gulp-connect'),
@@ -28,21 +27,18 @@ let gulp = require('gulp'),
     jshintConfig = require('./config/jshint.config'),
     devEnv = process.argv.indexOf('--dev') > -1;
 
-gulp.task('clean', () => {
-    return del(paths.dist.root);
-});
 
-gulp.task('server', () => {
-    return connect.server(connectConfig);
-});
+gulp.task('clean', () => del(paths.dist.root));
+gulp.task('clean').description = 'delete the dist directory';
 
-gulp.task('open:page', () => {
-    return nodeOpen('http://localhost:8080');
-});
+gulp.task('server', () => connect.server(connectConfig));
+gulp.task('server').description = 'start up an http server at localhost:' + connectConfig.port;
 
-gulp.task('open:folder', () => {
-    return nodeOpen(paths.dist.root);
-});
+gulp.task('open:page', () => nodeOpen('http://localhost:' + connectConfig.port));
+gulp.task('open:page').description = 'open the default browser at localhost:' + connectConfig.port;
+
+gulp.task('open:folder', () => nodeOpen(paths.dist.root));
+gulp.task('open:folder').description = 'open the dist directory in the file explorer';
 
 gulp.task('sass', () => {
     return gulp.src(paths.src.files.sass)
@@ -54,10 +50,19 @@ gulp.task('sass', () => {
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.dist.css))
         .pipe(connect.reload())
-        .pipe(using(usingConfig));
+        .pipe(using(usingConfig))
 });
+gulp.task('sass').description = 'compile sass sources to css files';
 
-gulp.task('js', ['jshint'], () => {
+gulp.task('js:lint', () => {
+    return gulp.src(paths.src.files.js)
+        .pipe(plumber())
+        .pipe(jshint(jshintConfig))
+        .pipe(jshint.reporter(stylish));
+});
+gulp.task('js:lint').description = 'lint js sources';
+
+gulp.task('js:transpile', () => {
     return gulp.src(paths.src.files.jsEntry)
         .pipe(plumber())
         .pipe(gulpIf(devEnv, sourcemaps.init()))
@@ -69,13 +74,7 @@ gulp.task('js', ['jshint'], () => {
         .pipe(connect.reload())
         .pipe(using(usingConfig));
 });
-
-gulp.task('jshint', () => {
-    return gulp.src(paths.src.files.js)
-        .pipe(plumber())
-        .pipe(jshint(jshintConfig))
-        .pipe(jshint.reporter(stylish));
-});
+gulp.task('js:transpile').description = 'transpile es6 to es5';
 
 gulp.task('img', () => {
     return gulp.src(paths.src.files.img)
@@ -98,10 +97,11 @@ gulp.task('img', () => {
         .pipe(connect.reload())
         .pipe(using(usingConfig));
 });
+gulp.task('img').description = 'losslessly optimize/minimize gifs, jpgs, pngs and svgs';
 
 gulp.task('copy', () => {
     return gulp.src(paths.src.files.root, {
-            base: 'src'
+            base: paths.src.root
         })
         .pipe(changed(paths.dist.root))
         .pipe(plumber())
@@ -109,18 +109,22 @@ gulp.task('copy', () => {
         .pipe(connect.reload())
         .pipe(using(usingConfig));
 });
+gulp.task('copy').description = 'copy assets to the dist folder';
 
-gulp.task('watch', () => {
-    gulp.watch(paths.src.files.img, ['img']);
-    gulp.watch(paths.src.files.js, ['js']);
-    gulp.watch(paths.src.files.sass, ['sass']);
-    gulp.watch(paths.src.files.root, ['copy']);
-});
+gulp.task('js', gulp.series('js:lint', 'js:transpile'));
+gulp.task('js').description = 'first lint and then transpile the js sources';
 
-gulp.task('default', cb => {
-    runSequence('clean', 'build', 'server', 'watch', 'open:page', cb);
-});
+gulp.task('build', gulp.parallel('js', 'sass', 'img', 'copy'));
+gulp.task('build').description = 'build all sources';
 
-gulp.task('build', cb => {
-    runSequence(['js', 'sass', 'img', 'copy'], cb);
-});
+gulp.task('default', gulp.series('clean', 'build', 'open:page', 'server'));
+gulp.task('default').description = 'build everything, fire up a server and open the browser';
+
+gulp.task('dist', gulp.series('clean', 'build', 'open:folder'));
+gulp.task('default').description = 'build everything and open the file explorer';
+
+
+gulp.watch(paths.src.files.img).on('all', gulp.parallel('img'));
+gulp.watch(paths.src.files.js).on('all', gulp.parallel('js'));
+gulp.watch(paths.src.files.sass).on('all', gulp.parallel('sass'));
+gulp.watch(paths.src.files.root).on('all', gulp.parallel('copy'));
