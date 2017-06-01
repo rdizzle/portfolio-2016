@@ -14,6 +14,7 @@
         "löffel"
     ],
     "dependencies": {
+        "layzr.js": "^2.2.2",
         "object-fit-images": "^3.2.3"
     },
     "devDependencies": {
