@@ -1,0 +1,3 @@
+@mixin opacity-transform-transition($duration) {
+    transition: opacity $duration ease-in-out, transform $duration ease-in-out;
+}

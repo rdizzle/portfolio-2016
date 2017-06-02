@@ -1,5 +1,6 @@
 @import 'reset';
 @import 'variables';
+@import 'mixins';
 
 html {
     font-family: $default-font-family;
@@ -69,6 +70,16 @@ section:not(#intro) {
     margin: 0 auto;
     position: relative;
     text-decoration: none;
+    transform: scale(.9);
+    opacity: 0;
+    pointer-events: none;
+    @include opacity-transform-transition(.33s);
+
+    &.visible {
+        transform: scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
 
     &:not(:last-child) {
         margin-bottom: 100px;
@@ -87,8 +98,8 @@ section:not(#intro) {
 
     &-text {
         color: #fff;
-        transition: opacity .33s ease-in-out, transform .33s ease-in-out;
-        z-index: 2;
+        @include opacity-transform-transition(.33s);
+        z-index: 1;
 
         &-invert {
             color: invert(#fff);
@@ -123,7 +134,7 @@ section:not(#intro) {
         width: 100%;
         height: 100%;
         background-color: transparentize(#000, .2);
-        transition: opacity .33s ease-in-out, transform .33s ease-in-out;
+        @include opacity-transform-transition(.33s);
     }
 
     &:hover {
