@@ -1,3 +1,7 @@
 @mixin opacity-transform-transition($duration) {
     transition: opacity $duration ease-in-out, transform $duration ease-in-out;
 }
+
+@mixin object-fit-polyfill($object-fit, $object-position) {
+    font-family: 'object-fit: ' + $object-fit + '; object-position: ' + $object-position;
+}

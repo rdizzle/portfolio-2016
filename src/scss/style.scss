@@ -5,10 +5,8 @@
 html {
     font-family: $default-font-family;
     font-size: $default-font-size;
-    font-weight: $default-font-weight;
     line-height: $default-line-height;
     color: $text-color;
-    letter-spacing: $default-letter-spacing;
 }
 
 a {
@@ -16,34 +14,34 @@ a {
 }
 
 p:not(:last-child) {
-    margin-bottom: 25px;
+    margin-bottom: $base-margin;
 }
 
-section:not(#intro) {
-    margin-bottom: 150px;
+section:not(.intro) {
+    margin-bottom: $big-margin;
 }
 
-#intro {
+.intro {
     position: relative;
-    height: 500px;
+    height: $hero-height;
     display: flex;
     align-items: center;
     justify-content: center;
     color: $intro-color;
 
-    .intro-container {
+    &-container {
         text-align: center;
         padding: 0 10vw;
     }
 
-    .intro-headline {
-        font-size: 2.5rem;
-        line-height: 1;
-        margin-bottom: 25px;
+    &-headline {
+        font-size: $heading-font-size;
+        margin-bottom: $base-margin;
+        line-height: $heading-line-height;
     }
 
-    .intro-text {
-        font-size: 1.35rem;
+    &-text {
+        font-size: $subheading-font-size;
     }
 }
 
@@ -51,7 +49,6 @@ section:not(#intro) {
     width: $content-width;
     max-width: $max-content-width;
     margin: auto;
-    text-align: left;
     position: relative;
 
     footer & {
@@ -61,7 +58,7 @@ section:not(#intro) {
 
 .work-item {
     width: 80vw;
-    height: 80vh;
+    height: 53.333vw;
     max-width: 1200px;
     max-height: 800px;
     display: flex;
@@ -82,7 +79,7 @@ section:not(#intro) {
     }
 
     &:not(:last-child) {
-        margin-bottom: 100px;
+        margin-bottom: $medium-margin;
     }
 
     &-image {
@@ -93,7 +90,7 @@ section:not(#intro) {
         height: 100%;
         object-fit: cover;
         object-position: center;
-	    font-family: 'object-fit: cover; object-position: center;'
+        @include object-fit-polyfill('cover', 'center');
     }
 
     &-text {
@@ -148,7 +145,7 @@ section:not(#intro) {
 }
 
 footer {
-    margin-bottom: 100px;
+    margin-bottom: $medium-margin;
 }
 
 @import 'phone';

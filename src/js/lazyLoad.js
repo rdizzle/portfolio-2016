@@ -3,9 +3,7 @@
 import Layzr from 'layzr.js';
 
 const lazyLoad = () => {
-        Layzr({
-            threshold: -5
-        }).update().check().handlers(true);
+        Layzr().update().check().handlers(true);
 
         document.removeEventListener('DOMContentLoaded', lazyLoad);
     },

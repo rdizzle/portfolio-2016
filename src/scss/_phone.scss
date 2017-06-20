@@ -1,6 +1,21 @@
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     html {
-        font-size: $mobile-font-size;
+        font-size: $mobile-default-font-size;
+    }
+
+    p:not(:last-child) {
+        margin-bottom: $mobile-base-margin;
+    }
+
+    .intro {
+        &-headline {
+            font-size: 2rem;
+            margin-bottom: $mobile-base-margin;
+        }
+
+        &-text {
+            font-size: 1.15rem;
+        }
     }
 
     .content-wrapper {
@@ -9,31 +24,18 @@
 
     .work-item {
         width: 90vw;
-        outline: none;
 
         &:not(:last-child) {
-            margin-bottom: 5vh;
+            margin-bottom: $mobile-base-margin;
         }
     }
 
-    section:not(#intro) {
-        margin-bottom: 7.5vh;
+    section:not(.intro) {
+        margin-bottom: $mobile-medium-margin;
     }
 
     footer {
-        margin-bottom: 5vh;
-    }
-}
-
-@media (max-width: 410px) {
-    #intro {
-        .intro-headline {
-            font-size: 2rem;
-        }
-
-        .intro-text {
-            font-size: 1.15rem;
-        }
+        margin-bottom: $mobile-base-margin;
     }
 }
 
