@@ -70,7 +70,7 @@ section:not(.intro) {
     transform: scale(.9);
     opacity: 0;
     pointer-events: none;
-    @include opacity-transform-transition(.33s);
+    @include opacity-transform-transition(.5s);
 
     &.visible {
         transform: scale(1);
@@ -95,8 +95,9 @@ section:not(.intro) {
 
     &-text {
         color: #fff;
-        @include opacity-transform-transition(.33s);
         z-index: 1;
+        transition: opacity .5s ease-in-out;
+        transition-delay: .25s;
 
         &-invert {
             color: invert(#fff);
@@ -131,15 +132,19 @@ section:not(.intro) {
         width: 100%;
         height: 100%;
         background-color: transparentize(#000, .2);
-        @include opacity-transform-transition(.33s);
+        @include opacity-transform-transition(.5s);
     }
 
     &:hover {
-        .work-item-text,
         &::before {
+            pointer-events: none;
+            transform: scale(.8);
+            opacity: 0
+        }
+
+        .work-item-text {
             opacity: 0;
             pointer-events: none;
-            transform: scale(.9);
         }
     }
 }
