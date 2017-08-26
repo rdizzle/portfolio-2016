@@ -4,28 +4,26 @@ const gulp = require('gulp'),
     del = require('del'),
     nodeOpen = require('open'),
     stylish = require('jshint-stylish'),
+    webpack = require('webpack'),
+    webpackStream = require('webpack-stream'),
     connect = require('gulp-connect'),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCss = require('gulp-clean-css'),
     sass = require('gulp-sass'),
-    uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
     imagemin = require('gulp-imagemin'),
     plumber = require('gulp-plumber'),
     changed = require('gulp-changed'),
-    babel = require('gulp-babel'),
     sourcemaps = require('gulp-sourcemaps'),
     gulpIf = require('gulp-if'),
     using = require('gulp-using'),
-    rollup = require('gulp-better-rollup'),
     paths = require('./config/paths'),
-    usingConfig = require('./config/using.config'),
-    rollupConfig = require('./config/rollup.config'),
-    babelConfig = require('./config/babel.config'),
-    autoprefixerConfig = require('./config/autoprefixer.config'),
-    connectConfig = require('./config/connect.config'),
-    jshintConfig = require('./config/jshint.config'),
-    devEnv = process.argv.indexOf('--dev') > -1;
+    webpackConfig = require('./config/webpack'),
+    usingConfig = require('./config/using'),
+    autoprefixerConfig = require('./config/autoprefixer'),
+    connectConfig = require('./config/connect'),
+    jshintConfig = require('./config/jshint'),
+    devEnv = process.argv.includes('--dev');
 
 
 gulp.task('clean', () => del(paths.dist.root));
@@ -65,11 +63,7 @@ gulp.task('js:lint').description = 'lint js sources';
 gulp.task('js:transpile', () => {
     return gulp.src(paths.src.files.jsEntry)
         .pipe(plumber())
-        .pipe(gulpIf(devEnv, sourcemaps.init()))
-        .pipe(rollup(rollupConfig.input, rollupConfig.output))
-        .pipe(gulpIf(!devEnv, babel(babelConfig)))
-        .pipe(gulpIf(!devEnv, uglify()))
-        .pipe(gulpIf(devEnv, sourcemaps.write('.')))
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(paths.dist.js))
         .pipe(connect.reload())
         .pipe(using(usingConfig));
