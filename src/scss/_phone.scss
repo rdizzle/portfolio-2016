@@ -11,6 +11,10 @@
         &-headline {
             font-size: 2rem;
             margin-bottom: $mobile-base-margin;
+
+            .emoji {
+                height: 28px;
+            }
         }
 
         &-text {

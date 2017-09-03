@@ -76,12 +76,9 @@ gulp.task('img', () => {
         .pipe(plumber())
         .pipe(imagemin([
             imagemin.gifsicle({
-                interlaced: true,
                 optimizationLevel: 3
             }),
-            imagemin.jpegtran({
-                progressive: true
-            }),
+            imagemin.jpegtran(),
             imagemin.optipng({
                 optimizationLevel: 7
             }),
