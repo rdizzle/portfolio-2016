@@ -6,6 +6,9 @@ const gulp = require('gulp'),
     stylish = require('jshint-stylish'),
     webpack = require('webpack'),
     webpackStream = require('webpack-stream'),
+    merge = require('merge-stream'),
+    pngquant = require('imagemin-pngquant'),
+    guetzli = require('imagemin-guetzli'),
     connect = require('gulp-connect'),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCss = require('gulp-clean-css'),
@@ -71,24 +74,39 @@ gulp.task('js:transpile', () => {
 gulp.task('js:transpile').description = 'transpile es6 to es5';
 
 gulp.task('img', () => {
-    return gulp.src(paths.src.files.img)
+    const pngSvgGif = gulp.src(`${paths.src.img}/*.{png,svg,gif}`)
         .pipe(changed(paths.dist.img))
         .pipe(plumber())
         .pipe(imagemin([
             imagemin.gifsicle({
                 optimizationLevel: 3
             }),
-            imagemin.jpegtran(),
-            imagemin.optipng({
-                optimizationLevel: 7
-            }),
-            imagemin.svgo()
-        ]))
+            imagemin.svgo(),
+            pngquant()
+        ], {
+            verbose: true
+        }))
         .pipe(gulp.dest(paths.dist.img))
         .pipe(connect.reload())
         .pipe(using(usingConfig));
+
+    const jpg = gulp.src(`${paths.src.img}/*.{jpg,jpeg}`)
+        .pipe(changed(paths.dist.img))
+        .pipe(plumber())
+        .pipe(imagemin([
+            guetzli({
+                quality: 85
+            })
+        ], {
+            verbose: true
+        }))
+        .pipe(gulp.dest(paths.dist.img))
+        .pipe(connect.reload())
+        .pipe(using(usingConfig));
+
+    return merge(pngSvgGif, jpg);
 });
-gulp.task('img').description = 'losslessly optimize/minimize gifs, jpgs, pngs and svgs';
+gulp.task('img').description = 'optimize gifs, jpgs, pngs and svgs';
 
 gulp.task('copy', () => {
     return gulp.src(paths.src.files.root, {

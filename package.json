@@ -24,7 +24,7 @@
         "del": "^3.0.0",
         "gulp": "gulpjs/gulp#4.0",
         "gulp-autoprefixer": "^4.0.0",
-        "gulp-changed": "^3.1.0",
+        "gulp-changed": "^3.1.1",
         "gulp-clean-css": "^3.9.0",
         "gulp-connect": "^5.0.0",
         "gulp-if": "^2.0.2",
@@ -34,10 +34,14 @@
         "gulp-sass": "^3.1.0",
         "gulp-sourcemaps": "^2.6.1",
         "gulp-using": "^0.1.1",
+        "imagemin-guetzli": "^1.0.0",
+        "imagemin-pngquant": "^5.0.1",
         "jshint": "^2.9.5",
         "jshint-stylish": "^2.2.1",
+        "merge-stream": "^1.0.1",
         "open": "^0.0.5",
         "webpack": "^3.8.1",
+        "webpack-merge": "^4.1.1",
         "webpack-stream": "^4.0.0"
     },
     "scripts": {

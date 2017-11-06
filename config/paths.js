@@ -9,7 +9,7 @@ module.exports = {
             sass: 'src/scss/*.{scss,sass}',
             js: 'src/js/*.js',
             img: 'src/img/*.{png,jpg,jpeg,svg}',
-            jsEntry: 'src/js/main.js',
+            jsEntry: 'src/js/{main,head}.js',
             root: 'src/{*,}.{html,txt,xml,htaccess}'
         }
     },

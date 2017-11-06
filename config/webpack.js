@@ -1,9 +1,10 @@
 const webpack = require('webpack'),
-      babelConfig = require('./babel');
+    merge = require('webpack-merge'),
+    babelConfig = require('./babel');
 
 let config = {
     output: {
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     devtool: 'eval-source-map',
     module: {
@@ -22,7 +23,7 @@ let config = {
 };
 
 if (!process.argv.includes('--dev')) {
-    Object.assign(config, {
+    config = merge(config, {
         devtool: false,
         plugins: [
             new webpack.optimize.UglifyJsPlugin({

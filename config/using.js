@@ -1,5 +1,5 @@
 module.exports = {
-    prefix: 'new file was created:',
+    prefix: 'New file:',
     filesize: true,
     color: 'yellow',
     path: 'relative'
