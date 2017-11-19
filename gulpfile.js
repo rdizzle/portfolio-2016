@@ -9,6 +9,7 @@ const gulp = require('gulp'),
     merge = require('merge-stream'),
     pngquant = require('imagemin-pngquant'),
     guetzli = require('imagemin-guetzli'),
+    named = require('vinyl-named'),
     connect = require('gulp-connect'),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCss = require('gulp-clean-css'),
@@ -66,6 +67,7 @@ gulp.task('js:lint').description = 'lint js sources';
 gulp.task('js:transpile', () => {
     return gulp.src(paths.src.files.jsEntry)
         .pipe(plumber())
+        .pipe(named())
         .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(paths.dist.js))
         .pipe(connect.reload())

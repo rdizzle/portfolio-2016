@@ -147,7 +147,7 @@ section:not(.intro) {
         &::before {
             pointer-events: none;
             transform: scale(.8);
-            opacity: 0
+            opacity: 0;
         }
 
         .work-item-text {
