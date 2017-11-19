@@ -79,7 +79,7 @@ gulp.task('img', () => {
     const pngSvgGif = gulp.src(`${paths.src.img}/*.{png,svg,gif}`)
         .pipe(changed(paths.dist.img))
         .pipe(plumber())
-        .pipe(imagemin([
+        .pipe(gulpIf(!devEnv, imagemin([
             imagemin.gifsicle({
                 optimizationLevel: 3
             }),
@@ -87,7 +87,7 @@ gulp.task('img', () => {
             pngquant()
         ], {
             verbose: true
-        }))
+        })))
         .pipe(gulp.dest(paths.dist.img))
         .pipe(connect.reload())
         .pipe(using(usingConfig));
@@ -95,13 +95,13 @@ gulp.task('img', () => {
     const jpg = gulp.src(`${paths.src.img}/*.{jpg,jpeg}`)
         .pipe(changed(paths.dist.img))
         .pipe(plumber())
-        .pipe(imagemin([
+        .pipe(gulpIf(!devEnv, imagemin([
             guetzli({
                 quality: 85
             })
         ], {
             verbose: true
-        }))
+        })))
         .pipe(gulp.dest(paths.dist.img))
         .pipe(connect.reload())
         .pipe(using(usingConfig));
