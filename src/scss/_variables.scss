@@ -1,10 +1,12 @@
 // colors
+$black: #000;
+$white: #fff;
 $text-color: #333;
 $intro-color: #444;
 $link-color: #3798d8;
 $swissplant-color: #007333;
 $sfgbb-color: #35281f;
-$wimper-color: #fff;
+$wimper-color: $white;
 
 // typo
 $default-font-family: 'Source Sans Pro', sans-serif;
