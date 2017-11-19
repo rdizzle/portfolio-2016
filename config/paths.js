@@ -10,7 +10,7 @@ module.exports = {
             js: 'src/js/*.js',
             img: 'src/img/*.{png,jpg,jpeg,svg}',
             jsEntry: 'src/js/{main,head}.js',
-            root: 'src/{*,}.{html,txt,xml,htaccess}'
+            root: 'src/{*,}.*'
         }
     },
     dist: {
