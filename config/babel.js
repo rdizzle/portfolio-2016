@@ -6,5 +6,8 @@ module.exports = {
             },
             'modules': false
         }]
+    ],
+    'ignore': [
+        'node_modules'
     ]
 };

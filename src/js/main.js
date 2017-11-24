@@ -1,5 +1,4 @@
 'use strict';
 
-import './objectFit';
-import './mobileClick';
-import './lazyLoad';
+import './mobile';
+import './lazy';

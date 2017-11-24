@@ -106,7 +106,14 @@ gulp.task('img', () => {
         .pipe(connect.reload())
         .pipe(using(usingConfig));
 
-    return merge(pngSvgGif, jpg);
+    const webp = gulp.src(`${paths.src.img}/*.webp`)
+        .pipe(changed(paths.dist.img))
+        .pipe(plumber())
+        .pipe(gulp.dest(paths.dist.img))
+        .pipe(connect.reload())
+        .pipe(using(usingConfig));
+
+    return merge(pngSvgGif, jpg, webp);
 });
 gulp.task('img').description = 'optimize gifs, jpgs, pngs and svgs';
 
