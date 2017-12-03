@@ -8,17 +8,12 @@ let config = {
     },
     devtool: 'eval-source-map',
     module: {
-        rules: [{
+        loaders: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            use: [{
-                loader: 'babel-loader',
-                options: babelConfig
-            }]
+            loader: 'babel-loader',
+            query: babelConfig
         }]
-    },
-    resolve: {
-        extensions: ['.js']
     }
 };
 

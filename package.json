@@ -14,15 +14,15 @@
         "löffel"
     ],
     "dependencies": {
-        "intersection-observer": "^0.4.3",
-        "obzerv": "0.0.1"
+        "intersection-observer": "^0.5.0",
+        "obzerv": "^0.0.1"
     },
     "devDependencies": {
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.2",
         "babel-preset-env": "^1.6.1",
         "del": "^3.0.0",
-        "gulp": "gulpjs/gulp#4.0",
+        "gulp": "github:gulpjs/gulp#4.0",
         "gulp-autoprefixer": "^4.0.0",
         "gulp-changed": "^3.1.1",
         "gulp-clean-css": "^3.9.0",
@@ -41,7 +41,7 @@
         "merge-stream": "^1.0.1",
         "open": "^0.0.5",
         "vinyl-named": "^1.1.0",
-        "webpack": "^3.8.1",
+        "webpack": "^3.9.1",
         "webpack-merge": "^4.1.1",
         "webpack-stream": "^4.0.0"
     },
