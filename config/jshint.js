@@ -8,5 +8,8 @@ module.exports = {
     unused: true,
     varstmt: true,
     module: true,
-    strict: true
+    strict: true,
+    globals: {
+        IntersectionObserver: true
+    }
 };
