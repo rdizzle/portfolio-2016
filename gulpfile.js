@@ -29,18 +29,13 @@ const gulp = require('gulp'),
     jshintConfig = require('./config/jshint'),
     devEnv = process.argv.includes('--dev');
 
-
 gulp.task('clean', () => del(paths.dist.root));
-gulp.task('clean').description = 'delete the dist directory';
 
 gulp.task('server', () => connect.server(connectConfig));
-gulp.task('server').description = 'start up an http server at localhost:' + connectConfig.port;
 
-gulp.task('open:page', () => nodeOpen('http://localhost:' + connectConfig.port));
-gulp.task('open:page').description = 'open the default browser at localhost:' + connectConfig.port;
+gulp.task('open:page', () => nodeOpen(`http://localhost:${connectConfig.port}`));
 
 gulp.task('open:folder', () => nodeOpen(paths.dist.root));
-gulp.task('open:folder').description = 'open the dist directory in the file explorer';
 
 gulp.task('sass', () => {
     return gulp.src(paths.src.files.sass)
@@ -54,7 +49,6 @@ gulp.task('sass', () => {
         .pipe(connect.reload())
         .pipe(using(usingConfig))
 });
-gulp.task('sass').description = 'compile sass sources to css files';
 
 gulp.task('js:lint', () => {
     return gulp.src(paths.src.files.js)
@@ -62,7 +56,6 @@ gulp.task('js:lint', () => {
         .pipe(jshint(jshintConfig))
         .pipe(jshint.reporter(stylish));
 });
-gulp.task('js:lint').description = 'lint js sources';
 
 gulp.task('js:transpile', () => {
     return gulp.src(paths.src.files.jsEntry)
@@ -73,7 +66,6 @@ gulp.task('js:transpile', () => {
         .pipe(connect.reload())
         .pipe(using(usingConfig));
 });
-gulp.task('js:transpile').description = 'transpile es6 to es5';
 
 gulp.task('img', () => {
     const pngSvgGif = gulp.src(`${paths.src.img}/*.{png,svg,gif}`)
@@ -115,7 +107,6 @@ gulp.task('img', () => {
 
     return merge(pngSvgGif, jpg, webp);
 });
-gulp.task('img').description = 'optimize gifs, jpgs, pngs and svgs';
 
 gulp.task('copy', () => {
     return gulp.src(paths.src.files.root, {
@@ -127,20 +118,11 @@ gulp.task('copy', () => {
         .pipe(connect.reload())
         .pipe(using(usingConfig));
 });
-gulp.task('copy').description = 'copy assets to the dist folder';
 
 gulp.task('js', gulp.series('js:lint', 'js:transpile'));
-gulp.task('js').description = 'first lint and then transpile the js sources';
-
 gulp.task('build', gulp.parallel('js', 'sass', 'img', 'copy'));
-gulp.task('build').description = 'build all sources';
-
 gulp.task('default', gulp.series('clean', 'build', 'open:page', 'server'));
-gulp.task('default').description = 'build everything, fire up a server and open the browser';
-
 gulp.task('dist', gulp.series('clean', 'build', 'open:folder'));
-gulp.task('default').description = 'build everything and open the file explorer';
-
 
 gulp.watch(paths.src.files.img).on('all', gulp.parallel('img'));
 gulp.watch(paths.src.files.js).on('all', gulp.parallel('js'));
