@@ -1,33 +1,33 @@
 @import 'reset';
 @import 'variables';
-@import 'mixins';
+@import 'functions';
 
 html {
-    font-family: $default-font-family;
-    font-size: $default-font-size;
-    line-height: $default-line-height;
-    color: $text-color;
+    font-family: $fontFamily;
+    font-size: $fontSize;
+    line-height: $fontLineHeight;
+    color: $colorText;
 }
 
 a {
-    color: $link-color;
+    color: $colorLink;
 }
 
 p:not(:last-child) {
-    margin-bottom: $base-margin;
+    margin-bottom: $marginBase;
 }
 
 section:not(.intro) {
-    margin-bottom: $big-margin;
+    margin-bottom: $marginBig;
 }
 
 .intro {
     position: relative;
-    height: $hero-height;
+    height: $heroHeight;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $intro-color;
+    color: $colorIntroText;
 
     &-container {
         text-align: center;
@@ -35,9 +35,9 @@ section:not(.intro) {
     }
 
     &-headline {
-        font-size: $heading-font-size;
-        margin-bottom: $base-margin;
-        line-height: $heading-line-height;
+        font-size: $fontSizeHeading;
+        margin-bottom: $marginBase;
+        line-height: $fontLineHeightHeadings;
 
         .emoji {
             height: 42px;
@@ -47,13 +47,13 @@ section:not(.intro) {
     }
 
     &-text {
-        font-size: $subheading-font-size;
+        font-size: $fontSizeSubHeading;
     }
 }
 
 .content-wrapper {
-    width: $content-width;
-    max-width: $max-content-width;
+    width: $contentWidth;
+    max-width: $contentWidthMax;
     margin: auto;
     position: relative;
 
@@ -63,10 +63,10 @@ section:not(.intro) {
 }
 
 .work-item {
-    width: 80vw;
-    height: 53.333vw;
-    max-width: 1200px;
-    max-height: 800px;
+    width: $imageWidth;
+    height: $imageHeight;
+    max-width: $imageWidthMax;
+    max-height: $imageHeightMax;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +76,7 @@ section:not(.intro) {
     transform: scale(.9);
     opacity: 0;
     pointer-events: none;
-    @include opacity-transform-transition(.5s);
+    transition: multiTransition((transform, opacity));
     overflow: hidden;
 
     &.visible {
@@ -86,7 +86,7 @@ section:not(.intro) {
     }
 
     &:not(:last-child) {
-        margin-bottom: $medium-margin;
+        margin-bottom: $marginMedium;
     }
 
     &-image {
@@ -97,37 +97,30 @@ section:not(.intro) {
         height: 100%;
         object-fit: cover;
         object-position: center;
-        @include object-fit-polyfill('cover', 'center');
         transition: transform .5s ease-in-out;
     }
 
     &-text {
-        color: $white;
+        color: $colorWhite;
         z-index: 1;
         transition: opacity .5s ease-in-out;
         transition-delay: .25s;
         opacity: 0;
 
         &-invert {
-            color: $black;
+            color: $colorBlack;
         }
     }
 
     &.swissplant {
         &::before {
-            background-color: transparentize($swissplant-color, .1);
-        }
-    }
-
-    &.sfgbb {
-        &::before {
-            background-color: transparentize($sfgbb-color, .1);
+            background-color: transparentize($colorSwissPlant, .1);
         }
     }
 
     &.wimper {
         &::before {
-            background-color: transparentize($wimper-color, .1);
+            background-color: transparentize($colorWimper, .1);
         }
     }
 
@@ -141,8 +134,8 @@ section:not(.intro) {
         width: 100%;
         height: 100%;
         opacity: 0;
-        background-color: transparentize($black, .2);
-        @include opacity-transform-transition(.5s);
+        background-color: transparentize($colorBlack, .2);
+        transition: multiTransition((opacity, transform));
     }
 
     &:hover,
@@ -164,7 +157,7 @@ section:not(.intro) {
 }
 
 footer {
-    margin-bottom: $medium-margin;
+    margin-bottom: $marginMedium;
 }
 
 @import 'phone';

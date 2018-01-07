@@ -1,16 +1,16 @@
 @media (max-width: 767px) {
     html {
-        font-size: $mobile-default-font-size;
+        font-size: $fontSizeMobile;
     }
 
     p:not(:last-child) {
-        margin-bottom: $mobile-base-margin;
+        margin-bottom: $marginBaseMobile;
     }
 
     .intro {
         &-headline {
             font-size: 2rem;
-            margin-bottom: $mobile-base-margin;
+            margin-bottom: $marginBaseMobile;
 
             .emoji {
                 height: 28px;
@@ -30,16 +30,16 @@
         width: 90vw;
 
         &:not(:last-child) {
-            margin-bottom: $mobile-base-margin;
+            margin-bottom: $marginBaseMobile;
         }
     }
 
     section:not(.intro) {
-        margin-bottom: $mobile-medium-margin;
+        margin-bottom: $marginMediumMobile;
     }
 
     footer {
-        margin-bottom: $mobile-base-margin;
+        margin-bottom: $marginBaseMobile;
     }
 }
 

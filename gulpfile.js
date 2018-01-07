@@ -42,7 +42,7 @@ gulp.task('sass', () => {
         .pipe(plumber())
         .pipe(gulpIf(devEnv, sourcemaps.init()))
         .pipe(sass.sync())
-        .pipe(autoprefixer(autoprefixerConfig))
+        .pipe(gulpIf(!devEnv, autoprefixer(autoprefixerConfig)))
         .pipe(gulpIf(!devEnv, cleanCss()))
         .pipe(gulpIf(devEnv, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.dist.css))

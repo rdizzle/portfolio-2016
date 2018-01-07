@@ -1,0 +1,12 @@
+@function multiTransition($attributes, $duration: .5s, $bezier: ease-in-out) {
+    $string: '';
+
+    @each $attribute in $attributes {
+        $string: $string + '#{$attribute} #{$duration} #{$bezier}, ';
+    }
+
+    $string: str-slice($string, 0, str-length($string) - 2);
+    $string: unquote($string);
+
+    @return $string;
+}

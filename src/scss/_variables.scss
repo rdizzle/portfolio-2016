@@ -1,30 +1,35 @@
 // colors
-$black: #000;
-$white: #fff;
-$text-color: #333;
-$intro-color: #444;
-$link-color: #3798d8;
-$swissplant-color: #007333;
-$sfgbb-color: #35281f;
-$wimper-color: $white;
+$colorBlack: #000;
+$colorWhite: #fff;
+$colorText: #333;
+$colorIntroText: #444;
+$colorLink: #3798d8;
+$colorSwissPlant: #007333;
+$colorWimper: $colorWhite;
 
 // typo
-$default-font-family: 'Source Sans Pro', sans-serif;
-$default-font-size: 21px;
-$default-line-height: 1.8;
-$heading-font-size: 2.5rem;
-$subheading-font-size: 1.35rem;
-$heading-line-height: 1.1;
-$mobile-default-font-size: 18px;
+$fontFamily: 'Source Sans Pro', sans-serif;
+$fontSize: 125%;
+$fontLineHeight: 1.8;
+$fontSizeHeading: 2.5rem;
+$fontSizeSubHeading: 1.35rem;
+$fontLineHeightHeadings: 1.1;
+$fontSizeMobile: 110%;
+$fontSizeInPx: 16px * 1.25; // 20px
+$fontSizeMobileInPx: 16px * 1.1; // 17.6px
 
 // visual rhythm
-$base-margin: $default-font-size * $default-line-height;
-$medium-margin: $base-margin * 2;
-$big-margin: $base-margin * 3;
-$mobile-base-margin: $mobile-default-font-size * $default-line-height;
-$mobile-medium-margin: $mobile-base-margin * 2;
+$marginBase: $fontSizeInPx * $fontLineHeight;
+$marginMedium: $marginBase * 2;
+$marginBig: $marginBase * 3;
+$marginBaseMobile: $fontSizeMobileInPx * $fontLineHeight;
+$marginMediumMobile: $marginBaseMobile * 2;
 
 // dimensions
-$max-content-width: 768px;
-$content-width: calc(100% - 250px);
-$hero-height: $base-margin * 14;
+$contentWidthMax: 768px;
+$contentWidth: calc(100% - 250px);
+$heroHeight: $marginBase * 15;
+$imageWidth: 80vw;
+$imageWidthMax: 1200px;
+$imageHeight: 53.333vw;
+$imageHeightMax: 800px;

@@ -4,7 +4,7 @@ let lastClicked;
 
 const images = document.getElementsByClassName('work-item');
 
-const determineAction = () => {
+const determineAction = event => {
     event.preventDefault();
 
     if (lastClicked === event.currentTarget) {
