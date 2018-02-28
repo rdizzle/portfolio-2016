@@ -1,50 +1,51 @@
 'use strict';
 
-const gulp = require('gulp'),
-    del = require('del'),
-    nodeOpen = require('open'),
-    stylish = require('jshint-stylish'),
-    webpack = require('webpack'),
-    webpackStream = require('webpack-stream'),
-    merge = require('merge-stream'),
-    pngquant = require('imagemin-pngquant'),
-    guetzli = require('imagemin-guetzli'),
-    named = require('vinyl-named'),
-    connect = require('gulp-connect'),
-    autoprefixer = require('gulp-autoprefixer'),
-    cleanCss = require('gulp-clean-css'),
-    sass = require('gulp-sass'),
-    jshint = require('gulp-jshint'),
-    imagemin = require('gulp-imagemin'),
-    plumber = require('gulp-plumber'),
-    changed = require('gulp-changed'),
-    sourcemaps = require('gulp-sourcemaps'),
-    gulpIf = require('gulp-if'),
-    using = require('gulp-using'),
-    paths = require('./config/paths'),
-    webpackConfig = require('./config/webpack'),
-    usingConfig = require('./config/using'),
-    autoprefixerConfig = require('./config/autoprefixer'),
-    connectConfig = require('./config/connect'),
-    jshintConfig = require('./config/jshint'),
-    devEnv = process.argv.includes('--dev');
+const gulp = require('gulp');
+const del = require('del');
+const open = require('open');
+const stylish = require('jshint-stylish');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const merge = require('merge-stream');
+const pngquant = require('imagemin-pngquant');
+const guetzli = require('imagemin-guetzli');
+const named = require('vinyl-named');
+const connect = require('gulp-connect');
+const autoprefixer = require('gulp-autoprefixer');
+const cleanCss = require('gulp-clean-css');
+const sass = require('gulp-sass');
+const jshint = require('gulp-jshint');
+const imagemin = require('gulp-imagemin');
+const plumber = require('gulp-plumber');
+const changed = require('gulp-changed');
+const sourcemaps = require('gulp-sourcemaps');
+const gulpIf = require('gulp-if');
+const using = require('gulp-using');
+const paths = require('./config/paths');
+const webpackConfig = require('./config/webpack');
+const usingConfig = require('./config/using');
+const autoprefixerConfig = require('./config/autoprefixer');
+const connectConfig = require('./config/connect');
+const jshintConfig = require('./config/jshint');
+const dev = process.argv.includes('--dev');
 
 gulp.task('clean', () => del(paths.dist.root));
 
-gulp.task('server', () => connect.server(connectConfig));
+gulp.task('server', done => {
+    connect.server(connectConfig);
+    done();
+});
 
-gulp.task('open:page', () => nodeOpen(`http://localhost:${connectConfig.port}`));
-
-gulp.task('open:folder', () => nodeOpen(paths.dist.root));
+gulp.task('open:page', () => open('http://localhost:' + connectConfig.port));
 
 gulp.task('sass', () => {
     return gulp.src(paths.src.files.sass)
         .pipe(plumber())
-        .pipe(gulpIf(devEnv, sourcemaps.init()))
+        .pipe(gulpIf(dev, sourcemaps.init()))
         .pipe(sass.sync())
-        .pipe(gulpIf(!devEnv, autoprefixer(autoprefixerConfig)))
-        .pipe(gulpIf(!devEnv, cleanCss()))
-        .pipe(gulpIf(devEnv, sourcemaps.write('.')))
+        .pipe(gulpIf(!dev, autoprefixer(autoprefixerConfig)))
+        .pipe(gulpIf(!dev, cleanCss()))
+        .pipe(gulpIf(dev, sourcemaps.write('.')))
         .pipe(gulp.dest(paths.dist.css))
         .pipe(connect.reload())
         .pipe(using(usingConfig))
@@ -71,7 +72,7 @@ gulp.task('img', () => {
     const pngSvgGif = gulp.src(`${paths.src.img}/*.{png,svg,gif}`)
         .pipe(changed(paths.dist.img))
         .pipe(plumber())
-        .pipe(gulpIf(!devEnv, imagemin([
+        .pipe(gulpIf(!dev, imagemin([
             imagemin.gifsicle({
                 optimizationLevel: 3
             }),
@@ -87,7 +88,7 @@ gulp.task('img', () => {
     const jpg = gulp.src(`${paths.src.img}/*.{jpg,jpeg}`)
         .pipe(changed(paths.dist.img))
         .pipe(plumber())
-        .pipe(gulpIf(!devEnv, imagemin([
+        .pipe(gulpIf(!dev, imagemin([
             guetzli({
                 quality: 85
             })
@@ -119,12 +120,11 @@ gulp.task('copy', () => {
         .pipe(using(usingConfig));
 });
 
-gulp.task('js', gulp.series('js:lint', 'js:transpile'));
-gulp.task('build', gulp.parallel('js', 'sass', 'img', 'copy'));
-gulp.task('default', gulp.series('clean', 'build', 'open:page', 'server'));
-gulp.task('dist', gulp.series('clean', 'build', 'open:folder'));
+gulp.task('watch:img', () => gulp.watch(paths.src.files.img, gulp.parallel('img')));
+gulp.task('watch:js', () => gulp.watch(paths.src.files.js, gulp.parallel('js:lint', 'js:transpile')));
+gulp.task('watch:css', () => gulp.watch(paths.src.files.sass, gulp.parallel('sass')));
+gulp.task('watch:root', () => gulp.watch(paths.src.files.root, gulp.parallel('copy')));
 
-gulp.watch(paths.src.files.img).on('all', gulp.parallel('img'));
-gulp.watch(paths.src.files.js).on('all', gulp.parallel('js'));
-gulp.watch(paths.src.files.sass).on('all', gulp.parallel('sass'));
-gulp.watch(paths.src.files.root).on('all', gulp.parallel('copy'));
+gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
+gulp.task('build', gulp.parallel('js:transpile', 'js:lint', 'sass', 'img', 'copy'));
+gulp.task('default', gulp.series('clean', 'build', 'server', 'open:page', 'watch'));
