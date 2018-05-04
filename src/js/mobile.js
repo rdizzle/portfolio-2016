@@ -17,7 +17,7 @@ const determineAction = event => {
 const isTouchDevice = () => window.navigator.userAgent.indexOf('iPhone') > -1 || window.navigator.userAgent.indexOf('iPod') > -1 || window.navigator.userAgent.indexOf('iPad') > -1 || window.navigator.userAgent.indexOf('Android') > -1 || window.navigator.userAgent.indexOf('Windows Phone') > -1 && 'ontouchstart' in window;
 
 if (isTouchDevice()) {
-    for (let image of images) {
+    for (let image of images.values()) {
         image.addEventListener('click', determineAction);
     }
 }

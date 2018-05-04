@@ -34,7 +34,7 @@ const inst = new IntersectionObserver(callback, {
     rootMargin: '25%'
 });
 
-for (let picture of pictures) {
+for (let picture of pictures.values()) {
     inst.observe(picture);
 
     picture.removeAttribute('data-lazy');

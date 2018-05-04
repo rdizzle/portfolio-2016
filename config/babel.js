@@ -2,14 +2,12 @@ module.exports = {
     presets: [
         ['@babel/preset-env', {
             targets: {
-                browsers: ['last 2 versions', 'not ie < 11', 'not ie_mob < 11']
+                browsers: 'last 2 versions',
+                ie: 11
             },
             modules: false,
-            useBuiltIns: 'usage',
-            debug: true
+            useBuiltIns: 'usage'
         }]
     ],
-    ignore: [
-        'node_modules'
-    ]
+    ignore: ['node_modules']
 };
