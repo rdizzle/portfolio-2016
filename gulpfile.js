@@ -120,10 +120,25 @@ gulp.task('copy', () => {
         .pipe(using(usingConfig));
 });
 
-gulp.task('watch:img', () => gulp.watch(paths.src.files.img, gulp.parallel('img')));
-gulp.task('watch:js', () => gulp.watch(paths.src.files.js, gulp.parallel('js:lint', 'js:transpile')));
-gulp.task('watch:css', () => gulp.watch(paths.src.files.sass, gulp.parallel('sass')));
-gulp.task('watch:root', () => gulp.watch(paths.src.files.root, gulp.parallel('copy')));
+gulp.task('watch:img', done => {
+    gulp.watch(paths.src.files.img, gulp.parallel('img'));
+    done();
+});
+
+gulp.task('watch:js', done => {
+    gulp.watch(paths.src.files.js, gulp.parallel('js:lint', 'js:transpile'));
+    done();
+});
+
+gulp.task('watch:css', done => {
+    gulp.watch(paths.src.files.sass, gulp.parallel('sass'));
+    done();
+});
+
+gulp.task('watch:root', done => {
+    gulp.watch(paths.src.files.root, gulp.parallel('copy'));
+    done();
+});
 
 gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
 gulp.task('build', gulp.parallel('js:transpile', 'js:lint', 'sass', 'img', 'copy'));

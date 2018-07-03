@@ -2,41 +2,41 @@
 
 import 'intersection-observer';
 
-const pictures = document.querySelectorAll('picture[data-lazy]');
+const pictureNodes = document.querySelectorAll('picture[data-lazy]');
 
-const callback = (entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const sources = entry.target.querySelectorAll('source');
-            const img = entry.target.querySelector('img');
+const intersectingCallback = (observerEntries, observerInstance) => {
+    observerEntries.forEach(observerEntry => {
+        if (observerEntry.isIntersecting) {
+            const sourceNodes = observerEntry.target.querySelectorAll('source');
+            const imgNode = observerEntry.target.querySelector('img');
 
-            for (let source of sources) {
-                source.setAttribute('srcset', source.getAttribute('data-lazy-srcset'));
-                source.setAttribute('sizes', source.getAttribute('data-lazy-sizes'));
-                source.removeAttribute('data-lazy-srcset');
-                source.removeAttribute('data-lazy-sizes');
+            for (let sourceNode of sourceNodes.values()) {
+                sourceNode.setAttribute('srcset', sourceNode.getAttribute('data-lazy-srcset'));
+                sourceNode.setAttribute('sizes', sourceNode.getAttribute('data-lazy-sizes'));
+                sourceNode.removeAttribute('data-lazy-srcset');
+                sourceNode.removeAttribute('data-lazy-sizes');
             }
 
-            img.setAttribute('src', img.getAttribute('data-lazy-src'));
-            img.removeAttribute('data-lazy-src');
+            imgNode.setAttribute('src', imgNode.getAttribute('data-lazy-src'));
+            imgNode.removeAttribute('data-lazy-src');
 
-            observer.unobserve(entry.target);
+            observerInstance.unobserve(observerEntry.target);
         }
     });
 };
 
-const load = event => {
+const loadListener = event => {
     event.currentTarget.parentNode.parentNode.classList.add('visible');
-    event.currentTarget.removeEventListener('load', load);
+    event.currentTarget.removeEventListener('load', loadListener);
 };
 
-const inst = new IntersectionObserver(callback, {
+const intersectionObserver = new IntersectionObserver(intersectingCallback, {
     rootMargin: '25%'
 });
 
-for (let picture of pictures.values()) {
-    inst.observe(picture);
+for (let pictureNode of pictureNodes.values()) {
+    intersectionObserver.observe(pictureNode);
 
-    picture.removeAttribute('data-lazy');
-    picture.querySelector('img').addEventListener('load', load);
+    pictureNode.removeAttribute('data-lazy');
+    pictureNode.querySelector('img').addEventListener('load', loadListener);
 }
