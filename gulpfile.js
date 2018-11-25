@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+const cp = require('child_process');
 const gulp = require('gulp');
 const del = require('del');
 const open = require('open');
@@ -27,6 +29,7 @@ const usingConfig = require('./config/using');
 const autoprefixerConfig = require('./config/autoprefixer');
 const connectConfig = require('./config/connect');
 const jshintConfig = require('./config/jshint');
+const webpConfig = require('./webp.config');
 const dev = process.argv.includes('--dev');
 
 gulp.task('clean', () => del(paths.dist.root));
@@ -143,3 +146,25 @@ gulp.task('watch:root', done => {
 gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
 gulp.task('build', gulp.parallel('js:transpile', 'js:lint', 'sass', 'img', 'copy'));
 gulp.task('default', gulp.series('clean', 'build', 'server', 'open:page', 'watch'));
+
+gulp.task('webpExp', done => {
+    const files = fs.readdirSync('src/img');
+
+    files.forEach(file => {
+        let name = file.replace('-1200w.jpg', '');
+
+        if (file.includes('-1200w.jpg')) {
+            webpConfig.sizes.forEach(size => {
+                if (size.includes('w')) {
+                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize ${size} 0 -mt -quiet src/img/${file} -o src/img/${name}.${size}.webp`);
+                }
+
+                if (size.includes('h')) {
+                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize 0 ${size} -mt -quiet src/img/${file} -o src/img/${name}.${size}.webp`);
+                }
+            });
+        }
+    });
+
+    done();
+});
