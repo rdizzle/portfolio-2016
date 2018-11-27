@@ -93,7 +93,7 @@ gulp.task('img', () => {
         .pipe(plumber())
         .pipe(gulpIf(!dev, imagemin([
             guetzli({
-                quality: 85
+                quality: 65
             })
         ], {
             verbose: true
@@ -156,11 +156,11 @@ gulp.task('webpExp', done => {
         if (file.includes('-1200w.jpg')) {
             webpConfig.sizes.forEach(size => {
                 if (size.includes('w')) {
-                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize ${size} 0 -mt -quiet src/img/${file} -o src/img/${name}.${size}.webp`);
+                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize ${size} 0 -mt -quiet src/img/${file} -o dist/img/${name}-${size}.webp`);
                 }
 
                 if (size.includes('h')) {
-                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize 0 ${size} -mt -quiet src/img/${file} -o src/img/${name}.${size}.webp`);
+                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize 0 ${size} -mt -quiet src/img/${file} -o dist/img/${name}-${size}.webp`);
                 }
             });
         }
