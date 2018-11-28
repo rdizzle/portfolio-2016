@@ -29,7 +29,7 @@ const usingConfig = require('./config/using');
 const autoprefixerConfig = require('./config/autoprefixer');
 const connectConfig = require('./config/connect');
 const jshintConfig = require('./config/jshint');
-const webpConfig = require('./webp.config');
+const imagesConfig = require('./config/images');
 const dev = process.argv.includes('--dev');
 
 gulp.task('clean', () => del(paths.dist.root));
@@ -72,7 +72,7 @@ gulp.task('js:transpile', () => {
 });
 
 gulp.task('img', () => {
-    const pngSvgGif = gulp.src(`${paths.src.img}/*.{png,svg,gif}`)
+    return gulp.src(paths.src.files.img)
         .pipe(changed(paths.dist.img))
         .pipe(plumber())
         .pipe(gulpIf(!dev, imagemin([
@@ -80,20 +80,9 @@ gulp.task('img', () => {
                 optimizationLevel: 3
             }),
             imagemin.svgo(),
-            pngquant()
-        ], {
-            verbose: true
-        })))
-        .pipe(gulp.dest(paths.dist.img))
-        .pipe(connect.reload())
-        .pipe(using(usingConfig));
-
-    const jpg = gulp.src(`${paths.src.img}/*.{jpg,jpeg}`)
-        .pipe(changed(paths.dist.img))
-        .pipe(plumber())
-        .pipe(gulpIf(!dev, imagemin([
+            pngquant(),
             guetzli({
-                quality: 65
+                quality: 84
             })
         ], {
             verbose: true
@@ -101,15 +90,6 @@ gulp.task('img', () => {
         .pipe(gulp.dest(paths.dist.img))
         .pipe(connect.reload())
         .pipe(using(usingConfig));
-
-    const webp = gulp.src(`${paths.src.img}/*.webp`)
-        .pipe(changed(paths.dist.img))
-        .pipe(plumber())
-        .pipe(gulp.dest(paths.dist.img))
-        .pipe(connect.reload())
-        .pipe(using(usingConfig));
-
-    return merge(pngSvgGif, jpg, webp);
 });
 
 gulp.task('copy', () => {
@@ -147,24 +127,38 @@ gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:ro
 gulp.task('build', gulp.parallel('js:transpile', 'js:lint', 'sass', 'img', 'copy'));
 gulp.task('default', gulp.series('clean', 'build', 'server', 'open:page', 'watch'));
 
-gulp.task('webpExp', done => {
-    const files = fs.readdirSync('src/img');
-
-    files.forEach(file => {
-        let name = file.replace('-1200w.jpg', '');
-
-        if (file.includes('-1200w.jpg')) {
-            webpConfig.sizes.forEach(size => {
-                if (size.includes('w')) {
-                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize ${size} 0 -mt -quiet src/img/${file} -o dist/img/${name}-${size}.webp`);
-                }
-
-                if (size.includes('h')) {
-                    cp.execSync(`cwebp ${webpConfig.lossless ? '-lossless' : ''} ${webpConfig.quality} -preset ${webpConfig.preset} -resize 0 ${size} -mt -quiet src/img/${file} -o dist/img/${name}-${size}.webp`);
-                }
-            });
-        }
-    });
+gulp.task('webp', done => {
+    convertWebp([ 'stephanmeier.orig.jpg', 'swissplant.orig.jpg', 'wimper.orig.jpg' ]);
+    convertWebp([ 'shaka-emoji.png' ], false);
 
     done();
 });
+
+const convertWebp = (files = [], sizes = true) => {
+    files.forEach(file => {
+        let matched = file.split('.');
+        matched.pop();
+
+        let key = matched.length === 1 ? undefined : matched.pop();
+        let name = matched.pop();
+        let src = `src/img/${file}`;
+
+        if (key in imagesConfig) {
+            imagesConfig[key].sizes.forEach(size => {
+                let dest = `dist/img/${name}-${size}.webp`;
+
+                if (size.includes('w')) {
+                    cp.execSync(`cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize ${size} 0 -mt -quiet ${src} -o ${dest}`);
+                }
+
+                if (size.includes('h')) {
+                    cp.execSync(`cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize 0 ${size} -mt -quiet ${src} -o ${dest}`);
+                }
+            });
+        } else {
+            let dest = `dist/img/${name}.webp`;
+
+            cp.execSync(`cwebp ${imagesConfig.lossless ? '-lossless' : ''} ${imagesConfig.quality} -preset ${imagesConfig.preset} -mt -quiet ${src} -o ${dest}`);
+        }
+    });
+};
