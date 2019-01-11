@@ -1,5 +1,3 @@
-'use strict';
-
 import 'intersection-observer';
 
 const pictureNodes = document.querySelectorAll('picture[data-lazy]');

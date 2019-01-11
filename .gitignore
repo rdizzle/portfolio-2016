@@ -1,6 +1,6 @@
 # folders
-/node_modules/
-/dist/
+node_modules
+dist
 
 # os
 Thumbs.db

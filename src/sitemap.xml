@@ -1,33 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-        <url>
-            <loc>https://robinloeffel.ch</loc>
-            <lastmod>2018-01-16</lastmod>
-            <changefreq>monthly</changefreq>
-            <priority>1</priority>
-            <image:image>
-                <image:loc>https://robinloeffel.ch/img/favicon.png</image:loc>
-                <image:caption>Browser Favicon</image:caption>
-            </image:image>
-            <image:image>
-                <image:loc>https://robinloeffel.ch/img/open-graph.jpg</image:loc>
-                <image:caption>Open-Graph-Bild für Social-Media-Plattformen</image:caption>
-            </image:image>
-            <image:image>
-                <image:loc>https://robinloeffel.ch/img/gereift.jpg</image:loc>
-                <image:caption>Vorschaubild für gereift.ch</image:caption>
-            </image:image>
-            <image:image>
-                <image:loc>https://robinloeffel.ch/img/stephanmeier.jpg</image:loc>
-                <image:caption>Vorschaubild für stephanmeier.ch</image:caption>
-            </image:image>
-            <image:image>
-                <image:loc>https://robinloeffel.ch/img/swissplant.jpg</image:loc>
-                <image:caption>Vorschaubild für swissplant.ch</image:caption>
-            </image:image>
-            <image:image>
-                <image:loc>https://robinloeffel.ch/img/wimper.jpg</image:loc>
-                <image:caption>Vorschaubild für wimper.ch</image:caption>
-            </image:image>
-        </url>
-    </urlset>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>https://robinloeffel.ch</loc>
+        <lastmod>2019-01-11</lastmod>
+    </url>
+</urlset>
