@@ -1,8 +1,8 @@
 module.exports = {
     src: {
         root: 'src',
-        js: 'src/**/*.{m,}js',
-        css: 'src/**/*.scss',
+        js: 'src/js/**/*.{m,}js',
+        css: 'src/css/**/*.scss',
         img: 'src/img/**/*',
         copy: 'src/{*,}.*',
         entry: {

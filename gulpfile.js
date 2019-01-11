@@ -21,20 +21,20 @@ const sourcemaps = require('gulp-sourcemaps');
 const gulpIf = require('gulp-if');
 const eslint = require('gulp-eslint');
 
-const paths = require('./paths.config');
+const pathsConfig = require('./paths.config');
 const webpackConfig = require('./webpack.config');
 const browserslistConfig = require('./browserslist.config');
 const imagesConfig = require('./images.config');
 
 const prod = process.argv.includes('--prod');
 
-gulp.task('clean', () => del(paths.dist.root));
+gulp.task('clean', () => del(pathsConfig.dist.root));
 
 gulp.task('serve', done => {
     connect.server({
         port: 8080,
         livereload: true,
-        root: paths.dist.root
+        root: pathsConfig.dist.root
     });
     done();
 });
@@ -42,35 +42,35 @@ gulp.task('serve', done => {
 gulp.task('browser', () => open('http://localhost:8080'));
 
 gulp.task('css', () => {
-    return gulp.src(paths.src.css)
+    return gulp.src(pathsConfig.src.css)
         .pipe(plumber())
         .pipe(gulpIf(!prod, sourcemaps.init()))
         .pipe(sass.sync())
         .pipe(gulpIf(prod, autoprefixer(browserslistConfig)))
         .pipe(gulpIf(prod, cleanCss()))
         .pipe(gulpIf(!prod, sourcemaps.write('.')))
-        .pipe(gulp.dest(paths.dist.css))
+        .pipe(gulp.dest(pathsConfig.dist.css))
         .pipe(connect.reload());
 });
 
 gulp.task('js:lint', () => {
-    return gulp.src(paths.src.js)
+    return gulp.src(pathsConfig.src.js)
         .pipe(plumber())
         .pipe(eslint())
         .pipe(eslint.format());
 });
 
 gulp.task('js:transpile', () => {
-    return gulp.src(paths.src.entry.js)
+    return gulp.src(pathsConfig.src.entry.js)
         .pipe(plumber())
         .pipe(named())
         .pipe(webpackStream(webpackConfig, webpack))
-        .pipe(gulp.dest(paths.dist.js))
+        .pipe(gulp.dest(pathsConfig.dist.js))
         .pipe(connect.reload());
 });
 
 gulp.task('img', () => {
-    return gulp.src(paths.src.img)
+    return gulp.src(pathsConfig.src.img)
         .pipe(plumber())
         .pipe(gulpIf(prod, imagemin([
             imagemin.svgo(),
@@ -79,36 +79,36 @@ gulp.task('img', () => {
                 quality: 84
             })
         ])))
-        .pipe(gulp.dest(paths.dist.img))
+        .pipe(gulp.dest(pathsConfig.dist.img))
         .pipe(connect.reload());
 });
 
 gulp.task('copy', () => {
-    return gulp.src(paths.src.copy, {
-            base: paths.src.root
+    return gulp.src(pathsConfig.src.copy, {
+            base: pathsConfig.src.root
         })
         .pipe(plumber())
-        .pipe(gulp.dest(paths.dist.root))
+        .pipe(gulp.dest(pathsConfig.dist.root))
         .pipe(connect.reload());
 });
 
 gulp.task('watch:img', done => {
-    gulp.watch(paths.src.img, gulp.parallel('img'));
+    gulp.watch(pathsConfig.src.img, gulp.parallel('img'));
     done();
 });
 
 gulp.task('watch:js', done => {
-    gulp.watch(paths.src.js, gulp.parallel('js:lint', 'js:transpile'));
+    gulp.watch(pathsConfig.src.js, gulp.parallel('js:lint', 'js:transpile'));
     done();
 });
 
 gulp.task('watch:css', done => {
-    gulp.watch(paths.src.css, gulp.parallel('css'));
+    gulp.watch(pathsConfig.src.css, gulp.parallel('css'));
     done();
 });
 
 gulp.task('watch:root', done => {
-    gulp.watch(paths.src.copy, gulp.parallel('copy'));
+    gulp.watch(pathsConfig.src.copy, gulp.parallel('copy'));
     done();
 });
 
