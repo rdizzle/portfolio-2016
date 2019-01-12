@@ -156,6 +156,20 @@ section:not(.intro) {
     }
 }
 
+.object-fitted {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+
+    [data-object-fit] {
+        display: none;
+    }
+}
+
 footer {
     margin-bottom: $marginMedium;
 }

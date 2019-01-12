@@ -112,16 +112,16 @@ gulp.task('watch:root', done => {
     done();
 });
 
-gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
-gulp.task('build', gulp.parallel('js:transpile', 'js:lint', 'css', 'img', 'copy'));
-gulp.task('default', gulp.series('clean', 'build', 'serve', 'browser', 'watch'));
-
 gulp.task('webp', done => {
     convertWebp([ 'stephanmeier.orig.jpg', 'swissplant.orig.jpg', 'wimper.orig.jpg' ]);
     convertWebp([ 'shaka-emoji.png' ], false);
 
     done();
 });
+
+gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
+gulp.task('build', gulp.parallel('js:transpile', 'js:lint', 'css', 'img', 'copy'));
+gulp.task('default', gulp.series('clean', 'build', 'webp', 'serve', 'browser', 'watch'));
 
 const convertWebp = (files = [], sizes = true) => {
     files.forEach(file => {
