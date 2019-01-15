@@ -23,7 +23,6 @@ const eslint = require('gulp-eslint');
 
 const pathsConfig = require('./paths.config');
 const webpackConfig = require('./webpack.config');
-const browserslistConfig = require('./browserslist.config');
 const imagesConfig = require('./images.config');
 
 const prod = process.argv.includes('--prod');
@@ -46,7 +45,7 @@ gulp.task('css', () => {
         .pipe(plumber())
         .pipe(gulpIf(!prod, sourcemaps.init()))
         .pipe(sass.sync())
-        .pipe(gulpIf(prod, autoprefixer(browserslistConfig)))
+        .pipe(gulpIf(prod, autoprefixer()))
         .pipe(gulpIf(prod, cleanCss()))
         .pipe(gulpIf(!prod, sourcemaps.write('.')))
         .pipe(gulp.dest(pathsConfig.dist.css))
