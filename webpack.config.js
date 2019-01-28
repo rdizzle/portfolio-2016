@@ -4,7 +4,6 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TerserPlugin = require('terser-webpack-plugin');
 const prod = process.argv.includes('--prod');
 const stats = process.argv.includes('--stats');
-const babelConfig = require('./babel.config');
 
 let config = {
     output: {
@@ -14,11 +13,8 @@ let config = {
     mode: 'development',
     module: {
         rules: [{
-            test: /\.m?js$/,
-            use: {
-                loader: 'babel-loader',
-                options: babelConfig
-            },
+            test: /\.js$/,
+            use: [ 'babel-loader', 'eslint-loader' ],
             exclude: /node_modules/
         }]
     },

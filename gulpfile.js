@@ -19,7 +19,6 @@ const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpIf = require('gulp-if');
-const eslint = require('gulp-eslint');
 
 const pathsConfig = require('./paths.config');
 const webpackConfig = require('./webpack.config');
@@ -50,13 +49,6 @@ gulp.task('css', () => {
         .pipe(gulpIf(!prod, sourcemaps.write('.')))
         .pipe(gulp.dest(pathsConfig.dist.css))
         .pipe(connect.reload());
-});
-
-gulp.task('js:lint', () => {
-    return gulp.src(pathsConfig.src.js)
-        .pipe(plumber())
-        .pipe(eslint())
-        .pipe(eslint.format());
 });
 
 gulp.task('js:transpile', () => {
@@ -97,7 +89,7 @@ gulp.task('watch:img', done => {
 });
 
 gulp.task('watch:js', done => {
-    gulp.watch(pathsConfig.src.js, gulp.parallel('js:lint', 'js:transpile'));
+    gulp.watch(pathsConfig.src.js, gulp.parallel('js:transpile'));
     done();
 });
 
@@ -119,7 +111,7 @@ gulp.task('webp', done => {
 });
 
 gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
-gulp.task('build', gulp.parallel('js:transpile', 'js:lint', 'css', 'img', 'copy'));
+gulp.task('build', gulp.parallel('js:transpile', 'css', 'img', 'copy'));
 gulp.task('default', gulp.series('clean', 'build', 'webp', 'serve', 'browser', 'watch'));
 
 const convertWebp = (files = [], sizes = true) => {
