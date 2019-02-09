@@ -51,7 +51,7 @@ gulp.task('css', () => {
         .pipe(connect.reload());
 });
 
-gulp.task('js:transpile', () => {
+gulp.task('js', () => {
     return gulp.src(pathsConfig.src.entry.js)
         .pipe(plumber())
         .pipe(named())
@@ -89,7 +89,7 @@ gulp.task('watch:img', done => {
 });
 
 gulp.task('watch:js', done => {
-    gulp.watch(pathsConfig.src.js, gulp.parallel('js:transpile'));
+    gulp.watch(pathsConfig.src.js, gulp.parallel('js'));
     done();
 });
 
@@ -111,7 +111,7 @@ gulp.task('webp', done => {
 });
 
 gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
-gulp.task('build', gulp.parallel('js:transpile', 'css', 'img', 'copy'));
+gulp.task('build', gulp.parallel('js', 'css', 'img', 'copy'));
 gulp.task('default', gulp.series('clean', 'build', 'webp', 'serve', 'browser', 'watch'));
 
 const convertWebp = (files = [], sizes = true) => {

@@ -23,7 +23,7 @@
         "babel-eslint": "^10.0.1",
         "babel-loader": "^8.0.5",
         "del": "^3.0.0",
-        "eslint-loader": "^2.1.1",
+        "eslint-loader": "^2.1.2",
         "gulp": "^4.0.0",
         "gulp-autoprefixer": "^6.0.0",
         "gulp-clean-css": "^4.0.0",
@@ -37,7 +37,7 @@
         "imagemin-pngquant": "^7.0.0",
         "open": "^0.0.5",
         "vinyl-named": "^1.1.0",
-        "webpack": "^4.29.0",
+        "webpack": "^4.29.3",
         "webpack-bundle-analyzer": "^3.0.3",
         "webpack-merge": "^4.2.1",
         "webpack-stream": "^5.2.1"
