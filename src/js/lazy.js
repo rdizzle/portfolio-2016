@@ -1,6 +1,6 @@
 import 'intersection-observer';
 
-const pictureNodes = document.querySelectorAll('picture[data-lazy]');
+const pictureNodes = document.querySelectorAll('[data-lazy]');
 
 const intersectingCallback = (observerEntries, observerInstance) => {
     observerEntries.forEach(observerEntry => {
@@ -8,14 +8,14 @@ const intersectingCallback = (observerEntries, observerInstance) => {
             const sourceNodes = observerEntry.target.querySelectorAll('source');
             const imgNode = observerEntry.target.querySelector('img');
 
-            for (let sourceNode of sourceNodes.values()) {
-                sourceNode.setAttribute('srcset', sourceNode.getAttribute('data-lazy-srcset'));
-                sourceNode.setAttribute('sizes', sourceNode.getAttribute('data-lazy-sizes'));
-                sourceNode.removeAttribute('data-lazy-srcset');
-                sourceNode.removeAttribute('data-lazy-sizes');
-            }
+            [...sourceNodes].forEach(node => {
+                node.setAttribute('srcset', node.dataset.lazySrcset);
+                node.setAttribute('sizes', node.dataset.lazySizes);
+                node.removeAttribute('data-lazy-srcset');
+                node.removeAttribute('data-lazy-sizes');
+            });
 
-            imgNode.setAttribute('src', imgNode.getAttribute('data-lazy-src'));
+            imgNode.setAttribute('src', imgNode.dataset.lazySrc);
             imgNode.removeAttribute('data-lazy-src');
 
             observerInstance.unobserve(observerEntry.target);
@@ -32,9 +32,9 @@ const intersectionObserver = new IntersectionObserver(intersectingCallback, {
     rootMargin: '25%'
 });
 
-for (let pictureNode of pictureNodes.values()) {
-    intersectionObserver.observe(pictureNode);
+[...pictureNodes].forEach(node => {
+    intersectionObserver.observe(node);
 
-    pictureNode.removeAttribute('data-lazy');
-    pictureNode.querySelector('img').addEventListener('load', loadListener);
-}
+    node.removeAttribute('data-lazy');
+    node.querySelector('img').addEventListener('load', loadListener);
+});

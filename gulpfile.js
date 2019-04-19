@@ -128,17 +128,17 @@ const convertWebp = (files = [], sizes = true) => {
                 let dest = `dist/img/${name}-${size}.webp`;
 
                 if (size.includes('w')) {
-                    cp.execSync(`cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize ${size} 0 -mt -quiet ${src} -o ${dest}`);
+                    cp.execSync(`bin/cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize ${size} 0 -mt -quiet ${src} -o ${dest}`);
                 }
 
                 if (size.includes('h')) {
-                    cp.execSync(`cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize 0 ${size} -mt -quiet ${src} -o ${dest}`);
+                    cp.execSync(`bin/cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize 0 ${size} -mt -quiet ${src} -o ${dest}`);
                 }
             });
         } else {
             let dest = `dist/img/${name}.webp`;
 
-            cp.execSync(`cwebp ${imagesConfig.lossless ? '-lossless' : ''} ${imagesConfig.quality} -preset ${imagesConfig.preset} -mt -quiet ${src} -o ${dest}`);
+            cp.execSync(`bin/cwebp ${imagesConfig.lossless ? '-lossless' : ''} ${imagesConfig.quality} -preset ${imagesConfig.preset} -mt -quiet ${src} -o ${dest}`);
         }
     });
 };
