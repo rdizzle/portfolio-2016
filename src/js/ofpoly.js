@@ -4,10 +4,10 @@
 if (!('objectFit' in document.documentElement.style)) {
     const toFit = document.querySelectorAll('[data-object-fit]');
 
-    [...toFit].forEach(img => {
-        img.addEventListener('load', () => {
-            img.parentElement.classList.add('object-fitted');
-            img.parentElement.style.backgroundImage = `url(${img.src})`;
+    [...toFit].forEach(node => {
+        node.addEventListener('load', () => {
+            node.parentElement.classList.add('object-fitted');
+            node.parentElement.style.backgroundImage = `url(${node.src})`;
         });
     });
 }

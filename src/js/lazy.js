@@ -1,22 +1,22 @@
 import 'intersection-observer';
 
-const pictureNodes = document.querySelectorAll('[data-lazy]');
+const pictures = document.querySelectorAll('[data-lazy]');
 
 const intersectingCallback = (observerEntries, observerInstance) => {
     observerEntries.forEach(observerEntry => {
         if (observerEntry.isIntersecting) {
-            const sourceNodes = observerEntry.target.querySelectorAll('source');
-            const imgNode = observerEntry.target.querySelector('img');
+            const sources = observerEntry.target.querySelectorAll('source');
+            const img = observerEntry.target.querySelector('img');
 
-            [...sourceNodes].forEach(node => {
-                node.setAttribute('srcset', node.dataset.lazySrcset);
-                node.setAttribute('sizes', node.dataset.lazySizes);
-                node.removeAttribute('data-lazy-srcset');
-                node.removeAttribute('data-lazy-sizes');
+            [...sources].forEach(source => {
+                source.setAttribute('srcset', source.dataset.lazySrcset);
+                source.setAttribute('sizes', source.dataset.lazySizes);
+                source.removeAttribute('data-lazy-srcset');
+                source.removeAttribute('data-lazy-sizes');
             });
 
-            imgNode.setAttribute('src', imgNode.dataset.lazySrc);
-            imgNode.removeAttribute('data-lazy-src');
+            img.setAttribute('src', img.dataset.lazySrc);
+            img.removeAttribute('data-lazy-src');
 
             observerInstance.unobserve(observerEntry.target);
         }
@@ -32,9 +32,9 @@ const intersectionObserver = new IntersectionObserver(intersectingCallback, {
     rootMargin: '25%'
 });
 
-[...pictureNodes].forEach(node => {
-    intersectionObserver.observe(node);
+[...pictures].forEach(picture => {
+    intersectionObserver.observe(picture);
 
-    node.removeAttribute('data-lazy');
-    node.querySelector('img').addEventListener('load', loadListener);
+    picture.removeAttribute('data-lazy');
+    picture.querySelector('img').addEventListener('load', loadListener);
 });

@@ -8,8 +8,6 @@ const del = require('del');
 const open = require('open');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
-const pngquant = require('imagemin-pngquant');
-const guetzli = require('imagemin-guetzli');
 const named = require('vinyl-named');
 const connect = require('gulp-connect');
 const autoprefixer = require('gulp-autoprefixer');
@@ -22,7 +20,6 @@ const gulpIf = require('gulp-if');
 
 const pathsConfig = require('./paths.config');
 const webpackConfig = require('./webpack.config');
-const imagesConfig = require('./images.config');
 
 const prod = process.argv.includes('--prod');
 
@@ -63,15 +60,32 @@ gulp.task('js', () => {
 gulp.task('img', () => {
     return gulp.src(pathsConfig.src.img)
         .pipe(plumber())
-        .pipe(gulpIf(prod, imagemin([
-            imagemin.svgo(),
-            pngquant(),
-            guetzli({
-                quality: 84
-            })
-        ])))
+        .pipe(gulpIf(prod, imagemin({
+            verbose: true
+        })))
         .pipe(gulp.dest(pathsConfig.dist.img))
         .pipe(connect.reload());
+});
+
+gulp.task('webp', done => {
+    pathsConfig.webp.forEach(file => {
+        const pair = file.split(';');
+        const src = 'src/img/';
+        const dist = 'dist/img/';
+        const name = pair[0].match(/^[^.]+/)[0];
+        const ext = pair[0].match(/\w+$/)[0];
+        const widths = pair[1] ? pair[1].split(',') : null;
+
+        if (widths) {
+            widths.forEach(width => {
+                cp.exec(`bin/cwebp -q 70 -z 9 -m 6 -mt -resize ${width} 0 ${src + name}.${ext} -o ${dist + name}-${width}w.webp`);
+            });
+        } else {
+            cp.exec(`bin/cwebp -q 70 -z 9 -m 6 -mt ${src + name}.${ext} -o ${dist + name}.webp`);
+        }
+    });
+
+    done();
 });
 
 gulp.task('copy', () => {
@@ -103,42 +117,6 @@ gulp.task('watch:root', done => {
     done();
 });
 
-gulp.task('webp', done => {
-    convertWebp([ 'stephanmeier.orig.jpg', 'swissplant.orig.jpg', 'wimper.orig.jpg' ]);
-    convertWebp([ 'shaka-emoji.png' ], false);
-
-    done();
-});
-
 gulp.task('watch', gulp.parallel('watch:img', 'watch:js', 'watch:css', 'watch:root'));
 gulp.task('build', gulp.parallel('js', 'css', 'img', 'copy'));
 gulp.task('default', gulp.series('clean', 'build', 'webp', 'serve', 'browser', 'watch'));
-
-const convertWebp = (files = [], sizes = true) => {
-    files.forEach(file => {
-        let matched = file.split('.');
-        matched.pop();
-
-        let key = matched.length === 1 ? undefined : matched.pop();
-        let name = matched.pop();
-        let src = `src/img/${file}`;
-
-        if (key in imagesConfig) {
-            imagesConfig[key].sizes.forEach(size => {
-                let dest = `dist/img/${name}-${size}.webp`;
-
-                if (size.includes('w')) {
-                    cp.execSync(`bin/cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize ${size} 0 -mt -quiet ${src} -o ${dest}`);
-                }
-
-                if (size.includes('h')) {
-                    cp.execSync(`bin/cwebp ${imagesConfig[key].lossless ? '-lossless' : ''} ${imagesConfig[key].quality} -preset ${imagesConfig[key].preset} -resize 0 ${size} -mt -quiet ${src} -o ${dest}`);
-                }
-            });
-        } else {
-            let dest = `dist/img/${name}.webp`;
-
-            cp.execSync(`bin/cwebp ${imagesConfig.lossless ? '-lossless' : ''} ${imagesConfig.quality} -preset ${imagesConfig.preset} -mt -quiet ${src} -o ${dest}`);
-        }
-    });
-};

@@ -15,5 +15,11 @@ module.exports = {
         js: 'dist/js',
         css: 'dist/css',
         img: 'dist/img'
-    }
+    },
+    webp: [
+        'stephanmeier.jpg;600,800,1200',
+        'swissplant.jpg;600,800,1200',
+        'wimper.jpg;600,800,1200',
+        'shaka-emoji.png'
+    ]
 };

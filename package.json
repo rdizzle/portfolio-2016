@@ -1,27 +1,15 @@
 {
     "name": "portfolio",
-    "description": "My portfolio",
     "author": "Robin Löffel <hi@robinloeffel.ch> (https://robinloeffel.ch)",
     "license": "MIT",
     "homepage": "https://robinloeffel.ch",
     "repository": "rbnlffl/portfolio",
-    "keywords": [
-        "portfolio",
-        "design",
-        "web",
-        "webdesign",
-        "robin",
-        "löffel"
-    ],
     "dependencies": {
-        "core-js": "^3.0.1",
-        "intersection-observer": "^0.5.1"
-    },
-    "devDependencies": {
         "@babel/core": "^7.4.3",
         "@babel/preset-env": "^7.4.3",
         "babel-eslint": "^10.0.1",
         "babel-loader": "^8.0.5",
+        "core-js": "^3.0.1",
         "del": "^4.1.0",
         "eslint": "^5.16.0",
         "eslint-loader": "^2.1.2",
@@ -34,8 +22,7 @@
         "gulp-plumber": "^1.2.1",
         "gulp-sass": "^4.0.2",
         "gulp-sourcemaps": "^2.6.5",
-        "imagemin-guetzli": "^2.0.0",
-        "imagemin-pngquant": "^7.0.0",
+        "intersection-observer": "^0.5.1",
         "open": "^6.1.0",
         "vinyl-named": "^1.1.0",
         "webpack": "^4.30.0",
