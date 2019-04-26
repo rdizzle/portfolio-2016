@@ -1,0 +1,44 @@
+:root {
+    /* colors */
+    --color-black: #000;
+    --color-white: #fff;
+    --color-text: #333;
+    --color-intro-text: #444;
+    --color-link: #3798d8;
+    --color-swissplant: #007333;
+    --color-wimper: var(--color-white);
+    --color-stefan-meier: var(--color-black);
+
+    /* typo */
+    --font-family: "Source Sans Pro", sans-serif;
+    --font-size: 125%;
+    --font-size-px: calc(16px * 1.25);
+    --font-size-mobile: 110%;
+    --font-size-mobile-px: calc(16px * 1.1);
+    --font-size-heading: 2.5rem;
+    --font-size-sub-heading: 1.35rem;
+    --line-height: 1.8;
+    --line-height-heading: 1.1;
+
+    /* vertical rhythm */
+    --margin-base: calc(var(--font-size-px) * var(--line-height));
+    --margin-base-mobile: calc(var(--font-size-mobile-px) * var(--line-height));
+    --margin-medium: calc(var(--margin-base) * 2);
+    --margin-medium-mobile: calc(var(--margin-base-mobile) * 2);
+    --margin-big: calc(var(--margin-base) * 3);
+    --margin-big-mobile: calc(var(--margin-base-mobile) * 3);
+
+    /* dimensions */
+    --content-width: calc(100% - 250px);
+    --content-width-max: 768px;
+    --hero-height: calc(var(--margin-base) * 15);
+    --image-width: 80vw;
+    --image-width-max: 1200px;
+    --image-height: 53.333vw;
+    --image-height-max: 800px;
+
+    /* transitions */
+    --transition-length: .5s;
+    --transition-delay: .25s;
+    --transition-easing: ease-in-out;
+}

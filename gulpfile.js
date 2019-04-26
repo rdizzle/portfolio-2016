@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const cp = require('child_process');
 
@@ -9,14 +7,19 @@ const open = require('open');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const named = require('vinyl-named');
+const autoprefixer = require('autoprefixer');
+const stylelint = require('stylelint');
+const cssnano = require('cssnano');
+const postcssPresetEnv = require('postcss-preset-env');
+const postcssCalc = require('postcss-calc');
+const postcssImport = require('postcss-import');
+const postcssColorMod = require('postcss-color-mod-function');
+const postcss = require('gulp-postcss');
 const connect = require('gulp-connect');
-const autoprefixer = require('gulp-autoprefixer');
-const cleanCss = require('gulp-clean-css');
-const sass = require('gulp-sass');
 const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
-const gulpIf = require('gulp-if');
+const noop = require('gulp-noop');
 
 const pathsConfig = require('./paths.config');
 const webpackConfig = require('./webpack.config');
@@ -37,13 +40,21 @@ gulp.task('serve', done => {
 gulp.task('browser', () => open('http://localhost:8080'));
 
 gulp.task('css', () => {
-    return gulp.src(pathsConfig.src.css)
+    return gulp.src(pathsConfig.src.entry.css)
         .pipe(plumber())
-        .pipe(gulpIf(!prod, sourcemaps.init()))
-        .pipe(sass.sync())
-        .pipe(gulpIf(prod, autoprefixer()))
-        .pipe(gulpIf(prod, cleanCss()))
-        .pipe(gulpIf(!prod, sourcemaps.write('.')))
+        .pipe(!prod ? sourcemaps.init() : noop())
+        .pipe(postcss([
+            stylelint(),
+            postcssImport(),
+            postcssColorMod(),
+            postcssPresetEnv({
+                stage: 0
+            }),
+            postcssCalc(),
+            ...(prod ? [autoprefixer()] : []),
+            ...(prod ? [cssnano()] : [])
+        ]))
+        .pipe(!prod ? sourcemaps.write('.') : noop())
         .pipe(gulp.dest(pathsConfig.dist.css))
         .pipe(connect.reload());
 });
@@ -60,9 +71,9 @@ gulp.task('js', () => {
 gulp.task('img', () => {
     return gulp.src(pathsConfig.src.img)
         .pipe(plumber())
-        .pipe(gulpIf(prod, imagemin({
+        .pipe(prod ? imagemin({
             verbose: true
-        })))
+        }) : noop())
         .pipe(gulp.dest(pathsConfig.dist.img))
         .pipe(connect.reload());
 });

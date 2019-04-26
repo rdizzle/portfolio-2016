@@ -2,12 +2,12 @@ module.exports = {
     src: {
         root: 'src',
         js: 'src/js/**/*.js',
-        css: 'src/css/**/*.scss',
+        css: 'src/css/**/*.css',
         img: 'src/img/**/*',
         copy: 'src/{*,}.*',
         entry: {
             js: 'src/js/main.js',
-            css: 'src/css/main.scss'
+            css: 'src/css/main.css'
         }
     },
     dist: {

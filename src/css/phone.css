@@ -1,0 +1,42 @@
+html {
+    font-size: var(--font-size-mobile);
+}
+
+p:not(:last-child) {
+    margin-bottom: var(--margin-base-mobile);
+}
+
+.intro {
+    &.intro-headline {
+        font-size: 2rem;
+        margin-bottom: var(--margin-base-mobile);
+
+        & .emoji {
+            height: 28px;
+        }
+    }
+
+    &.intro-text {
+        font-size: 1.15rem;
+    }
+}
+
+.content-wrapper {
+    width: 75vw;
+}
+
+.work-item {
+    width: 90vw;
+
+    &:not(:last-child) {
+        margin-bottom: var(--margin-base-mobile);
+    }
+}
+
+section:not(.intro) {
+    margin-bottom: var(--margin-medium-mobile);
+}
+
+footer {
+    margin-bottom: var(--margin-base-mobile);
+}
