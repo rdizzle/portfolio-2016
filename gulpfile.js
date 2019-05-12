@@ -1,7 +1,6 @@
 const fs = require('fs');
 const cp = require('child_process');
 
-const gulp = require('gulp');
 const del = require('del');
 const open = require('open');
 const webpack = require('webpack');
@@ -14,12 +13,11 @@ const postcssPresetEnv = require('postcss-preset-env');
 const postcssCalc = require('postcss-calc');
 const postcssImport = require('postcss-import');
 const postcssColorMod = require('postcss-color-mod-function');
+const gulp = require('gulp');
 const postcss = require('gulp-postcss');
 const connect = require('gulp-connect');
 const imagemin = require('gulp-imagemin');
 const plumber = require('gulp-plumber');
-const sourcemaps = require('gulp-sourcemaps');
-const noop = require('gulp-noop');
 
 const pathsConfig = require('./paths.config');
 const webpackConfig = require('./webpack.config');
@@ -40,9 +38,10 @@ gulp.task('serve', done => {
 gulp.task('browser', () => open('http://localhost:8080'));
 
 gulp.task('css', () => {
-    return gulp.src(pathsConfig.src.entry.css)
+    return gulp.src(pathsConfig.src.entry.css, {
+            sourcemaps: prod ? false : true
+        })
         .pipe(plumber())
-        .pipe(!prod ? sourcemaps.init() : noop())
         .pipe(postcss([
             stylelint(),
             postcssImport(),
@@ -54,8 +53,9 @@ gulp.task('css', () => {
             ...(prod ? [autoprefixer()] : []),
             ...(prod ? [cssnano()] : [])
         ]))
-        .pipe(!prod ? sourcemaps.write('.') : noop())
-        .pipe(gulp.dest(pathsConfig.dist.css))
+        .pipe(gulp.dest(pathsConfig.dist.css, {
+            sourcemaps: prod ? false : true
+        }))
         .pipe(connect.reload());
 });
 
@@ -71,9 +71,7 @@ gulp.task('js', () => {
 gulp.task('img', () => {
     return gulp.src(pathsConfig.src.img)
         .pipe(plumber())
-        .pipe(prod ? imagemin({
-            verbose: true
-        }) : noop())
+        .pipe(imagemin({ verbose: true }))
         .pipe(gulp.dest(pathsConfig.dist.img))
         .pipe(connect.reload());
 });
@@ -89,10 +87,10 @@ gulp.task('webp', done => {
 
         if (widths) {
             widths.forEach(width => {
-                cp.exec(`bin/cwebp -q 70 -z 9 -m 6 -mt -resize ${width} 0 ${src + name}.${ext} -o ${dist + name}-${width}w.webp`);
+                cp.execSync(`bin/cwebp -quiet -q 70 -z 9 -m 6 -mt -resize ${width} 0 ${src + name}.${ext} -o ${dist + name}-${width}w.webp`);
             });
         } else {
-            cp.exec(`bin/cwebp -q 70 -z 9 -m 6 -mt ${src + name}.${ext} -o ${dist + name}.webp`);
+            cp.execSync(`bin/cwebp -quiet -q 70 -z 9 -m 6 -mt ${src + name}.${ext} -o ${dist + name}.webp`);
         }
     });
 

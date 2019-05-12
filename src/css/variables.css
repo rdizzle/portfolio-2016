@@ -8,6 +8,7 @@
     --color-swissplant: #007333;
     --color-wimper: var(--color-white);
     --color-stefan-meier: var(--color-black);
+    --color-soft-white: color-mod(var(--color-white) alpha(80%));
 
     /* typo */
     --font-family: "Source Sans Pro", sans-serif;

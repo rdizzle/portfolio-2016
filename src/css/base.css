@@ -3,10 +3,26 @@ html {
     font-size: var(--font-size);
     line-height: var(--line-height);
     color: var(--color-text);
+    transition: background-color var(--transition-length) var(--transition-easing),
+        color var(--transition-length) var(--transition-easing);
+
+    &.dark {
+        background-color: var(--color-text);
+        color: var(--color-soft-white);
+
+        & a {
+            color: color-mod(var(--color-link) alpha(80%));
+        }
+
+        & .intro {
+            color: var(--color-soft-white);
+        }
+    }
 }
 
 a {
     color: var(--color-link);
+    transition: color var(--transition-length) var(--transition-easing);
 }
 
 p:not(:last-child) {
@@ -24,6 +40,7 @@ section:not(.intro) {
     align-items: center;
     justify-content: center;
     color: var(--color-intro-text);
+    transition: color var(--transition-length) var(--transition-easing);
 }
 
 .intro-container {
